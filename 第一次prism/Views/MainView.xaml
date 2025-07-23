@@ -1,0 +1,220 @@
+﻿<Window x:Class="第一次prism.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:第一次prism"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Microsoft YaHei"
+        Foreground="#333"
+        Background="#F7F9FA"
+        Title="MainView" Height="450" Width="800">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome NonClientFrameEdges="None" 
+                  UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Style TargetType="RadioButton" x:Key="SubMenuButtonStyle">
+            <Setter Property="Foreground" Value="#888"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border Height="30" Background="Transparent"
+                                BorderBrush="Transparent" BorderThickness="0,0,2,0"
+                                Name="border">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              Margin="10,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="white"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="orange"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--图片也可以问题的图片，大小会失真..-->
+        <Path Data="M0,0 L0,33 
+              L166,33A10 10 0 0 0 175 31
+              L186,10A15 10 0 0 1 200 5
+              L880,5 880,0 z" 
+              StrokeThickness="1" Stretch="UniformToFill">
+            <Path.Fill>
+                <RadialGradientBrush RadiusX="0.6" RadiusY="1.8" 
+                                     Center="0.5,1.8" GradientOrigin="0.5,1.5">
+                    <GradientStop Color="#409EFE" Offset="0"/>
+                    <GradientStop Color="#3269DE" Offset="1"/>
+                </RadialGradientBrush>
+            </Path.Fill>
+            <Path.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" 
+                                  Direction="270" Color="Black" Opacity="0.2"/>
+            </Path.Effect>
+        </Path>
+        
+        <Image VerticalAlignment="Center" HorizontalAlignment="Left" Source="../Assets/Images/Logo_64.png" Height="22" Margin="10,0"/>
+        <!--这里他分了工程我不分 Application:,,,我的应用 Zhaoxi.MES.Assets;这个程序集 /Images/Logo_64.png这个路径得到支援..
+        <Image Source="pack://Application:,,,/Zhaoxi.MES.Assets;component/Images/Logo_64.png"
+               Width="30" HorizontalAlignment="Left"
+               Margin="10,0,0,0"/>
+        -->
+        <TextBlock Text="童文军-MES系统" 
+                   Foreground="White" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="45,0,0,0"
+                   FontSize="14"/>
+
+        <!--使用阿里巴巴的ICON www.iconfont.cn 原来是这样玩的，你先选择图标，选了，你添加到你的目录，下载到本地，就是一个TTF图标就是这样来的.. 
+        问题是，如果我记不住我打包额图标就可以在线去看了..这个平台是免费的.-->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                    Margin="280,0,0,0" HorizontalAlignment="Left">
+            <!--注意：导入字体的时候，必须加上#iconfont为什么，后面是什么？
+            是字体名称如果不这样就显示不出来..只有在运行的时候才看的到，为什么
+            很多人运行看不到字体为什么，因为字体必须修改为资源.注意：还要重新生产一下..-->
+            <TextBlock Text="&#xe655;"  FontSize="24" Foreground="#6590C1"
+                       FontFamily="../Assets/Fonts/iconfont.ttf#iconfont">
+                <TextBlock.RenderTransform>
+                    <ScaleTransform ScaleX="0.8"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <TextBlock VerticalAlignment="Center" Margin="10,0" Foreground="#886590C1" FontSize="12">
+                <Run Text="MES"/>
+                <Run Text="/"/>
+                <Run Text="生产统计"/>
+                <Run Text="/"/>
+                <Run Text="设备看板" Foreground="#FF6590C1"/>
+            </TextBlock>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
+            HorizontalAlignment="Right" Margin="5,0"
+            TextBlock.Foreground="#FF6590C1">
+            <TextBlock Text="&#xe740;" FontFamily="../Assets/Fonts/iconfont.ttf#iconfont"
+                       FontSize="18" VerticalAlignment="Center"/>
+            <TextBlock Text="&#xe693;" FontFamily="../Assets/Fonts/iconfont.ttf#iconfont"
+                       FontSize="18" Margin="10,0" VerticalAlignment="Center"/>
+            <Border Width="22" Height="22" CornerRadius="11" Margin="10,0">
+                <Border.Background>
+                    <!--这里，为什么我是报错呢?
+                    WPF(微软 )有一个姊妹就是 Avalonia(微软 )这个是LIUNX。
+                    如果是移动就是MAUI(微软 )
+                    运行又没有问题，为什么-->
+                    <ImageBrush ImageSource="../Assets/Images/a01.jpg" Stretch="Fill"/>
+                </Border.Background>
+            </Border>
+            
+            
+            <Button Content="&#xe624;" Style="{StaticResource ControlButtonStyle}"/>
+            <Button Content="&#xe600;" Style="{StaticResource ControlButtonStyle}"/>
+            <Button Content="&#xe609;" Style="{StaticResource ControlButtonStyle}" Click="Button_Click"/>
+            
+        </StackPanel>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Background="#223269DE"/>
+            <Border Background="#093269DE" Grid.Column="1"
+                BorderThickness="0,0,1,0" BorderBrush="White"/>
+            
+            <!--主菜单-->
+            <ListBox ItemsSource="{Binding MenuList}" Background="Transparent"
+                     BorderThickness="0" SelectedIndex="0" Name="menu_list" >
+                <!--这里就很复杂了以下是修改系统的蓝色框框.-->
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Foreground" Value="#888"/>
+                        <Setter Property="Margin" Value="0,3"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Background="Transparent" Name="border">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#223269DE" TargetName="border"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="true">
+                                            <Setter Property="Background" Value="#3269DE" TargetName="border"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <!--这里才是LISTBOX的东西-->
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Icon}" FontFamily="{StaticResource aaa}"
+                                       HorizontalAlignment="Center" FontSize="20"
+                                       Margin="0,5"/>
+                            <TextBlock Text="{Binding Header}" Grid.Row="1" 
+                                       HorizontalAlignment='Center' Margin="0,3"
+                                       FontSize="11"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!--子菜单就是个集合，
+            {Binding ElementName=menu_list,Path=SelectedItem.Children}这样写..
+            SelectedItem 就是当前选中项..
+            集合就使用ITEMCONTROL就OK了menu_list是主菜单的名字.。。 SelectedItem就是你选的主菜单的命中了 。。-->
+
+            <ItemsControl ItemsSource="{Binding ElementName=menu_list,Path=SelectedItem.Children}"
+                          Grid.Column="1" Margin="0,10" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--使用TextBlock指示显示他不能点击呀.
+                        <TextBlock Text="{Binding Header}"></TextBlock>
+                        GroupName="A" 必须分组
+                        Command="{Binding DataContext.OpenViewCommand,RelativeSource={RelativeSource AncestorType=Window}} 看不懂
+                        RelativeSource={RelativeSource AncestorType=Window} 就是对应的WINDOW对象.
+                        Binding DataContext.OpenViewCommand 找 DataContext里面的OpenViewCommand
+                        
+                        CommandParameter="{Binding} 看不懂
+                        -->
+                        <RadioButton Content="{Binding Header}" GroupName="A"
+                                     Style="{StaticResource SubMenuButtonStyle}"
+                                     Command="{Binding DataContext.OpenViewCommand,RelativeSource={RelativeSource AncestorType=Window}}"
+                                     CommandParameter="{Binding}"/>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!--第一步-->
+            <ContentControl Grid.Column="2"
+                            xmlns:p="http://prismlibrary.com/"
+                            p:RegionManager.RegionName="MainRegion"
+                            ></ContentControl>
+        </Grid>
+    </Grid>
+</Window>

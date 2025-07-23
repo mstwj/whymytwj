@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="铁芯实验.View.UserCommunicationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:铁芯实验.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="150">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="功率分析仪" Margin="0 0 20 0"></TextBlock>
+            <Image Source="{Binding ImageShebei1}" Margin="0 0 0 0" Width="20" Height="20"></Image>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="变频电源器" Margin="0 0 20 0"></TextBlock>
+            <Image Width="20" Height="20" Source="{Binding ImageShebei2}"></Image>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

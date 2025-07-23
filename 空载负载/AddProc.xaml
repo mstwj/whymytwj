@@ -1,0 +1,94 @@
+﻿<Window x:Class="空载负载.AddProc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:空载负载"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"   
+        Title="选择产品" Height="450" Width="330">
+    <Grid>
+        <Grid  Background="#FFE2E2E2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+
+
+            <GroupBox Header="产品配置" BorderThickness="2" BorderBrush="Black"  Background="#FFE2E2E2"  FontSize="16" Grid.Row="0"  Margin="15">
+
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="18"/>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Width="110" Text="出厂编号:" Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="35" Text="{Binding ProductNumber}" Width="117" ></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="规格型号:"  Margin="20 0"></TextBlock>
+                        <ComboBox  IsEditable="True" Width="117" Text="{Binding ProductType}" ItemsSource="{Binding ProductNumberCBoxData}" DropDownClosed="BoxDropDownClose"></ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="图号:"  Margin="20 0"></TextBlock>
+                        <TextBox  MaxLength="25" Text="{Binding ProductTuhao}" Width="117" ></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="额定容量(kW):" Margin="20 0"></TextBlock>
+                        <TextBox  MaxLength="25" Text="{Binding ProductCapacity}" Width="117" ></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="高压侧电压(kV):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="10" Text="{Binding Highpressure}" Width="117"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="高压侧电流(A):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="10" Text="{Binding Highcurrent}" Width="117"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="低压侧电压(V):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="10" Text="{Binding Lowpressure}" Width="117"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="低压侧电流(A):"  Margin="20 0"></TextBlock>
+                        <TextBox  MaxLength="10" Text="{Binding Lowcurrent}" Width="117"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="110" Text="产品相数:"  Margin="20 0"></TextBlock>
+                        <TextBox  MaxLength="10" Text="{Binding PhaseNumber}" Width="117"></TextBox>
+                    </StackPanel>
+
+                </Grid>
+
+            </GroupBox>
+
+            <Border Grid.Row="2" Grid.Column="0"  Background="#2263B3" >
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button  Content="配置完成" FontSize="15" Height="35" Width="80" Margin="0 0 10 0" Command="{Binding BtnSetOver}" ></Button>
+                    <Button  Content="退出配置" FontSize="15" Height="35" Width="80" Margin="0 0 10 0" Click="ClickCommand2" ></Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

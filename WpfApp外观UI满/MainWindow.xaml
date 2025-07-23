@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfApp外观UI满.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp外观UI满"
+        xmlns:wpfdev="https://github.com/WPFDevelopersOrg/WPFDevelopers"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <wpfdev:CycleLoading  Value="80" LoadTitle="Loading...." Width="200">
+            <TextBlock Text="activity"/>
+        </wpfdev:CycleLoading>
+        <wpfdev:RollLoading 
+                            HorizontalContentAlignment="Center" 
+                            VerticalContentAlignment="Center"
+                            Width="200">
+            <TextBlock Text="Loading activity..."/>
+        </wpfdev:RollLoading>
+        
+        <!--
+        <Button wd:Loading.IsShow="true" Content="Click Me"/>
+        -->
+
+
+        <Button
+                Grid.Row="1"
+                Width="200"
+                VerticalAlignment="Bottom"
+                Click="Button_Click"
+                Content="刷新"
+                Style="{StaticResource WD.PrimaryButton}" />
+    </Grid>
+</Window>

@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Asset\an1.png" />
+    <None Remove="Asset\an11.png" />
+    <None Remove="Asset\an2.png" />
+    <None Remove="Asset\an22.png" />
+    <None Remove="Asset\bg.png" />
+    <None Remove="Asset\bg1.jpg" />
+    <None Remove="Asset\bg1.png" />
+    <None Remove="Asset\bg2.png" />
+    <None Remove="Asset\down.png" />
+    <None Remove="Asset\guanbi.jpg" />
+    <None Remove="Asset\guanbi2.jpg" />
+    <None Remove="Asset\mybock.png" />
+    <None Remove="Asset\mypass.png" />
+    <None Remove="Asset\up.png" />
+    <None Remove="Asset\xiexian.png" />
+    <None Remove="Asset\xiexian2.png" />
+    <None Remove="Asset\zhixian.png" />
+    <None Remove="Asset\zhixian2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\bg2.png" />
+    <Resource Include="Asset\guanbi2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="S7netplus" Version="0.20.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\an1.png" />
+    <Resource Include="Asset\an2.png" />
+    <Resource Include="Asset\bg.png" />
+    <Resource Include="Asset\bg1.jpg" />
+    <Resource Include="Asset\guanbi.jpg" />
+    <Resource Include="Asset\mybock.png" />
+    <Resource Include="Asset\mypass.png" />
+    <Resource Include="Asset\xiexian.png" />
+    <Resource Include="Asset\xiexian2.png" />
+    <Resource Include="Asset\zhixian.png" />
+    <Resource Include="Asset\zhixian2.png" />
+  </ItemGroup>
+
+</Project>

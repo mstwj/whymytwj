@@ -1,0 +1,170 @@
+﻿<Window x:Class="空载_负载.AddNoloadStandardInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:空载_负载" xmlns:base="clr-namespace:空载_负载.Base"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"   
+        Title="选择产品" Height="500" Width="430">
+    
+    <Grid>
+        <Grid  Background="#FFE2E2E2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="空载标准表" BorderThickness="2" BorderBrush="Black"  Background="#FFE2E2E2"  FontSize="16" Grid.Row="0"  Margin="15">
+
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="18"/>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock   Text="规格型号:" Width="120" Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50" Width="200" x:Name="ProductTypeBox" >
+                            <TextBox.Text>
+                                <Binding Path="ProductType" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Text="图号:"  Width="120" Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50" Width="200" x:Name="ProductTuhaoBox" >
+                            <TextBox.Text>
+                                <Binding Path="ProductTuhao" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Text="空载损耗(W):" Width="120" Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50"  Width="200"  x:Name="LossStandardBox">
+                            <TextBox.Text>
+                                <Binding Path="LossStandard" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="120" Text="空载损耗上限(%):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50" Width="200"  x:Name="LossStandardUpBox">
+                            <TextBox.Text>
+                                <Binding Path="LossStandardUp" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock Width="120" Text="空载损耗下限(%):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50"  Width="200" x:Name="LossStandardDownBox">
+                            <TextBox.Text>
+                                <Binding Path="LossStandardDown" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Width="120" Text="空载电流:"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50" Width="200" x:Name="NoloadCurrentStandardBox">
+                            <TextBox.Text>
+                                <Binding Path="NoloadCurrentStandard" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Width="120" Text="空载电流上限(%):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50"  Width="200"  x:Name="NoloadCurrentStandardUpBox">
+                            <TextBox.Text>
+                                <Binding Path="NoloadCurrentStandardUp" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Width="120" Text="空载电流下限(%):"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50" Width="200" x:Name="NoloadCurrentStandardDownBox">
+                            <TextBox.Text>
+                                <Binding Path="NoloadCurrentStandardDown" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="8" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Left">
+                        <TextBlock  Width="120" Text="阻抗电压:"  Margin="20 0"></TextBlock>
+                        <TextBox MaxLength="50" Width="200" x:Name="ImpedanceStandardBox">
+                            <TextBox.Text>
+                                <Binding Path="ImpedanceStandard" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <base:MyValidationRule></base:MyValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+
+                        </TextBox>
+                    </StackPanel>
+
+                </Grid>
+
+            </GroupBox>
+
+            <Border Grid.Row="2" Grid.Column="0"  Background="#2263B3" >
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button  Content="添加" FontSize="15" Height="35" Width="80" Margin="0 0 10 0" Click="ClickCommand1" ></Button>
+                    <Button  Content="退出" FontSize="15" Height="35" Width="80" Margin="0 0 10 0" Click="ClickCommand2" ></Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

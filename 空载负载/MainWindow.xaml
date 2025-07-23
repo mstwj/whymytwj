@@ -1,0 +1,71 @@
+﻿<Window x:Class="空载负载.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:空载负载" 
+        xmlns:view="clr-namespace:空载负载.View" 
+        xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" 
+        xmlns:local1="clr-namespace:空载负载.Model" 
+        xmlns:local2="clr-namespace:空载负载.Base"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"       
+        WindowState="Maximized"
+        
+        
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="主窗口" Height="1024" Width="1280">
+
+    <Window.Background>
+        <ImageBrush ImageSource="Asset/back.jpg"/>
+    </Window.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- 菜单高度 这里还要加1个高度，就是 图标高度，就是 最小化 最大话按钮的高度，他们是40 -->
+            <RowDefinition Height="20"></RowDefinition>
+            
+            <RowDefinition Height="960"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" >
+            <MenuItem Header="试验任务">
+                <MenuItem Header="新建试验任务" Click="DoBtnMenu1_1Click" />
+                <Separator/>
+                <MenuItem Header="退出"  Click="DoBtnMenu1_2Click"/>
+            </MenuItem>
+
+            <MenuItem Header="试验项目">
+                <MenuItem Header="空载试验"  Click="DoBtnMenu2_1Click" />
+                <MenuItem Header="负载试验"  Click="DoBtnMenu2_2Click" />
+                <MenuItem Header="感应耐压试验"  Click="DoBtnMenu2_3Click" />
+                <MenuItem Header="工频耐压试验"  Click="DoBtnMenu2_4Click" />
+            </MenuItem>
+
+
+            <MenuItem Header="系统设置">
+                <MenuItem Header="通讯设置"  Click="DoBtnMenu3_1Click" />
+            </MenuItem>
+
+            <MenuItem Header="数据管理">
+                <MenuItem Header="产品表"  Click="DoBtnMenu4_1Click" />
+                <Separator/>
+                <MenuItem Header="空载记录表"  Click="DoBtnMenu4_2Click" />
+                <MenuItem Header="空载标准表"  Click="DoBtnMenu4_3Click" />
+                <Separator/>
+                <MenuItem Header="负载记录表"  Click="DoBtnMenu4_4Click" />
+                <MenuItem Header="负载标准表"  Click="DoBtnMenu4_5Click" />
+                <Separator/>
+                <MenuItem Header="感应记录表"  Click="DoBtnMenu4_6Click" />
+                <MenuItem Header="感应标准表"  Click="DoBtnMenu4_7Click" />
+                <Separator/>
+                <MenuItem Header="工频记录表"  Click="DoBtnMenu4_8Click" />
+                <MenuItem Header="工频标准表"  Click="DoBtnMenu4_9Click" />
+
+            </MenuItem>
+        </Menu>
+
+        
+        <ContentControl Grid.Row="1" Content="{Binding ContentView}"></ContentControl>
+
+    </Grid>
+</Window>

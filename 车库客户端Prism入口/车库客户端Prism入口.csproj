@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Assets\Assets.csproj" />
+    <ProjectReference Include="..\公共类\公共类.csproj" />
+    <ProjectReference Include="..\左侧菜单\左侧菜单.csproj" />
+    <ProjectReference Include="..\用户模块\用户模块.csproj" />
+    <ProjectReference Include="..\车库客户端WPF接口类库\车库客户端WPF接口类库.csproj" />
+  </ItemGroup>
+
+</Project>

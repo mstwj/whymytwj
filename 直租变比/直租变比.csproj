@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+	  <RootNamespace>直租变比</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Remove="Asset\bj.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Aspose.Words" Version="24.10.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	  <PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.1.94" />
+	  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="S7netplus" Version="0.20.0" />
+	  <PackageReference Include="System.IO.Ports" Version="5.0.0" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Resource Include="Asset\bj.jpg" />
+    <Resource Include="Asset\headlogo.png" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Update="View2\UserInfoControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View2\UserMainControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View2\UserRecordControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserInfoControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserMainControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserRecordControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

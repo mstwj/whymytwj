@@ -1,0 +1,78 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+    <sys:String x:Key="MyMessage1">Close</sys:String>
+    <sys:String x:Key="MyMessage2">Open</sys:String>
+    <sys:String x:Key="MyMessage3">Up</sys:String>
+    <sys:String x:Key="MyMessage4">Down</sys:String>
+    <sys:String x:Key="MyMessage5">Increase</sys:String>
+    <sys:String x:Key="MyMessage6">Reduce</sys:String>
+    <sys:String x:Key="MyMessage7">7.5MVA Power frequency machine</sys:String>
+    <sys:String x:Key="MyMessage8">2MVA Intermediate frequency machine</sys:String>
+    <sys:String x:Key="MyMessage9">2MVA Voltage regulator</sys:String>
+
+    <sys:String x:Key="MyMessage10">Inter input</sys:String>
+    <sys:String x:Key="MyMessage11">Support</sys:String>
+    <sys:String x:Key="MyMessage12">Capacit</sys:String>
+    <sys:String x:Key="MyMessage13">Reactance</sys:String>
+    <sys:String x:Key="MyMessage14">Station1</sys:String>
+
+    <sys:String x:Key="MyMessage15">Log</sys:String>
+    <sys:String x:Key="MyMessage16">Current communication statuses</sys:String>
+
+    <sys:String x:Key="MyMessage17">B Close</sys:String>
+    <sys:String x:Key="MyMessage18">B Open</sys:String>
+    <sys:String x:Key="MyMessage19">A/C Close</sys:String>
+    <sys:String x:Key="MyMessage20">A/C Open</sys:String>
+
+    <sys:String x:Key="MyMessage21">Station2</sys:String>
+    <sys:String x:Key="MyMessage22">Station3</sys:String>
+    <sys:String x:Key="MyMessage23">Is ABC</sys:String>
+
+    <sys:String x:Key="MyMessage25">Low </sys:String>
+    <sys:String x:Key="MyMessage26">Fast </sys:String>
+    <sys:String x:Key="MyMessage27">Fault</sys:String>
+    <sys:String x:Key="MyMessage28">Out</sys:String>
+    <sys:String x:Key="MyMessage29">Input</sys:String>
+    <sys:String x:Key="MyMessage30">Excit</sys:String>
+    <sys:String x:Key="MyMessage31">Asc des</sys:String>
+    <sys:String x:Key="MyMessage32">Zero</sys:String>
+
+    <sys:String x:Key="MyMessage33">A Phase</sys:String>
+    <sys:String x:Key="MyMessage34">B Phase</sys:String>
+    <sys:String x:Key="MyMessage35">C Phase</sys:String>
+
+    <sys:String x:Key="MyMessage40">Data Add Success</sys:String>
+    <sys:String x:Key="MyMessage41">Data Add Fail...</sys:String>
+
+    <sys:String x:Key="MyMessage42">Voltage</sys:String>
+    <sys:String x:Key="MyMessage43">PowerFrequency</sys:String>
+    <sys:String x:Key="MyMessage44">Intermediate</sys:String>
+
+    <sys:String x:Key="MyMessage45">One</sys:String>
+    <sys:String x:Key="MyMessage46">Three</sys:String>
+
+
+
+    <sys:String x:Key="PLCMessage1">Please Wait,PLC Return!</sys:String>
+    <sys:String x:Key="PLCMessage2">PLC Error:</sys:String>
+    <sys:String x:Key="PLCMessage3">PLC Time Out,Please Check PLC Is Link Error!</sys:String>
+    <sys:String x:Key="PLCMessage4">Open Com Success!</sys:String>
+    <sys:String x:Key="PLCMessage5">Link PLC Master Fail-Back Threading Quit,Check PLC Is Ok Please Restart Soft!</sys:String>
+    <sys:String x:Key="PLCMessage6">Link PLC Master Success!</sys:String>
+    <sys:String x:Key="PLCMessage7">Link PLC Saveiong Fail-Back Threading Quit,Check PLC Is Ok Please Restart Soft!</sys:String>
+    <sys:String x:Key="PLCMessage8">Link PLC Saveiong Success!</sys:String>
+    <sys:String x:Key="PLCMessage9">Timer Command Read PLC Fail-Back Threading Quit!</sys:String>
+    <sys:String x:Key="PLCMessage10">Command Run Success!</sys:String>
+    <sys:String x:Key="PLCMessage11">Command Execument Fail!-Back Threading Quit</sys:String>
+    <sys:String x:Key="PLCMessage12">PLC-31 Master Block,Please Check PLC Is OK...</sys:String>
+    <sys:String x:Key="PLCMessage13">PLC-33 Saveion Block,Please Check PLC Is OK...</sys:String>
+    <sys:String x:Key="PLCMessage14">PLC-35 Saveion Block,Please Check PLC Is OK...</sys:String>
+    <sys:String x:Key="PLCMessage15">PLC-37 Saveion Block,Please Check PLC Is OK...</sys:String>
+    <sys:String x:Key="PLCMessage16">【Read Regedit】 Fail：</sys:String>
+    <sys:String x:Key="PLCMessage17">‌Not Completed Command Previous Unfinished‌</sys:String>
+    <sys:String x:Key="PLCMessage18">Startup Completed...</sys:String>
+
+    
+
+
+</ResourceDictionary>

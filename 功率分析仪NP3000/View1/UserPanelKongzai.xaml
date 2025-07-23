@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="功率分析仪NP3000.View1.UserPanelKongzai"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:功率分析仪NP3000.View1"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            
+            
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+
+
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="1" Text="90%" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" Text="100%" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="3" Text="110%" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="电压比例"/><LineBreak/><Run/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="平均值(kV)"/><LineBreak/><Run/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="有效值"/><Run Text="(kV)"/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="3" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Language="zh-cn" Text="空载"/><Run Text="电流(A)"/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="4" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Language="zh-cn" Text="空载电流百分比"/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="5" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Language="zh-cn" Text="空载损耗"/></TextBlock>
+
+
+        
+        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="3" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="5" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="7" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="3" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="5" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="7" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="3" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="5" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="7" FontSize="15" Text="{Binding data1}" Width="50" Background="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+
+        <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="9" >
+            <GroupBox Header="空载测试计算值" FontSize="16" Padding="10" Margin="15 10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="空载损耗:" FontSize="18"></TextBlock>
+                        <TextBlock Text="0.000" FontSize="18" Width="50" Background="Blue" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="允许偏差:" FontSize="18"></TextBlock>
+                        <TextBlock Text="0.000" FontSize="18" Width="50" Background="Blue" Foreground="White" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="偏差率:" FontSize="18"></TextBlock>
+                        <TextBlock Text="0.000" FontSize="18" Width="50" Background="Blue" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="空载电流:" FontSize="18"></TextBlock>
+                        <TextBlock Text="0.000" FontSize="18" Width="50" Background="Blue" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="允许偏差:" FontSize="18"></TextBlock>
+                        <TextBlock Text="0.000" FontSize="18" Width="50" Background="Blue" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="偏差率:" FontSize="18"></TextBlock>
+                        <TextBlock Text="0.000" FontSize="18" Width="50" Background="Blue" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+        </Border>
+
+        <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="9" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Content="开始读数" FontSize="20" Margin="10 0" Click="Button_Click" ></Button>
+                    <Button Content="保存数据" FontSize="20" Margin="10 0" Click="Button_Click_1"></Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="判定结论:" FontSize="15" Margin="15 5" ></TextBlock>
+                    <TextBlock Text="合格" FontSize="20" Width="50" Background="Blue" Foreground="White"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+    </Grid>
+
+    
+</UserControl>

@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="空载负载.View.UserMainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:空载负载.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="380" d:DesignWidth="800">
+    <Grid Width="580" >
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="15"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1">Urms(V)</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2">Umn(V)</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="3">I(A)</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="4">P(KW)</TextBlock>
+
+
+                    <!--使用Border绘制边框-->
+                    <Border Grid.Row="0"></Border>
+                    <Border Grid.Row="1"></Border>
+                    <Border Grid.Row="2"></Border>
+                    <Border Grid.Row="3"></Border>
+
+
+                    <Border Grid.Row="0" Grid.Column="1"></Border>
+                    <Border Grid.Row="1" Background="Yellow" Grid.Column="1"></Border>
+                    <Border Grid.Row="2" Background="LightGreen" Grid.Column="1"></Border>
+                    <Border Grid.Row="3" Background="Red" Grid.Column="1"></Border>
+
+
+                    <Border Grid.Row="0" Grid.Column="2"></Border>
+                    <Border Grid.Row="1" Background="Yellow" Grid.Column="2"></Border>
+                    <Border Grid.Row="2" Background="LightGreen" Grid.Column="2"></Border>
+                    <Border Grid.Row="3" Background="Red" Grid.Column="2"></Border>
+
+                    <Border Grid.Row="0" Grid.Column="3"></Border>
+                    <Border Grid.Row="1" Background="Yellow" Grid.Column="3"></Border>
+                    <Border Grid.Row="2" Background="LightGreen" Grid.Column="3"></Border>
+                    <Border Grid.Row="3" Background="Red" Grid.Column="3"></Border>
+
+                    <Border Grid.Row="0" Grid.Column="4"></Border>
+                    <Border Grid.Row="1" Background="Yellow" Grid.Column="4"></Border>
+                    <Border Grid.Row="2" Background="LightGreen" Grid.Column="4"></Border>
+                    <Border Grid.Row="3" Background="Red" Grid.Column="4"></Border>
+
+
+
+                    <TextBlock Text="A" Grid.Row="1" Grid.Column="0"></TextBlock>
+                    <TextBlock Text="{Binding Umn_ab}" Grid.Row="1" Grid.Column="1"></TextBlock>
+                    <TextBlock Text="{Binding Urms_ab}" Grid.Row="1" Grid.Column="2"></TextBlock>
+                    <TextBlock Text="{Binding Irms_ab}" Grid.Row="1" Grid.Column="3"></TextBlock>
+                    <TextBlock Text="{Binding  P_ab}" Grid.Row="1" Grid.Column="4"></TextBlock>
+
+                    <TextBlock Text="B" Grid.Row="2" Grid.Column="0"></TextBlock>
+                    <TextBlock Text="{Binding Umn_bc}" Grid.Row="2" Grid.Column="1"></TextBlock>
+                    <TextBlock Text="{Binding Urms_bc}" Grid.Row="2" Grid.Column="2"></TextBlock>
+                    <TextBlock Text="{Binding Irms_bc}" Grid.Row="2" Grid.Column="3"></TextBlock>
+                    <TextBlock Text="{Binding P_bc}" Grid.Row="2" Grid.Column="4"></TextBlock>
+
+                    <TextBlock Text="C" Grid.Row="3" Grid.Column="0"></TextBlock>
+                    <TextBlock Text="{Binding Umn_ca}" Grid.Row="3" Grid.Column="1"></TextBlock>
+                    <TextBlock Text="{Binding Urms_ca}" Grid.Row="3" Grid.Column="2"></TextBlock>
+                    <TextBlock Text="{Binding Irms_ca}" Grid.Row="3" Grid.Column="3"></TextBlock>
+                    <TextBlock Text="{Binding P_ca}" Grid.Row="3" Grid.Column="4"></TextBlock>
+                    
+                    <!--
+                    <TextBlock Text="{Binding Urms_vc}" Grid.Row="1" Grid.Column="5"></TextBlock>
+                    <TextBlock Text="{Binding Irms_ic}" Grid.Row="1" Grid.Column="6"></TextBlock>
+                    <TextBlock Text="{Binding Is_pv}" Grid.Row="3" Grid.Column="5"></TextBlock>
+                    <TextBlock Text="{Binding Pow_loss}" Grid.Row="3" Grid.Column="6"></TextBlock>
+
+                    <TextBlock Text="{Binding flt_UkIoPercent}" Grid.Row="1" Grid.Column="7"></TextBlock>
+                    <TextBlock Text="{Binding flt_CosQ}" Grid.Row="3" Grid.Column="7"></TextBlock>
+                    -->
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Margin="0 0 0 0">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="15"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Grid.Row="0" Grid.Column="0">UmnΣ(V)</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1">IrmsΣ(A)</TextBlock>
+
+                    <TextBlock Grid.Row="0" Grid.Column="2">F(Hz)</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="3">Pkt(kW)</TextBlock>
+
+                    <TextBlock Grid.Row="0" Grid.Column="4">IO%</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="5">COSφ</TextBlock>
+
+                    <!--使用Border绘制边框-->
+
+                    <Border Grid.Row="0" Grid.Column="0"></Border>
+                    <Border Grid.Row="0" Grid.Column="1"></Border>
+                    <Border Grid.Row="0" Grid.Column="2"></Border>
+                    <Border Grid.Row="0" Grid.Column="3"></Border>
+                    <Border Grid.Row="0" Grid.Column="4"></Border>
+                    <Border Grid.Row="0" Grid.Column="5"></Border>
+
+                    <Border Grid.Row="1" Grid.Column="0"></Border>
+                    <Border Grid.Row="1" Grid.Column="1"></Border>
+                    <Border Grid.Row="1" Grid.Column="2"></Border>
+                    <Border Grid.Row="1" Grid.Column="3"></Border>
+                    <Border Grid.Row="1" Grid.Column="4"></Border>
+                    <Border Grid.Row="1" Grid.Column="5"></Border>
+
+                   
+                    <TextBlock Text="{Binding Urms_vc}" Grid.Row="1" Grid.Column="0"></TextBlock>
+                    
+                    <TextBlock Text="{Binding Irms_ic}" Grid.Row="1" Grid.Column="1"></TextBlock>
+                    <TextBlock Text="{Binding Is_pv}" Grid.Row="1" Grid.Column="2"></TextBlock>
+                    <TextBlock Text="{Binding Pow_loss}" Grid.Row="1" Grid.Column="3"></TextBlock>
+
+                    <TextBlock Text="{Binding flt_UkIoPercent}" Grid.Row="1" Grid.Column="4"></TextBlock>
+                    <TextBlock Text="{Binding flt_CosQ}" Grid.Row="3" Grid.Column="5"></TextBlock>
+
+                </Grid>
+            </Border>
+
+
+        </Grid>
+        
+
+    </Grid>
+
+</UserControl>

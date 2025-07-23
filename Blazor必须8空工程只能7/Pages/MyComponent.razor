@@ -1,0 +1,105 @@
+﻿@page "/MyComponenet"
+@using System.Text.Json;
+@using System.Net.Http.Json
+@using Base
+@inject HttpClient httpClient
+
+
+<WaitingOverlay IsVisible="@IsWaiting" />
+
+<MudDataGrid Items="@Elements.Take(4)">
+    <Columns>
+        <PropertyColumn Property="x => x.mynumber" Title="Nr" />
+        <PropertyColumn Property="x => x.mysign" />
+        <PropertyColumn Property="x => x.myname" />
+        <PropertyColumn Property="x => x.myposition" />
+        <PropertyColumn Property="x => x.mymolar" Title="Molar mass" />
+    </Columns>
+</MudDataGrid>
+
+@if (!IsWaiting)
+{
+    <MudButton  Variant="Variant.Filled" OnClick="ProcessSomething"  StartIcon="@Icons.Material.Filled.Save" Color="Color.Info"  Size="Size.Small">Save</MudButton>
+}
+
+
+
+@code {
+
+    [Inject] private IDialogService DialogService { get; set; }
+
+    private IEnumerable<Element> Elements = new List<Element>();
+
+    private bool IsWaiting { get; set; } = false;
+    protected override async Task OnInitializedAsync()
+    {
+        //Elements = await httpClient.GetFromJsonAsync<List<Element>>("http://192.168.1.6:5213/MyWebApi/GetData");
+    }
+
+    async Task ProcessSomething()
+    {
+        IsWaiting = true; // 显示等待画面
+        int result = -1;
+        using (HttpClient client = new HttpClient())
+        {
+            TimeSpan timeout = TimeSpan.FromSeconds(5);
+            using (CancellationTokenSource cts = new CancellationTokenSource(timeout))
+            {
+                try
+                {                       
+                    //Elements = await httpClient.GetFromJsonAsync<List<Element>>("http://192.168.1.5:5213/MyWebApi/GetData");
+                    HttpResponseMessage response = await client.GetAsync("http://192.168.1.6:5213/MyWebApi/GetData");
+                    response.EnsureSuccessStatusCode();
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var json = await response.Content.ReadAsStringAsync(); //得到返回字符串.--                         
+
+                    //等待了8秒.await(一定会等待.).--(这里)
+                    //Task task = await Task.Delay(8000);
+                    //如果不要await.. 就不等待，这就是一个任务了..
+                    //还有一个问题，这里其实已经过了5秒了.. 可是，不会去中断..
+                    //如果不中断，那还有什么意义呢?
+                    //我测试了，没用...timeout -- 这个东西没有用
+                    //await Task.Delay(3000);
+
+                    Elements =JsonSerializer.Deserialize<Element[]>(json);
+
+                    result = 0;
+                    // var jsontoken = JsonSerializer.Deserialize<Element[]>(json); //字符串转类. -- 异常. 数据结构便了.
+                    //return myObject;
+                }
+                catch (TaskCanceledException e)
+                {
+                    Console.WriteLine("请求超时: " + e.Message);
+                    result = 1;
+                   
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("请求出错: " + e.Message);
+                    result = 2;                   
+                }
+
+            }
+        }
+        IsWaiting = false; // 隐藏等待画面
+        //await 会等待.. 因为前面有个 = 。。。
+        if (result == 1)
+        {
+            bool? result1 = await DialogService.ShowMessageBox(
+                   "Warning",
+                   "请求超时!",
+                   yesText: "Delete!", cancelText: "Cancel");
+        }
+
+        if (result == 2)
+        {
+            bool? result2 = await DialogService.ShowMessageBox(
+                   "Warning",
+                   "请求出错!",
+                   yesText: "Delete!", cancelText: "Cancel");
+        }
+
+        
+    }
+}

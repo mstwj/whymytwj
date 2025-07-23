@@ -1,0 +1,38 @@
+﻿<Window x:Class="PLCNET5电容塔升级.Step3Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLCNET5电容塔升级"
+        Background="#FF148077"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        Title="工位合闸" Height="200" Width="460">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            
+        </Grid.RowDefinitions>
+
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="选择输出工位" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+            <ComboBox SelectedIndex="{Binding BtnComBoxListGWIndex}" ItemsSource="{Binding BtnComBoxListGW}" Width="150" FontSize="15"></ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="执行工位合闸" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+            <Button Width="60" Grid.Row="1" FontSize="15" Command="{Binding BtnCommandStartHZ}" Grid.Column="4" Content="确定" ></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="当前正在执行过程" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+            <TextBox Background="Black" Foreground="Yellow" Width="150"  Text="{Binding Exerecord}"></TextBox>
+        </StackPanel>
+
+    </Grid>
+</Window>

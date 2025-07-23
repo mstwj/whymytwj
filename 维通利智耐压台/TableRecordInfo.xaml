@@ -1,0 +1,165 @@
+﻿<Window x:Class="维通利智耐压台.TableRecordInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:维通利智耐压台" xmlns:sf="http://schemas.syncfusion.com/wpf" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="" Height="600" Width="800">
+    <Grid>
+        <Grid ShowGridLines="True" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Background="#2263B3" Grid.Row="0">
+                <TextBlock Text="记录报告" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"  Foreground="White"></TextBlock>
+            </Border>
+            
+            
+            <DataGrid 
+                x:Name="dataGrid" 
+                IsReadOnly ="True"                
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                FontSize="16"
+                
+                Grid.Row="1">
+                <DataGrid.Columns>
+                    <!--
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                    -->
+                    <DataGridTextColumn Header="开始日期" Binding="{Binding RecordDateTimer}" />
+                    <DataGridTextColumn Header="产品名称" Binding="{Binding ProductName}" />
+                    <DataGridTextColumn Header="出厂编号" Binding="{Binding ProductNumber}" />
+                    <DataGridTextColumn Header="类型型号" Binding="{Binding ProductType}" />
+                    <DataGridTextColumn Header="图号" Binding="{Binding ProductTuhao}" />
+                    <DataGridTextColumn Header="施压部位" Binding="{Binding ProductParts}" />
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!--
+            <Border Background="#2263B3" Grid.Row="2">
+                <TextBlock Text="记录报告(曲线图)" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"  Foreground="White"></TextBlock>
+            </Border>
+
+            <Border Background="White" Grid.Row="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical">
+                        <Button Content="转换" FontSize="16" Margin="5" Click="Button_Click"></Button>
+                        <ComboBox x:Name="ComboBoxZHName" ItemsSource="{Binding BtnComboBoxZH}" SelectedIndex="{Binding BtnComboBoxIndexZH}" SelectionChanged="ComboBox_SelectionChanged" Margin="5" FontSize="16"></ComboBox>
+                    </StackPanel>
+
+
+                    <GroupBox Header="曲线图" Grid.Row="1" Grid.Column="1" BorderThickness="2" BorderBrush="Black"  Background="#FFE2E2E2"  FontSize="16"  Margin="5">
+                        <lvc:CartesianChart x:Name="QueryChart" Margin="3" LegendLocation="Top"  >
+                            <lvc:CartesianChart.Series  >
+                                <lvc:LineSeries         
+                                    StrokeThickness="1"
+                                    DataLabels="False" 
+                                    PointGeometrySize="0" 
+                                    Stroke="DodgerBlue" 
+                                    Values="{Binding QueryServerLineData}" 
+                                    Title="局放" />
+                                <lvc:LineSeries         
+                                    ScalesYAt="1"
+                                    StrokeThickness="1"
+                                    DataLabels="False" 
+                                    PointGeometrySize="1" 
+                                    Stroke="Red" 
+                                    Values="{Binding QueryServerLineData2}" 
+                                    Title="电压" />
+                                </lvc:CartesianChart.Series>
+                            <lvc:CartesianChart.AxisX >
+                                <lvc:Axis ShowLabels="True" 
+                                      Labels="{Binding QueryTimePoints}"
+                                      Title="时间(S)" >
+
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="25" StrokeThickness="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY >
+                                <lvc:Axis  Title="局放(Pc)" 
+                                    MinValue="0" 
+                                       MaxValue="30" 
+                                       ShowLabels="True"
+                                       Foreground="DodgerBlue" 
+                                       >
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="5"
+                                           StrokeThickness="1.5"
+                                           StrokeDashArray="0"/>
+                                    </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                <lvc:Axis  Title="电压(kV)"
+                                       MinValue="0" 
+                                       MaxValue="20.0" 
+                                       ShowLabels="True"
+                                       Foreground="IndianRed">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="2" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </GroupBox>
+
+                </Grid>
+            </Border>
+            -->
+
+            <!--
+            <Border Background="#2263B3" Grid.Row="4">
+                <TextBlock Text="数据库操作" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"  Foreground="White"></TextBlock>
+            </Border>
+            -->
+
+            <Grid Grid.Row="5" >
+                <!--
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="55">
+                    <TextBlock Text="文件名:" Margin="10 0 5 0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBox Background="White" Foreground="Black" x:Name="TB1" MaxLength="10" Width="100" Height="20" FontSize="16" Margin="10 0 20 0" ></TextBox>
+                    <Button Grid.Row ="0" Width="170" Height="35" Content="导出为EXECL格式" FontSize="16" Margin="0 0 15 0" Click="Button_Click_Save_Word" ></Button>
+                </StackPanel>
+                -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Content="按照" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 5 0"></Label>
+                    <ComboBox Width="120" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0 0 10 0" ItemsSource="{Binding BtnComboBox}" SelectedIndex="{Binding BtnComboBoxIndex }" ></ComboBox>
+                    <Label Content="查询" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 5 0"></Label>
+                    <TextBox Background="White" Foreground="Black" FontSize="16" Text="{Binding SelectSea}"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="140"></TextBox>
+
+                    <Button FontSize="16" Width="100" Height="40" Margin="30 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Right" Click="QueryButton_Click" Content="查询" ></Button>
+                    <Button FontSize="16" Width="0" Height="40" Margin="30 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Right" Click="TestButton_Click" Content="测试" ></Button>
+                    <Button FontSize="16" Width="100" Height="40" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click_Delete" Content="删除"></Button>
+                    <Button FontSize="16" Width="100" Height="40" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click_Export" Content="预览"></Button>
+                </StackPanel>
+
+
+                <!--
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Content="查询" Click="Button_Click_Query" FontSize="16" Margin="10" Width="100" Height="35" Grid.Column="1"></Button>
+                    <Button Content="删除" Click="Button_Click_Delete" FontSize="16" Margin="10" Width="100" Height="35" Grid.Column="1"></Button>
+                </StackPanel>
+                -->
+                
+            </Grid>
+
+            
+                
+        </Grid>
+
+    </Grid>
+</Window>

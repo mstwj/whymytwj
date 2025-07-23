@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="空载负载.View.UtilityPLCStateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:空载负载.View" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="900">
+    <UserControl.Resources>
+        <sys:Int32 x:Key="MyIntResource">20</sys:Int32>
+    </UserControl.Resources>
+
+    <Grid Width="900" Height="100">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="计时" Margin="12" ></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDIc3Image}"></Image>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="零位" Margin=" 12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDIc4Image}"></Image>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="调压上限" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDIc5Image}"></Image>
+        </StackPanel>
+
+
+
+        <StackPanel Grid.Row="0" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="工频回路" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDId6Image}"></Image>
+        </StackPanel>
+
+
+
+        <StackPanel Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="过流信号" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDIe1Image}"></Image>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="0"  Grid.Column="5" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="耐压通过" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDId5Image}"></Image>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="6" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="安防信号" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDIe2Image}"></Image>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="7" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="慢" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcKImage}"></Image>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="8" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="快" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcMImage}"></Image>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="9" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="电源合闸" Margin="12"></TextBlock>
+            <Image Width="{Binding Source={StaticResource MyIntResource}}" Height="{Binding Source={StaticResource MyIntResource}}" Source="{Binding PlcDIe0Image}"></Image>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

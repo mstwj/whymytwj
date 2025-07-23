@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\iconfont.ttf" />
+    <None Remove="Images\avatar.png" />
+    <None Remove="Images\login_back.png" />
+    <None Remove="Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Styles\BaseResources.xaml" />
+    <Page Remove="Styles\ButtonStyles.xaml" />
+    <Page Remove="Styles\TextBoxStyle.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\avatar.png" />
+    <Resource Include="Images\login_back.png" />
+    <Resource Include="Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\iconfont.ttf" />
+    <Resource Include="Styles\BaseResources.xaml" />
+    <Resource Include="Styles\ButtonStyles.xaml" />
+    <Resource Include="Styles\TextBoxStyle.xaml" />
+  </ItemGroup>
+
+</Project>

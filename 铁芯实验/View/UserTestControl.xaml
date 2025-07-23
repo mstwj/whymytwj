@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="铁芯实验.View.UserTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:铁芯实验.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="150">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="额定匝数:" Margin="0 0 10 0"></TextBlock>
+            <TextBox InputScope="Digits" MaxLength="9"  Text="{Binding Edingzhashu_data}" Width="75"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="临时匝数:" Margin="0 0 10 0"></TextBlock>
+            <ComboBox InputScope="Digits" IsEditable="True" Width="75" Text="{Binding Tempzhashu_data}">
+                <ComboBoxItem>10</ComboBoxItem>
+                <ComboBoxItem>13</ComboBoxItem>
+                <ComboBoxItem>20</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="施加电压:" Margin="0 0 10 0"></TextBlock>
+
+            <TextBlock Text="{Binding Shijiazhashu_data}" ></TextBlock>
+            <TextBlock Text="V" Margin="10 0 0 0"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="操作方式:" Margin="0 0 10 0"></TextBlock>
+            <TextBlock Text="{Binding ShowOneOrThree }"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="测量方式:" Margin="0 0 10 0"></TextBlock>
+            <ComboBox Text="{Binding Set3P4WOr3P3W}"  Width="75">
+                <ComboBoxItem>3P4W</ComboBoxItem>
+                <ComboBoxItem>3P3W</ComboBoxItem>
+                <ComboBoxItem>3V3A</ComboBoxItem>
+                <ComboBoxItem>1P3W</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="保护电流:" Margin="0 0 10 0"></TextBlock>
+            <TextBox Text="{Binding ProtectCurrent }" Width="75"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="确定" Command="{Binding BtnCommandSet}" Margin="0 0 10 0" Height="35" Width="75"></Button>
+            <!--
+            <Button Content="设置方式" Command="{Binding BtnCommandWay}"  Width="75" Height="35"  ></Button>
+            -->
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

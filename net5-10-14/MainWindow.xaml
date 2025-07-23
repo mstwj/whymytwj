@@ -1,0 +1,55 @@
+﻿<Window x:Class="net5_10_14.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:net5_10_14" xmlns:viewmodel="clr-namespace:net5_10_14.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="760" Width="1024" Closed="MainClose">
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel></viewmodel:MainViewModel>
+    </Window.DataContext>
+    
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <!-- 菜单高度 这里还要加1个高度，就是 图标高度，就是 最小化 最大话按钮的高度，他们是40 -->
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="680"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Menu Height="25" VerticalAlignment="Top" Grid.Row="0" >
+            <MenuItem Header="创建试验任务">
+                <MenuItem Header="样品录入" Command="{Binding btnCommand11}" />
+                <Separator/>
+                <MenuItem Header="退出" />
+            </MenuItem>
+            <MenuItem Header="试验" >
+                <MenuItem Header="变压器变比实验" Click="DoBtnMenu2_1Click" />
+                <MenuItem Header="直流电阻实验"  Click="DoBtnMenu2_2Click" />
+            </MenuItem>
+
+            <MenuItem Header="数据管理">
+                <MenuItem Header="变压器变比实验报表"  Command="{Binding btnCommand31}" />
+                <MenuItem Header="直流电阻实验报表"  Command="{Binding btnCommand32}" />
+                <Separator/>
+                <MenuItem Header="变压器变比标准库"  Command="{Binding btnCommand33}" />
+                <MenuItem Header="直流电阻标准库"  Command="{Binding btnCommand34}" />
+            </MenuItem>
+
+            <MenuItem Header="系统设置">
+                <MenuItem Header="设备设置" Command="{Binding btnCommand41}" />
+                <MenuItem Header="产品表管理"  Command="{Binding btnCommand42}" />
+            </MenuItem>
+        </Menu>
+        <Frame x:Name="FrameNv" Grid.Row="1" Navigated="myFrame_Navigated"  IsManipulationEnabled="False" NavigationUIVisibility="Hidden"   ></Frame>
+        
+        <Image Grid.Row="1" x:Name="myImage" Source="Asset/bj.jpg" />
+        
+        
+
+    </Grid>
+</Window>

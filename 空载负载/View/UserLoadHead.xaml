@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="空载负载.View.UserLoadHead"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:空载负载.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="规格型号:" FontSize="15" ></TextBlock>
+            <TextBlock Text="{Binding ProductType }" Margin="10 0 0 0"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="负载损耗:" FontSize="15"></TextBlock>
+            <TextBlock Text="{Binding Loadloss}" Margin="10 0 0 0"></TextBlock>
+            <TextBlock Text=" kW" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="图号:" FontSize="15"></TextBlock>
+            <TextBlock Text="{Binding ProductTuhao }" Margin="10 0 0 0"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="负载阻抗UK(%):" FontSize="15"></TextBlock>
+            <TextBlock Text="{Binding LoadMainReactance }" Margin="10 0 0 0"></TextBlock>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

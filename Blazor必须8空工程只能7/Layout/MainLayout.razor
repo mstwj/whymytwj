@@ -1,0 +1,41 @@
+﻿@inherits LayoutComponentBase
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudPopoverProvider /> <!-- 添加这行 -->
+<!--
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+-->
+
+<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+
+
+<main>
+    @Body
+</main>
+
+@code {
+    //下面是8.0特有的语法.. 7.0都不行.. C#12 语法..
+        //不管怎么样，好像刷新，只能刷新HTML，C#如果修改了，比重新开始，重新编译..
+    private List<BreadcrumbItem> _items =
+    [
+        new("Home", href: "#",icon: Icons.Material.Filled.Home),
+        new("Link 1", href: "/counter",icon: Icons.Material.Filled.VideoLibrary),
+        new("Link 2", href: "/weather",icon: Icons.Material.Filled.Create),
+        new("Link 3", href: "/MyComponenet" )
+    ];
+}

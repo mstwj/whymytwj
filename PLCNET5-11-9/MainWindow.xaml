@@ -1,0 +1,847 @@
+﻿<Window x:Class="PLCNET5_11_9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:plcnet5_11_9="clr-namespace:PLCNET5_11_9"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"        
+        Title="MainWindow" Height="1080" Width="1920"
+        WindowState="Maximized"
+        WindowStyle="None" Closed="Window_Closed" KeyDown="MyKeyDown"
+        >
+
+
+
+
+    <Grid ShowGridLines="True" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="710"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+            <Border Background="#00656a" BorderBrush="White" BorderThickness="5" CornerRadius="15">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="pack://application:,,,/Asset/headlogo.png" Stretch="Fill" Grid.Column="0" Width="100" Height="100" Margin="20 0 20 0"  HorizontalAlignment="Left" VerticalAlignment="Center"  />
+                    <!--
+                    <Label Content="DWBCT-IV 大型变压器实验控制台" FontSize="45" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ></Label>
+                    -->
+                    <Image Source="pack://application:,,,/Asset/headbg.png" Stretch="Fill" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"  />
+
+                    <TextBlock Text="当前操作方式:" FontSize="36" Grid.Column="2"  VerticalAlignment="Center" Margin="20 0" ></TextBlock>
+                    <TextBlock Text="{Binding DQCZFS}"  FontSize="36" Grid.Column="2" Foreground="Yellow"  VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="80 0 0 0" ></TextBlock>
+
+                    <Button x:Name="BtnSwaichButton" Content="中" Click="Button_Click_Swaich" Width="60" Height="60" FontSize="45" Grid.Column="2" HorizontalAlignment="Right" Margin="20 0 100 0" VerticalAlignment="Center"  >
+                    </Button>
+
+                    <Button Style="{StaticResource ButtonTemplate4}" Click="Button_Click" Width="60" Height="60" FontSize="45" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" >
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1580"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+
+                    <Image x:Name="BackImage2" Source="pack://application:,,,/Asset/bg.jpg" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" />
+
+                    <Grid>
+
+                        <plcnet5_11_9:myButtonTemplate Margin="29,117,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton3_1"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="153,117,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG2"></plcnet5_11_9:myButtonTemplate>
+
+                        <plcnet5_11_9:myButtonTemplate MyParameter="HH"  Margin="510,119,0,0" Width="18" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG5"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="594,119,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG6"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="692,120,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_2"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"  Margin="153,370,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG3"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"  Margin="316,445,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonD7"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"  Margin="325,202,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonD4"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"   Margin="153,608,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton3_2"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="HH"  Margin="510,371,0,0" Width="18" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG7"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="HH"  Margin="508,609,0,0" Width="18" Height="52" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG7_1_2"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"   Margin="594,369,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonG8"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"   Margin="692,371,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_3"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="Hide"  Margin="845,368,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_4"></plcnet5_11_9:myButtonTemplate>
+
+                        <plcnet5_11_9:myButtonTemplate Margin="1459,113,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW1A"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1458,150,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW1B"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1458,190,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW1C"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1458,345,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW2A"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1458,380,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW2B"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1458,418,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW2C"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1462,566,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW3A"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1461,600,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW3B"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate Margin="1460,639,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButtonGW3C"></plcnet5_11_9:myButtonTemplate>
+
+                        <plcnet5_11_9:myButtonTemplate Margin="846,119,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_5"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="VV"   Margin="1028,538,0,0" Width="30" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_6_A"></plcnet5_11_9:myButtonTemplate>
+
+                        <plcnet5_11_9:myButtonTemplate MyParameter="VV"   Margin="1064,538,0,0" Width="30" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_6_B"></plcnet5_11_9:myButtonTemplate>
+                        <plcnet5_11_9:myButtonTemplate MyParameter="VV"   Margin="1101,538,0,0" Width="30" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_6_C"></plcnet5_11_9:myButtonTemplate>
+
+                        <plcnet5_11_9:myButtonTemplate Margin="693,608,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_1"></plcnet5_11_9:myButtonTemplate>
+
+                        <!--
+                        <plcnet5_11_9:MyUserControlBiao x:Name="MyUserBiao1" MyParameter="V" Margin="1078,214,402,396" Grid.Column="0" Width="70" Height="100"></plcnet5_11_9:MyUserControlBiao>
+                        -->
+
+                        <GroupBox Margin="842,210,638,400" Foreground="Black" FontSize="12" Height="100"  Header="电抗补偿电流A">
+                            <Grid Background="Blue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="43*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" Text="AB" HorizontalAlignment="Center" />
+                                <TextBlock  Grid.Row="0" Grid.Column="1" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao3_data1}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="BC"  />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao3_data2}"  />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Red"   Text="CA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Foreground="Red"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao3_data3}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Margin="377,507,1090,103" Foreground="Black" FontSize="12" Height="100"  Header="调压器输出电流A">
+                            <Grid Background="Blue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="43*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" Text="AB" HorizontalAlignment="Center" />
+                                <TextBlock  Grid.Row="0" Grid.Column="1" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao1_data1}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="BC"  />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao1_data2}"  />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Red"   Text="CA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Foreground="Red"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao1_data3}" />
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox Margin="1132,585,345,25" Foreground="Black" FontSize="12" Height="100"  Header="电容补偿电流A">
+                            <Grid Background="Blue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="43*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" Text="AB" HorizontalAlignment="Center" />
+                                <TextBlock  Grid.Row="0" Grid.Column="1" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao2_data1}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="BC"  />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao2_data2}"  />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Red"   Text="CA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Foreground="Red"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao2_data3}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Margin="963,210,509,400" Foreground="Black" FontSize="12" Height="100"  Header="中变输入电压kV">
+                            <Grid Background="Blue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="43*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" Text="AB" HorizontalAlignment="Center" />
+                                <TextBlock  Grid.Row="0" Grid.Column="1" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao4_data1}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="BC"  />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao4_data2}"  />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Red"   Text="CA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Foreground="Red"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao4_data3}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Margin="1084,210,396,400" Foreground="Black" FontSize="12" Height="100"  Header="中变输入电流A">
+                            <Grid Background="Blue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="43*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" Text="AB" HorizontalAlignment="Center" />
+                                <TextBlock  Grid.Row="0" Grid.Column="1" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao5_data1}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="BC"  />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao5_data2}"  />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Red"   Text="CA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Foreground="Red"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao5_data3}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Margin="1197,210,277,400" Foreground="Black" FontSize="12" Height="100"  Header="中变输入频率Hz">
+                            <Grid Background="Blue">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="43*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" Text="AB" HorizontalAlignment="Center" />
+                                <TextBlock  Grid.Row="0" Grid.Column="1" FontSize="14"  Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao6_data1}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="BC"  />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Foreground="GreenYellow"   VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao6_data2}"  />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Red"   Text="CA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Foreground="Red"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding mainModel.Biao6_data3}" />
+                            </Grid>
+                        </GroupBox>
+                        <plcnet5_11_9:myButtonTemplate Margin="600,608,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="myButton7_1_2"/>
+
+
+                    </Grid>
+                    
+
+                </Grid>
+
+                <Grid Grid.Column="1" Background="#FF148079">
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <GroupBox Grid.Row="0" Header="{DynamicResource MyMessage16}" Margin="5">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="主控" FontSize="15" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <Image Width="30" Height="30"  Source="{Binding mainModel.Plc31Image}" Stretch="Fill" ></Image>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="设备间1" FontSize="15" Margin="5 10 5 10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <Image Width="30" Height="30"  Source="{Binding mainModel.Plc33Image}" Stretch="Fill" ></Image>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="设间备2" FontSize="15" Margin="5 10 5 10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <Image Width="30" Height="30"  Source="{Binding mainModel.Plc35Image}" Stretch="Fill" ></Image>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3">
+                                <TextBlock Text="发电机" FontSize="15" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <Image Width="30" Height="30"  Source="{Binding mainModel.Plc37Image}" Stretch="Fill" ></Image>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <Grid Grid.Row="2">
+                        <GroupBox Grid.Column="1" Header="{DynamicResource MyMessage15}" Padding="5" Margin="5">
+                            <ListBox Name="myListBox"  ItemsSource="{Binding ListBoxData}" Grid.Row="1" FontSize="15" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="Blue"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsRed}" Value="True">
+                                                            <Setter Property="Foreground" Value="Red"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                            <TextBlock.Text>
+                                                <Binding Path="Text"/>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </GroupBox>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" ShowGridLines="True" >
+            <Border Background="#FF148079" BorderBrush="White" BorderThickness="5" CornerRadius="15">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+                    <GroupBox Grid.Column="0" FontSize="15"   Header="{DynamicResource MyMessage7}" Padding="3" Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="0 0 5 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.8*"></RowDefinition>
+                                        <RowDefinition Height="1.2*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{DynamicResource MyMessage27}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 3"></TextBlock>
+                                                <Image Width="30" Height="30"  Source="{Binding mainModel.S7500_1gImage}" Stretch="Fill" />
+                                            </StackPanel>
+
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                    <Grid Grid.Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <GroupBox Header="{DynamicResource MyMessage28}" Grid.Column="0">
+                                                <StackPanel>
+                                                    <Button Content ="{DynamicResource MyMessage1}" Margin="0 5 0 5" Command="{Binding Command75_1}"></Button>
+                                                    <Button Content ="{DynamicResource MyMessage2}" Margin="0 5 0 5" Command="{Binding Command75_2}"></Button>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                            <GroupBox Header="{DynamicResource MyMessage30}" Grid.Column="1">
+                                                <StackPanel>
+                                                    <Button Content ="{DynamicResource MyMessage1}" Margin="0 5 0 5" Command="{Binding Command75_3}"></Button>
+                                                    <Button Content ="{DynamicResource MyMessage2}" Margin="0 5 0 5" Command="{Binding Command75_4}"></Button>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="5*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="{DynamicResource MyMessage45}" Width="30" Margin="10 0 " Command="{Binding Command75_Option1}"></Button>
+                                        <Button Content="{DynamicResource MyMessage46}" HorizontalAlignment="Right"  Margin="6 0" Width="30"  Command="{Binding Command75_Option3}" ></Button>
+                                    </StackPanel>
+
+                                    <GroupBox Header="{DynamicResource MyMessage31}" Grid.Row="1">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
+                                                <TextBlock Text="当前" VerticalAlignment="Center"></TextBlock>
+                                                <TextBox IsReadOnly="True"  Text="{Binding GPJ2000DQZ}" Height="25" Width="60" />
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                                                <TextBlock Text="步进" ></TextBlock>
+                                                <TextBox Text="{Binding GPJBC}" Height="25" Width="60" />
+                                            </StackPanel>
+
+
+
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <!--
+                                                <RadioButton GroupName="optionsGroup1" IsChecked="True" Content="{DynamicResource MyMessage25}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></RadioButton>
+                                                -->
+                                                <Button Command="{Binding Command75_5}" Grid.Column="0" Content="{DynamicResource MyMessage3}" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" ></Button>
+                                                <Button Command="{Binding Command75_6}" Grid.Column="1" Content="{DynamicResource MyMessage4}" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
+
+                                            </Grid>
+
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1"  FontSize="15"  Padding="3" Margin="5" Header="{DynamicResource MyMessage8}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="1.3*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="0 0 5 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.8*"></RowDefinition>
+                                        <RowDefinition Height="1.2*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{DynamicResource MyMessage27}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 3"></TextBlock>
+                                                <Image Width="30" Height="30"  Source="{Binding mainModel.S2000_1zImage}" Stretch="Fill" />
+                                            </StackPanel>
+
+
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                    <Grid Grid.Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <GroupBox Header="{DynamicResource MyMessage28}" Grid.Column="0">
+                                                <StackPanel>
+                                                    <Button Command="{Binding Command20_1}" Content ="{DynamicResource MyMessage1}" Margin="0 5 0 5"></Button>
+                                                    <Button Command="{Binding Command20_2}" Content ="{DynamicResource MyMessage2}" Margin="0 5 0 5"></Button>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                            <GroupBox Header="{DynamicResource MyMessage30}" Grid.Column="1">
+                                                <StackPanel>
+                                                    <Button Command="{Binding Command20_3}" Content ="{DynamicResource MyMessage1}" Margin="0 5 0 5"></Button>
+                                                    <Button Command="{Binding Command20_4}" Content ="{DynamicResource MyMessage2}" Margin="0 5 0 5"></Button>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="5*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="{DynamicResource MyMessage45}" Width="30" Margin="10 0 " Command="{Binding Command20_Option1}" ></Button>
+                                        <Button Content="{DynamicResource MyMessage46}" HorizontalAlignment="Right"  Margin="6 0" Width="30" Command="{Binding Command20_Option3}" ></Button>
+                                    </StackPanel>
+
+                                    <GroupBox Header="{DynamicResource MyMessage31}" Grid.Row="1">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
+                                                <TextBlock Text="当前" VerticalAlignment="Center"></TextBlock>
+                                                <TextBox  IsReadOnly="True" Text="{Binding ZPJ2000DQZ}" Height="25" Width="60" />
+                                            </StackPanel>
+
+
+
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                                                <TextBlock Text="步进" ></TextBlock>
+                                                <TextBox Text="{Binding BJZ}" Height="25" Width="60" />
+                                            </StackPanel>
+
+
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+
+
+                                                <Button Command="{Binding Command20_5}" Grid.Column="0" Content="{DynamicResource MyMessage3}" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
+                                                <Button Command="{Binding Command20_6}" Grid.Column="1" Content="{DynamicResource MyMessage4}" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
+                                            </Grid>
+
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2"  FontSize="15"   Padding="3" Margin="5" Header="{DynamicResource MyMessage9}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="1.3*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="0 0 5 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.8*"></RowDefinition>
+                                        <RowDefinition Height="1.2*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{DynamicResource MyMessage27}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 3"></TextBlock>
+                                                <Image Width="30" Height="30"  Source="{Binding mainModel.S2000_1tImage}" Stretch="Fill" />
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{DynamicResource MyMessage32}" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0 0 0 3"></TextBlock>
+                                                <Image Width="30" Height="30"  Source="{Binding mainModel.S2000_1tlwImage}" Stretch="Fill" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                    <Grid Grid.Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <GroupBox Header="{DynamicResource MyMessage29}" Grid.Column="0">
+                                                <StackPanel>
+                                                    <Button Command="{Binding Command20T_1}" Content ="{DynamicResource MyMessage1}" Margin="0 5 0 5"></Button>
+                                                    <Button Command="{Binding Command20T_2}" Content ="{DynamicResource MyMessage2}" Margin="0 5 0 5"></Button>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                            <GroupBox Header="{DynamicResource MyMessage28}" Grid.Column="1">
+                                                <StackPanel>
+                                                    <Button Command="{Binding Command20T_3}" Content ="{DynamicResource MyMessage1}" Margin="0 5 0 5"></Button>
+                                                    <Button Command="{Binding Command20T_4}" Content ="{DynamicResource MyMessage2}" Margin="0 5 0 5"></Button>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="5*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="{DynamicResource MyMessage45}"  Width="30" Margin="10 0 " Command="{Binding Command20T_Option1}" ></Button>
+                                        <Button Content="{DynamicResource MyMessage46}" Command="{Binding Command20T_Option3}" HorizontalAlignment="Right"  Margin="6 0" Width="30"></Button>
+                                    </StackPanel>
+
+                                    <GroupBox Header="{DynamicResource MyMessage31}" Grid.Row="1">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <ComboBox Grid.Row="0" Height="30" SelectedIndex="{Binding Sustaintime}">
+                                                <ComboBoxItem Content="0.5秒持续"></ComboBoxItem>
+                                                <ComboBoxItem Content="1秒持续"></ComboBoxItem>
+                                                <ComboBoxItem Content="2秒持续"></ComboBoxItem>
+                                                <ComboBoxItem Content="5秒持续"></ComboBoxItem>
+                                                <ComboBoxItem Content="10秒持续"></ComboBoxItem>
+                                                
+                                            </ComboBox>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <Button Content="升" Grid.Column="0" Command="{Binding CommandMyUp}" Width="30" Height="30"></Button>
+                                                <Button Content="降" Grid.Column="1"  Command="{Binding CommandMyDown}" Width="30" Height="30"></Button>
+                                            </Grid>
+                                                
+                                            
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="3"  FontSize="15"   Padding="3" Margin="5" Header="电源选择" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="{DynamicResource MyMessage43}"  FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{DynamicResource MyMessage44}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{DynamicResource MyMessage42}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                            <Button Command="{Binding CommandGPJDY_HZ}" Content="{DynamicResource MyMessage1}" Grid.Row="2" Grid.Column="0" ></Button>
+                            <Button Command="{Binding CommandGPJDY_FZ}" Content="{DynamicResource MyMessage2}" Grid.Row="3" Grid.Column="0" ></Button>
+
+                            <Button Command="{Binding CommandZPJDY_HZ}" Content="{DynamicResource MyMessage1}" Grid.Row="2" Grid.Column="1"></Button>
+                            <Button Command="{Binding CommandZPJDY_FZ}" Content="{DynamicResource MyMessage2}" Grid.Row="3" Grid.Column="1"></Button>
+
+                            <Button Command="{Binding CommandTYQ_HZ}" Content="{DynamicResource MyMessage1}" Grid.Row="2" Grid.Column="2"></Button>
+                            <Button Command="{Binding CommandTYQ_FZ}" Content="{DynamicResource MyMessage2}" Grid.Row="3" Grid.Column="2"></Button>
+
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="4"  FontSize="15"   Padding="3" Margin="5" Header="{DynamicResource MyMessage10}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding CommandZB_1}" Content="{DynamicResource MyMessage1}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandZB_2}" Content="{DynamicResource MyMessage2}" Grid.Row="3"></Button>
+
+                            <StackPanel Grid.RowSpan="2">
+                                <TextBlock Text="{DynamicResource MyMessage27}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 3"></TextBlock>
+                                <Image Width="30" Height="30"  Source="{Binding mainModel.SZBSR_Image}" Stretch="Fill" />
+                            </StackPanel>
+
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="5"  FontSize="15"   Padding="3" Margin="5" Header="{DynamicResource MyMessage11}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.RowSpan="2" >
+                                <TextBlock Text="{DynamicResource MyMessage27}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 3"></TextBlock>
+                                <Image Width="30" Height="30"  Source="{Binding mainModel.ZCB_Image}" Stretch="Fill" />
+                            </StackPanel>
+
+                            <Button Command="{Binding CommandZCB_1}" Content="{DynamicResource MyMessage1}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandZCB_2}" Content="{DynamicResource MyMessage2}" Grid.Row="3"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="6"  FontSize="15"   Padding="3" Margin="5" Header="{DynamicResource MyMessage12}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding CommandDNBC_1}" Content="{DynamicResource MyMessage19}" Grid.Row="0"></Button>
+                            <Button Command="{Binding CommandDNBC_2}" Content="{DynamicResource MyMessage20}" Grid.Row="1"></Button>
+                            <Button Command="{Binding CommandDNBC_3}" Content="{DynamicResource MyMessage17}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandDNBC_4}" Content="{DynamicResource MyMessage18}" Grid.Row="3"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="7"   FontSize="15"  Padding="3" Margin="5" Header="{DynamicResource MyMessage13}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding CommandDK_1}" Content="{DynamicResource MyMessage1}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandDK_2}" Content="{DynamicResource MyMessage2}" Grid.Row="3"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <!--
+                    <GroupBox Grid.Column="7"   FontSize="15"  Padding="3" Margin="5" Grid.ColumnSpan="2"  Header="{DynamicResource MyMessage23}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{DynamicResource MyMessage33}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
+
+                                <Button Command="{Binding CommandQF_1}" Content="{DynamicResource MyMessage5}" Grid.Row="2"></Button>
+                                <Button Command="{Binding CommandQF_2}" Content="{DynamicResource MyMessage6}" Grid.Row="3"></Button>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="36.988"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{DynamicResource MyMessage34}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
+
+                                <Button Command="{Binding CommandQF_3}" Content="{DynamicResource MyMessage5}" Grid.Row="2"></Button>
+                                <Button Command="{Binding CommandQF_4}" Content="{DynamicResource MyMessage6}" Grid.Row="3"></Button>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="36.988"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{DynamicResource MyMessage35}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
+                                <Button Command="{Binding CommandQF_5}" Content="{DynamicResource MyMessage5}"  Grid.Row="2"></Button>
+                                <Button Command="{Binding CommandQF_6}" Content="{DynamicResource MyMessage6}" Grid.Row="3"></Button>
+                            </Grid>
+
+                        </Grid>
+                    </GroupBox>
+                    -->
+                    <GroupBox Grid.Column="8"  FontSize="15"  Padding="3" Margin="5"  Header="{DynamicResource MyMessage14}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding CommandGW1_1}" Content="{DynamicResource MyMessage19}" Grid.Row="0"></Button>
+                            <Button Command="{Binding CommandGW1_2}" Content="{DynamicResource MyMessage20}" Grid.Row="1"></Button>
+                            <Button Command="{Binding CommandGW1_3}" Content="{DynamicResource MyMessage18}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandGW1_4}" Content="{DynamicResource MyMessage17}" Grid.Row="3"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="9"   FontSize="15"   Padding="3" Margin="5" Header="{DynamicResource MyMessage21}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding CommandGW2_1}" Content="{DynamicResource MyMessage19}" Grid.Row="0"></Button>
+                            <Button Command="{Binding CommandGW2_2}" Content="{DynamicResource MyMessage20}" Grid.Row="1"></Button>
+                            <Button Command="{Binding CommandGW2_3}" Content="{DynamicResource MyMessage18}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandGW2_4}" Content="{DynamicResource MyMessage17}" Grid.Row="3"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="10"   FontSize="15"   Padding="3" Margin="5" Header="{DynamicResource MyMessage22}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Command="{Binding CommandGW3_1}" Content="{DynamicResource MyMessage19}" Grid.Row="0"></Button>
+                            <Button Command="{Binding CommandGW3_2}" Content="{DynamicResource MyMessage20}" Grid.Row="1"></Button>
+                            <Button Command="{Binding CommandGW3_3}" Content="{DynamicResource MyMessage18}" Grid.Row="2"></Button>
+                            <Button Command="{Binding CommandGW3_4}" Content="{DynamicResource MyMessage17}" Grid.Row="3"></Button>
+                        </Grid>
+                    </GroupBox>
+
+
+                </Grid>
+            </Border>
+
+
+        </Grid>
+
+        <Grid Grid.Row="3" ShowGridLines="True" Grid.RowSpan="2">
+            <Border Background="#FF245FBD"  BorderBrush="White" BorderThickness="5" CornerRadius="10">
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

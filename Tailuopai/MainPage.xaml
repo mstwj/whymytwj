@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Tailuopai"             
+             x:Class="Tailuopai.MainPage">
+    <Grid>
+        <Border IsVisible="{Binding MainShowB}">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="7*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="25" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">欢迎来到塔罗牌占卜未来</Label>
+                        <Button Text="说明" Grid.Column="1"  Command="{Binding ReadmeButtonCommand}"></Button>
+                    </Grid>
+
+                </Border>
+
+
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Items}" VerticalOptions="Start">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="5" Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="110"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <ImageButton Source="tailuopai.png" Command="{Binding EditButtonCommand}" CommandParameter="{Binding mySelf}" 
+                                    HeightRequest="110" WidthRequest="50"
+                                    HorizontalOptions="Center" VerticalOptions="Center">
+                                </ImageButton>
+
+                                <Label Text="{Binding Header}" 
+                                FontSize="10" VerticalOptions="Center" HorizontalOptions="Center"
+                                FontAttributes="Bold"></Label>
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Border Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="{Binding ImageShebei1}"  Grid.Column="0"
+                            HeightRequest="180" WidthRequest="100"  ScaleY="{Binding ImageScaleY1}"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                        </Image>
+
+                        <Image  Source="{Binding ImageShebei2}" Grid.Column="1"
+                            HeightRequest="180" WidthRequest="100" ScaleY="{Binding ImageScaleY2}"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                        </Image>
+
+                        <Image Source="{Binding ImageShebei3}" Grid.Column="2"
+                            HeightRequest="180" WidthRequest="100" ScaleY="{Binding ImageScaleY3}"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                        </Image>
+
+                    </Grid>
+
+                </Border>
+
+
+                <StackLayout Orientation="Horizontal" Grid.Row="3">
+                    <Label Text="点绿色方框(选占卜目的)" WidthRequest="120" VerticalOptions="Center" FontSize="18"></Label>
+                    <Picker SelectedItem="{Binding PSelect}" VerticalTextAlignment="Center" HorizontalOptions="Center" TextColor="Red" FontSize="25" Background="YellowGreen"  WidthRequest="280" ItemsSource="{Binding PItems}" />
+                </StackLayout>
+
+                <Border Grid.Row="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Button Text="重新洗牌" FontSize="20" Command="{Binding EditButtonCommand}" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                        <Button Text="开始占卜" FontSize="20" Command="{Binding BtnCommandStart}" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border IsVisible="{Binding MainShowW}">
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <ActivityIndicator IsRunning="True" Color="Blue" />
+                <Label Text="Loading..." HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+
+</ContentPage>

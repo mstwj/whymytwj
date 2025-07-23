@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="NModbus4.Core" Version="1.0.2" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AddProc.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="DeveclWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View1\PageDeveclKongzai.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View1\UserHeadControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View1\UserListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View1\UserMainControlKongzai.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View1\UserPanelKongzai.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View1\UserProInfoControl1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\headlogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+</Project>

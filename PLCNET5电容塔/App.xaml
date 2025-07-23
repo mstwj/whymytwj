@@ -1,0 +1,15 @@
+﻿<Application x:Class="PLCNET5电容塔.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PLCNET5电容塔"             
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--.net6和.net5 还是有很大差别的.. c#10 和 C#9 差别很大.. -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--.指定DLL 和 XAML 注意：资源目录必须是Themes..只要包含资源，编译的时候，好像是自动复制到EXE目录下. -->
+                <ResourceDictionary Source="pack://application:,,,/WpfUILibrary;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

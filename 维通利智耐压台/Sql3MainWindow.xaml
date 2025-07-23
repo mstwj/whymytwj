@@ -1,0 +1,112 @@
+﻿<Window x:Class="维通利智耐压台.Sql3MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:维通利智耐压台"
+        mc:Ignorable="d"
+        Title="Sql3MainWindow" Height="450" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--AutoGenerateColumns="False"必须加这一个，要不然后面多一个-->
+        <DataGrid x:Name="dataGrid" FontSize="16"
+                  ItemsSource="{Binding myCollection}"    
+                  SelectedItem="{Binding mySelectedItem}"                  
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="ID" Binding="{Binding Id}" IsReadOnly="True" />
+                <DataGridTextColumn Width="100" Header="用户名" Binding="{Binding Username}" IsReadOnly="True" />
+                <DataGridTextColumn Width="100" Header="密码" Binding="{Binding Password}" IsReadOnly="True" />
+                <DataGridTextColumn Width="100" Header="权限" Binding="{Binding Power}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <GroupBox Header="添加数据" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                            <TextBlock FontSize="16" Height="20" Width="80" Margin="20 0 0 0" Text="用户名"></TextBlock>
+
+                            <TextBox Background="White" Foreground="Black" Width="100" Text="{Binding TextBox1}" FontSize="16" ></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1">
+                            <TextBlock FontSize="16"  Width="80" Margin="20 0 0 0" Text="密码"></TextBlock>
+                            <TextBox Background="White" Foreground="Black" Width="100" Text="{Binding TextBox2}" FontSize="16" ></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2">
+                            <TextBlock Width="80" FontSize="16" Margin="20 0 0 0" Text="权限"></TextBlock>
+                            <TextBox Background="White" Foreground="Black" Width="100" Text="{Binding TextBox3}" FontSize="16" ></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Button Width="100"  Content="添加数据" FontSize="16" Command="{Binding BtnAddCommand}"  Margin="10 0 20 0"></Button>
+                            <!--
+                            <Button Width="100"  Content="修改数据" FontSize="16" Command="{Binding BtnEditCommand}" Margin="10 3 10 3"></Button>
+                            <Button Width="100"  Content="删除数据" FontSize="16" Command="{Binding BtnEditCommand}" Margin="10 3 10 3"></Button>
+                            -->
+                        </StackPanel>
+
+                    </Grid>    
+                </GroupBox>
+
+                <GroupBox Header="修改数据" Margin="10" Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                            <TextBlock FontSize="16" Height="20" Width="80" Margin="20 0 0 0" Text="用户名"></TextBlock>
+                            <TextBox Width="100" FontSize="16" Text="{Binding SelectedItem.Username, ElementName=dataGrid}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1">
+                            <TextBlock FontSize="16"  Width="80" Margin="20 0 0 0" Text="密码"></TextBlock>
+                            <TextBox Width="100" FontSize="16" Text="{Binding SelectedItem.Password, ElementName=dataGrid}" ></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2">
+                            <TextBlock Width="80" FontSize="16" Margin="20 0 0 0" Text="权限"></TextBlock>
+                            <TextBox Width="100"  FontSize="16" Text="{Binding SelectedItem.Power, ElementName=dataGrid}" ></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Button Width="90"  Content="修改数据" FontSize="16" Command="{Binding BtnEditCommand}"  Margin="10 0 0 0"></Button>
+                            <Button Width="90"  Content="删除数据" FontSize="16" Command="{Binding BtnDeleteCommand}"  Margin="10 0 10 0"></Button>
+                            <!--
+            <Button Width="100"  Content="修改数据" FontSize="16" Command="{Binding BtnEditCommand}" Margin="10 3 10 3"></Button>
+            <Button Width="100"  Content="删除数据" FontSize="16" Command="{Binding BtnEditCommand}" Margin="10 3 10 3"></Button>
+            -->
+                        </StackPanel>
+
+                    </Grid>
+                </GroupBox>
+
+
+            </Grid>
+        </Border>
+
+        
+    </Grid>
+</Window>

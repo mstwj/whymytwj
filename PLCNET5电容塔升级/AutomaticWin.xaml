@@ -1,0 +1,265 @@
+﻿<Window x:Class="PLCNET5电容塔升级.AutomaticWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLCNET5电容塔升级"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        Background="#FF148077"
+        Title="电容塔自动化界面" Height="840" Width="460">
+    <Grid>
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition Height="6*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤1 补偿相数" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <ComboBox x:Name="CComboxName1" SelectedIndex="{Binding BtnComBoxListBCXSIndex}" ItemsSource="{Binding BtnComBoxListBCXS}" Width="150" FontSize="15"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤2 预估试验电流设置" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <TextBox Width="100" FontSize="15" Text="{Binding EstimatedCurrent}"></TextBox>
+                    <TextBlock Text="A" Width="50" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤3 预估试验电压设置" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <TextBox Width="100" FontSize="15" Text="{Binding EstimatedVoltage}"></TextBox>
+                    <TextBlock Text="KV" Width="50" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤4 推算最佳组合方式" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <Button Width="60" Command="{Binding BtnCommandExeBCXS}" FontSize="15" Content="确认" Margin="0 0 0 0"></Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤5 选择接法" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <ComboBox SelectedIndex="{Binding BtnComBoxListUserXZJFIndex}" SelectionChanged="ComboBox_Selected" ItemsSource="{Binding BtnComBoxListUserXZJF}" Width="150" FontSize="15"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤6 选择串并联方式" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <ComboBox SelectedIndex="{Binding BtnComBoxListUserBLFSIndex}" ItemsSource="{Binding BtnComBoxListUserBLFS}" Width="150" FontSize="15"></ComboBox>
+                </StackPanel>
+
+                <Border Grid.Row="7">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="接法" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="串联数" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="并联数" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="3" Text="系统电压" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Text="每层建议投补个数" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="0" Text="{Binding UserJF }" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBox>
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="1" Text="{Binding UserCLS }" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBox>
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="2" Text="{Binding UserBLS }" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBox>
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="3" Text="{Binding UserXTDY }" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBox>
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="4" Text="{Binding UserMCJYGS }" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBox>
+
+
+                    </Grid>
+
+                </Border>
+
+                <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤7 开始执行" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <Button Width="60" Command="{Binding CommandBtnExe}" FontSize="15" Content="确认" Margin="0 0 10 0"></Button>
+                    <Button Width="60" FontSize="15" Content="取消" Margin="20 0 10 0"></Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="8" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤8 仿真界面(选择投入电容)" Width="350" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                </StackPanel>
+
+                <Border Grid.Row="9" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                            <CheckBox  Width="30" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_1_1" IsChecked="{Binding CheckBoxLevel_1_1}" Content="" Background="#FF00ADFF"/>
+                            <TextBlock Width="50" Text="T1(0.25)" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                            <CheckBox  Width="30" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_1_2" IsChecked="{Binding CheckBoxLevel_1_2}" Content="" Background="#FF00ADFF"/>
+                            <TextBlock Width="50"  Text="T2(0.5)" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                            <CheckBox Width="30" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_1_3" IsChecked="{Binding CheckBoxLevel_1_3}" Content="" Background="#FF00ADFF"/>
+                            <TextBlock Width="50" Text="T3(1)" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                            <CheckBox Width="30" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_1_4" IsChecked="{Binding CheckBoxLevel_1_4}" Content="" Background="#FF00ADFF"/>
+                            <TextBlock Width="50" Text="T4(2)" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                            <CheckBox Width="30" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_1_5" IsChecked="{Binding CheckBoxLevel_1_5}" Content="" Background="#FF00ADFF"/>
+                            <TextBlock Width="50" Text="T5(4)" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                            <CheckBox Width="30" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_1_6" IsChecked="{Binding CheckBoxLevel_1_6}" Content="" Background="#FF00ADFF"/>
+                            <TextBlock Width="50" Text="T6(8)" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        
+                        <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="第1层"></TextBlock>
+
+
+                        <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_2_1" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_2_2" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_2_3" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_2_4" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_2_5" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_2_6" Content="" Background="#FF00ADFF"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="第2层"></TextBlock>
+
+                        <CheckBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_3_1" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_3_2" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_3_3" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_3_4" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_3_5" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_3_6" Content="" Background="#FF00ADFF"/>
+                        <TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="第3层"></TextBlock>
+
+
+                        <CheckBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_4_1" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_4_2" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_4_3" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_4_4" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_4_5" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_4_6" Content="" Background="#FF00ADFF"/>
+                        <TextBlock Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="第4层"></TextBlock>
+
+
+                        <CheckBox Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_5_1" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_5_2" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_5_3" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="3" Grid.Column="4" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_5_4" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_5_5" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_5_6" Content="" Background="#FF00ADFF"/>
+                        <TextBlock Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="第5层"></TextBlock>
+
+
+                        <CheckBox Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_6_1" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_6_2" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="2" Grid.Column="5" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_6_3" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="3" Grid.Column="5" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_6_4" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="4" Grid.Column="5" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_6_5" Content="" Background="#FF00ADFF"/>
+                        <CheckBox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Center" BorderBrush="Black" VerticalAlignment="Center" Click="CheckBox_Click" x:Name="CheckBoxLevel_6_6" Content="" Background="#FF00ADFF"/>
+                        <TextBlock Grid.Row="6" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="第6层"></TextBlock>
+                    </Grid>
+
+                </Border>
+
+                <Border Grid.Row="10"  >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="14" Text="每层实投补电容数"></TextBlock>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="14" Text="反推试验电流"></TextBlock>
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="14" Text="偏差值"></TextBlock>
+
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="0" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding McsjTrsl}"></TextBox>
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Ftsydl}"></TextBox>
+                        <TextBox Background="Black" Foreground="Yellow" Width="50" Grid.Row="1" Grid.Column="2" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Pcz}"></TextBox>
+
+
+
+                        
+
+                    </Grid>
+                    
+                </Border>
+
+                <StackPanel Grid.Row="11" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤9 开始计算投入电流" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <Button Width="60" Command="{Binding BtnCommandStartCount}"  Content="确定" FontSize="15" ></Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤10 选择输出工位" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <ComboBox SelectedIndex="{Binding BtnComBoxListSCGWIndex}" ItemsSource="{Binding BtnComBoxListSCGW}" Width="150" FontSize="15"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="13" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="步骤11 执行工位合闸" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <Button Width="60" Grid.Row="1" FontSize="15"  Command="{Binding BtnCommandStartCount}" Grid.Column="4" Content="确定" ></Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="14" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="当前正在执行过程" Width="250" FontSize="15" Margin="10 0 10 0" VerticalAlignment="Center" ></TextBlock>
+                    <TextBox Background="Black" Foreground="Yellow" Width="150"  Text="{Binding Exerecord}"></TextBox>
+                </StackPanel>
+
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</Window>

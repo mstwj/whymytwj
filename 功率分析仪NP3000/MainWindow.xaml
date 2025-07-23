@@ -1,0 +1,47 @@
+﻿<Window x:Class="功率分析仪NP3000.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:功率分析仪NP3000"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+
+        Title="MainWindow" Height="760" Width="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- 菜单高度 这里还要加1个高度，就是 图标高度，就是 最小化 最大话按钮的高度，他们是40 -->
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="680"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Height="25" VerticalAlignment="Top" Grid.Row="0" >
+            <MenuItem Header="试验任务">
+                <MenuItem Header="样品录入" Click="DoBtnMenu1_1Click" />
+                <Separator/>
+                <MenuItem Header="退出"  Click="DoBtnMenu1_2Click"/>
+            </MenuItem>
+
+            <MenuItem Header="试验" >
+                <MenuItem Header="变压器变比实验" Click="DoBtnMenu2_1Click" />
+                <MenuItem Header="直流电阻实验"  Click="DoBtnMenu2_2Click" />
+            </MenuItem>
+
+            <MenuItem Header="数据管理">
+                <MenuItem Header="变压器变比实验报表"  Click="DoBtnMenu3_1Click" />
+                <MenuItem Header="直流电阻实验报表"  Click="DoBtnMenu3_2Click" />
+            </MenuItem>
+
+            <MenuItem Header="系统设置">
+                <MenuItem Header="设备设置" Click="DoBtnMenu4_1Click" />
+                <MenuItem Header="产品表管理"  Click="DoBtnMenu4_2Click" />
+            </MenuItem>
+
+        </Menu>
+
+        <Frame x:Name="FrameNv" Grid.Row="1"  IsManipulationEnabled="False" NavigationUIVisibility="Hidden"   ></Frame>
+
+    </Grid>
+
+</Window>

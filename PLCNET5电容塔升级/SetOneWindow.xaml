@@ -1,0 +1,17 @@
+﻿<Window x:Class="PLCNET5电容塔升级.SetOneWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLCNET5电容塔升级"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="设置" Height="100" Width="380">
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="设置单个电容大小:" FontSize="20" Margin="10 0 10 0"></TextBlock>
+            <TextBox x:Name="TB" Text="" Width="80" FontSize="20" Margin="10 0 10 0"></TextBox>
+            <Button Content="确认" Click="Button_Click" Width="60" FontSize="20" ></Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="铁芯实验.View.UserPowerSet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:铁芯实验.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Margin="0 0 10 0"  Text="频率设置:" FontSize="16"></TextBlock>
+            <ComboBox InputScope="Digits" Text="{Binding Hz_data}" IsEditable="True" Width="75"  FontSize="16">
+                <ComboBoxItem>50</ComboBoxItem>
+                <ComboBoxItem>60</ComboBoxItem>
+                <ComboBoxItem>200</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Margin="10 0 0 0"  Text="Hz" FontSize="16"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Margin="0 0 10 0" Text="电压设置:" FontSize="16"></TextBlock>
+            <TextBox  InputScope="Digits" MaxLength="9"  Text="{Binding Dianya_data}" Width="75" FontSize="16"></TextBox>
+            <TextBlock Margin="10 0 0 0" Text="V" FontSize="16"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <!--
+        <TextBlock Margin="0 0 10 0" Text="临时值：:" FontSize="16"></TextBlock>
+        -->
+            <TextBox Visibility="Hidden"  MaxLength="9"  Text="{Binding Tongtiao_data}" Width="75" FontSize="16"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Margin="0 0 10 0" Text="A相电压值:" ></TextBlock>
+            <TextBlock Text="{Binding Adainya_data}" FontSize="16"></TextBlock>
+            <TextBlock Margin="10 0 0 0" Text="V" ></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Margin="0 0 10 0" Text="B相电压值:" ></TextBlock>
+            <TextBlock Text="{Binding Bdainya_data}" FontSize="16"></TextBlock>
+            <TextBlock Margin="10 0 0 0" Text="V" ></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Margin="0 0 10 0" Text="C相电压值:" ></TextBlock>
+            <TextBlock Text="{Binding Cdainya_data}" FontSize="16"></TextBlock>
+            <TextBlock Margin="10 0 0 0" Text="V" ></TextBlock>
+        </StackPanel>
+
+        <StackPanel x:Name="StackPanel2" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="BtnDyCommandSet" Command="{Binding BtnDyCommandSet}" CommandParameter="{Binding ElementName=StackPanel2}" Margin="0 0 20 0" Width="45" Height="35" Content="设置"></Button>
+            <Button x:Name="BtnDyCommandStart" Command="{Binding BtnDyCommandStart}" CommandParameter="{Binding ElementName=StackPanel2}" Margin="0 0 20 0" Width="45" Height="35" Content="启动"></Button>
+            <Button x:Name="BtnDyCommandStop" Command="{Binding BtnDyCommandStop}" CommandParameter="{Binding ElementName=StackPanel2}"  Width="45" Height="35" Content="停止"></Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

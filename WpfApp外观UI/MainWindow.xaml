@@ -1,0 +1,125 @@
+﻿<Window x:Class="WpfApp外观UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:local="clr-namespace:WpfApp外观UI" xmlns:view="clr-namespace:WpfApp外观UI.View"
+        mc:Ignorable="d"        
+        Title="MainWindow" Height="450" Width="1200">
+
+    <Window.Resources>
+        <!--声明了一个样式-->
+        <!--样式也有局限，比如我这个按钮要变成园角的，怎么办，就不能使用样式了..只能使用什么，模版-->
+        <!--如果不要x:Key了，问题就出来了，所有的BUTTON都使用了这个样式.-->
+        <Style x:Key="btnSytle" TargetType="Button">
+            <Setter Property="Foreground" Value="Red"></Setter>
+            <Setter Property="Content" Value="MYYY"></Setter>
+            <!--编译会报错，为什么，因为编译是从上到下来，这里，找不找的到btnTemplate呢？
+            答案是，找不到。。怎么办，使用动态来表述编译-->
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button" >
+                        <!--这里有个问题，就是和原来的按钮不一样了，比如原来的按钮，鼠标上了，改变颜色，现在就不可以了
+                            怎么办，为什么会这样？因为模版覆盖了原来的，行为其实还在，只是现在是空的了..
+                        Background="{Binding Background}" 怎么理解，内的板顶了外面的.-->
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" x:Name="myback">
+                            <!--下面很复杂，怎么去理解呢？把RelativeSource后面的代码，理解为向上面去找，找到第一个Button的类型，然后得到BUTTON类型的CONTEXT值.-->
+                            <TextBlock Text="{Binding Path=Content,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Button}}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--鼠标来，可以识别-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+                
+            </Setter>
+            <!--样式也有触发器.-->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <!--鼠标来，可以识别. 这里很复杂Background本身button是没有Background的
+                    为什么这里可以去设置Background，因为，TemplateBinding Background 
+                    上面这一句，就让button有了Bacakground属性.-->
+                    <Setter Property="Background" Value="Gray"></Setter>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+
+        
+        
+    </Window.Resources>
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#223269DE"/>
+        <Border Background="#093269DE" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="White"/>
+
+        <!--主菜单-->
+        <ListBox ItemsSource="{Binding MenuList}" Background="Transparent"
+             BorderThickness="0" SelectedIndex="0" Name="menu_list" >
+            <!--这里就很复杂了以下是修改系统的蓝色框框.-->
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Foreground" Value="#888"/>
+                    <Setter Property="Margin" Value="0,3"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border Background="Transparent" Name="border">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#223269DE" TargetName="border"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter Property="Background" Value="#3269DE" TargetName="border"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <!--这里才是LISTBOX的东西-->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Icon}" FontFamily="Assets/Fonts/iconfont.ttf#iconfont"
+                               HorizontalAlignment="Center" FontSize="20"
+                               Margin="0,5"/>
+                        <!--以下代码可以 bing吗?找的到BtnCommandStart?-->
+                        <Button Content="{Binding Header}" Grid.Row="1" 
+                               HorizontalAlignment='Center' Margin="0,3"                               
+                               FontSize="11" Width="100" Height="50"                                
+                               Command="{Binding DataContext.BtnCommandStart,RelativeSource={RelativeSource AncestorType=Window}}"
+                               CommandParameter="{Binding Obj}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1">
+            <Button  Width="100" Height="40" Content="11122"  >
+                <!--这里覆盖了默认的模版-->
+                
+            </Button>
+            <Button  Width="100" Height="40" Content="1111" Style="{StaticResource btnSytle}"></Button>
+        </StackPanel>
+        
+
+        <!--第一步-->
+        <!--注意：这里不是页面:是什么，是用户控件-->
+        <ContentControl Grid.Column="1" Content="{Binding ContentView}"></ContentControl>
+    </Grid>
+
+</Window>

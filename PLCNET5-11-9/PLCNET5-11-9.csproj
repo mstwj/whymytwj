@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>PLCNET5_11_9</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Asset\gslog.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Asset\11.png" />
+    <None Remove="Asset\3.png" />
+    <None Remove="Asset\4.png" />
+    <None Remove="Asset\5.png" />
+    <None Remove="Asset\an1.png" />
+    <None Remove="Asset\an2.png" />
+    <None Remove="Asset\an3.png" />
+    <None Remove="Asset\an4.png" />
+    <None Remove="Asset\an5.png" />
+    <None Remove="Asset\an6.png" />
+    <None Remove="Asset\an7.png" />
+    <None Remove="Asset\an8.png" />
+    <None Remove="Asset\bg.jpg" />
+    <None Remove="Asset\bg.png" />
+    <None Remove="Asset\bg1.jpg" />
+    <None Remove="Asset\bg2.jpg" />
+    <None Remove="Asset\guanbi.jpg" />
+    <None Remove="Asset\guanbi2.jpg" />
+    <None Remove="Asset\headbg.png" />
+    <None Remove="Asset\headlogo.png" />
+    <None Remove="Asset\hs3.png" />
+    <None Remove="Asset\mybock.png" />
+    <None Remove="Asset\mypass.png" />
+    <None Remove="Asset\xiexian.png" />
+    <None Remove="Asset\xiexian2.png" />
+    <None Remove="Asset\xiexian3.png" />
+    <None Remove="Asset\zhixian.png" />
+    <None Remove="Asset\zhixian2.png" />
+    <None Remove="Asset\zhixian3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Asset\gslog.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\fd3.png" />
+    <Resource Include="Asset\hs3.png" />
+    <Resource Include="Asset\xiexian3.png" />
+    <Resource Include="Asset\zhixian3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="NModbus4.Core" Version="1.0.2" />
+    <PackageReference Include="S7netplus" Version="0.20.0" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\an7.png" />
+    <Resource Include="Asset\an8.png" />
+    <Resource Include="Asset\an1.png" />
+    <Resource Include="Asset\an2.png" />
+    <Resource Include="Asset\an3.png" />
+    <Resource Include="Asset\an4.png" />
+    <Resource Include="Asset\an5.png" />
+    <Resource Include="Asset\an6.png" />
+    <Resource Include="Asset\bg.jpg" />
+    <Resource Include="Asset\guanbi.jpg" />
+    <Resource Include="Asset\guanbi2.jpg" />
+    <Resource Include="Asset\headbg.png" />
+    <Resource Include="Asset\headlogo.png" />
+    <Resource Include="Asset\mybock.png" />
+    <Resource Include="Asset\mypass.png" />
+    <Resource Include="Asset\xiexian.png" />
+    <Resource Include="Asset\xiexian2.png" />
+    <Resource Include="Asset\zhixian.png" />
+    <Resource Include="Asset\zhixian2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="myButtonTemplate.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="myButtonTemplate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

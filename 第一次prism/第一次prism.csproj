@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Fonts\iconfont.ttf" />
+    <None Remove="Assets\Images\a01.jpg" />
+    <None Remove="Assets\Images\Device\dd_1.png" />
+    <None Remove="Assets\Images\Device\dd_2.png" />
+    <None Remove="Assets\Images\Device\d_1.png" />
+    <None Remove="Assets\Images\Device\d_2.png" />
+    <None Remove="Assets\Images\Device\d_3.png" />
+    <None Remove="Assets\Images\Device\d_4.png" />
+    <None Remove="Assets\Images\Device\d_5.png" />
+    <None Remove="Assets\Images\Logo_64.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Unity" Version="9.0.537" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\第一次prism_DeviceModule\第一次prism_DeviceModule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\iconfont.ttf" />
+    <Resource Include="Assets\Images\a01.jpg" />
+    <Resource Include="Assets\Images\Device\dd_1.png" />
+    <Resource Include="Assets\Images\Device\dd_2.png" />
+    <Resource Include="Assets\Images\Device\d_1.png" />
+    <Resource Include="Assets\Images\Device\d_2.png" />
+    <Resource Include="Assets\Images\Device\d_3.png" />
+    <Resource Include="Assets\Images\Device\d_4.png" />
+    <Resource Include="Assets\Images\Device\d_5.png" />
+    <Resource Include="Assets\Images\Logo_64.png" />
+  </ItemGroup>
+
+</Project>

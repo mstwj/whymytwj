@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="功率分析仪NP3000.View1.UserProInfoControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:功率分析仪NP3000.View1"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="样品信息" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Background="AliceBlue"></TextBlock>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="样品编号:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding YanPingBianhao}" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="样品型号:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding GuigeXinhao}" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="图号:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding Tuhao }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="相数:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding XiangShu }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="绕组:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding Laozhu }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="高压绕组:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding GaoYaLaozhu }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="低压绕组:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding DiYaLaozhu }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="挡位:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding DanWei }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="材质:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding CaiZhi }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="额定容量:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding EDingLongLiang }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="调压比例:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding TiaoYaBili }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="高额电压:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding GaoYaEDingDianYa }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="低额电压:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding DiYaEDingDianYa }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="标号:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding BiaoHao }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="组号:" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding ZhuHao }" FontSize="20"></TextBlock>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

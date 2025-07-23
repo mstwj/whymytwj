@@ -1,0 +1,116 @@
+﻿@page "/"
+@inject HttpClient httpClient
+@using System.Net.Http.Json
+@using Blazor必须8空工程只能7.Base
+
+<MudAlert Severity="Severity.Normal" Variant="Variant.Filled">The reactor type is RBMK-1000</MudAlert>
+
+
+<MudCarousel Class="mud-width-full" Style="height:200px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    <MudCarouselItem Transition="transition" Color="@Color.Primary">
+        <div class="d-flex" style="height:100%">
+            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition" Color="@Color.Secondary">
+        <div class="d-flex" style="height:100%">
+            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+<h2>1111</h2>
+
+<MudGrid>    
+    <MudItem xs="6">
+        <MudGrid>
+            <MudItem xs="6">
+                <h1>11111</h1>
+            </MudItem>
+            <MudItem xs="6">
+                <h1>22222</h1>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+    <MudItem xs="6">
+        <h1>3333</h1>
+    </MudItem>
+</MudGrid>
+
+<MudAvatar Color="Color.Primary">M</MudAvatar>
+<MudAvatar Color="Color.Secondary">U</MudAvatar>
+<MudAvatar Color="Color.Tertiary">D</MudAvatar>
+
+@code {
+    private Transition transition = Transition.Slide;
+    private string _buttonText = "Reply";
+    private IEnumerable<Element> Elements = new List<Element>();
+    private bool _processing = false;
+
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+
+     private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
+    public ChartOptions Options = new ChartOptions();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        //这里不是操时了嘛....
+        //http://192.168.1.5:5176/favicon.png -- 直接得到了图片..
+        //http://192.168.1.5:5176/sample-data/weather.json -- 直接得到了.json
+        //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json"); //这里是个死数据呀.. wwwroot目录下..
+        //Elements = await httpClient.GetFromJsonAsync<List<Element>>("webapi/periodictable");
+
+    }
+
+    async Task ProcessSomething()
+    {
+        //这里我WPF一样，这是一个工作线程
+        //await 肯定会等待2000秒..(注意，不是主线程.)
+        //这里和WPF不一样，WPF点击按钮，肯定是主线程。。 这里不是..
+        //这里就做了测试了，也就是说 胖客户端，点击的时候，不会调用到这里，
+        //换句话说，胖客户端，点击的时候，他浏览器，自己去处理了.. 不会回掉到我这里来，
+        //如果是瘦客户端，就会去回调，就这么的简单...--瘦客户端，每个点击，每个动作，都回掉.
+        //瘦客户端也有个大问题，就是网络一定要好.. 如果网络不好，就完蛋了..
+        //胖客户端也有个大问题，就是 服务端和客户端是分开的，瘦的，可以写到一起..
+        //服务端，就是提供WEBAPI接口的..
+        _processing = true;
+        await Task.Delay(2000);
+        _processing = false;
+    }
+
+    private void SetButtonText(int id)
+    {
+        switch (id)
+        {
+            case 0:
+                _buttonText = "Reply";
+                break;
+            case 1:
+                _buttonText = "Reply All";
+                break;
+            case 2:
+                _buttonText = "Forward";
+                break;
+            case 3:
+                _buttonText = "Reply & Delete";
+                break;
+        }
+    }
+
+    public List<ChartSeries> Series = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "Fossil", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+        new ChartSeries() { Name = "Renewable", Data = new double[] { 10, 41, 35, 51, 49, 62, 69, 91, 148 } },
+    };
+    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+
+}
+-->
