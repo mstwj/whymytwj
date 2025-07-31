@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:自己动手1"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1300">
 
     <!--无边框-->
     <WindowChrome.WindowChrome>

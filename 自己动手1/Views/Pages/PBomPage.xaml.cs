@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using 自己动手1.Models;
-using 自己动手1.ViewModels;
 
 namespace 自己动手1.Views.Pages
 {
     /// <summary>
-    /// DevicePage.xaml 的交互逻辑
+    /// PBomPage.xaml 的交互逻辑
     /// </summary>
-    public partial class DevicePage : UserControl
+    public partial class PBomPage : UserControl
     {
-        public DevicePage()
+        public PBomPage()
         {
             InitializeComponent();
-
-            this.DataContext = new DeviceViewModel();
         }
     }
 }

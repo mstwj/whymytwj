@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="自己动手1.Control.WarningLight"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:自己动手1.Control"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Viewbox>
+
+        <!--怎么理解,VisualStateGroups 是一个组管理，下面可以很多组，每个组又是一个状态机-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Fault">
+                    <Storyboard>
+                        <ColorAnimation To="#FFFF3737" Duration="0:0:0.5"
+                                        Storyboard.TargetName="borFaultColor"
+                                        Storyboard.TargetProperty="Color" 
+                                        RepeatBehavior="Forever" AutoReverse="True"/>
+                        <DoubleAnimation To="1" Duration="0:0:0.5"
+                                         Storyboard.TargetName="borFaultEffect"
+                                         Storyboard.TargetProperty="Opacity"
+                                         RepeatBehavior="Forever" AutoReverse="True"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Warning">
+                    <Storyboard>
+                        <ColorAnimation To="#FFFFC065" Duration="0:0:0.5"
+                                        Storyboard.TargetName="borWarningColor"
+                                        Storyboard.TargetProperty="Color" 
+                                        RepeatBehavior="Forever" AutoReverse="True"/>
+                        <DoubleAnimation To="1" Duration="0:0:0.5"
+                                         Storyboard.TargetName="borWarningEffect"
+                                         Storyboard.TargetProperty="Opacity"
+                                         RepeatBehavior="Forever" AutoReverse="True"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Run">
+                    <Storyboard>
+                        <ColorAnimation To="#FF23C12A" Duration="0:0:0.3"
+                                        Storyboard.TargetName="borRunColor"
+                                        Storyboard.TargetProperty="Color" />
+                        <DoubleAnimation To="1" Duration="0:0:0.3"
+                                         Storyboard.TargetName="borRunEffect"
+                                         Storyboard.TargetProperty="Opacity"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="None">
+
+                </VisualState>
+            </VisualStateGroup>
+
+        </VisualStateManager.VisualStateGroups>
+        <StackPanel>
+            <Border Width="40" Height="10" CornerRadius="7,7,0,0" Background="#DDD"/>
+            <Border Width="40" Height="50" Name="borFault">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" Color="#FFFF3737" x:Name="borFaultEffect"
+                                      Direction="0" ShadowDepth="0" Opacity="0"/>
+                </Border.Effect>
+                <Border.Background>
+                    <SolidColorBrush Color="#FFBF1919" x:Name="borFaultColor"/>
+                </Border.Background>
+            </Border>
+            <Border Width="40" Height="50">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" Color="#FFFFC065" x:Name="borWarningEffect"
+                                      Direction="0" ShadowDepth="0" Opacity="0"/>
+                </Border.Effect>
+                <Border.Background>
+                    <SolidColorBrush Color="#FFC99A1C" x:Name="borWarningColor"/>
+                </Border.Background>
+            </Border>
+            <Border Width="40" Height="50">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" Color="#FF23C12A" x:Name="borRunEffect"
+                                      Direction="0" ShadowDepth="0" Opacity="0"/>
+                </Border.Effect>
+                <Border.Background>
+                    <SolidColorBrush Color="Green" x:Name="borRunColor"/>
+                </Border.Background>
+            </Border>
+            <Border Width="40" Height="10" CornerRadius="0,0,7,7" Background="#DDD"/>
+        </StackPanel>
+    </Viewbox>
+</UserControl>

@@ -45,7 +45,7 @@ namespace 自己动手1.ViewModels
             tim.Children.Add(new MenuItemModel
             {
                 Header = "PBOM",
-                TargetView = "BlankPage",
+                TargetView = "PBomPage",
                 OpenViewCommand = new Command<MenuItemModel>(OpenView)
 
             });
