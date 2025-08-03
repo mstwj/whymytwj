@@ -11,7 +11,14 @@ namespace 自己动手1.Base
     {
         public event EventHandler? CanExecuteChanged;
 
-        public bool CanExecute(object? parameter) => true;
+        public bool CanExecute(object? parameter) 
+        {
+            if (DoCanExecute == null)
+            {
+                return true;
+            }
+            return DoCanExecute(parameter);
+        }
 
 
         public void Execute(object? parameter)
@@ -22,11 +29,16 @@ namespace 自己动手1.Base
             DoExecuteWithParam?.Invoke(p);
         }
 
-
+        public void RasieCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this,new EventArgs());
+        }
 
 
         public Action DoExecuteNoneParam { get; set; }
         public Action<T> DoExecuteWithParam { get; set; }
+
+        public Func<object,bool> DoCanExecute { get; set; }
 
         public Command(Action doExecute)
         {

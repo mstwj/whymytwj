@@ -10,22 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using 自己动手1.ViewModels;
 
-namespace 自己动手1.Views.Pages
+namespace 自己动手1.Views.Dialog
 {
     /// <summary>
-    /// PBomPage.xaml 的交互逻辑
+    /// PBomEditWin.xaml 的交互逻辑
     /// </summary>
-    public partial class PBomPage : UserControl
+    public partial class PBomEditWin : Window
     {
-        public PBomPage()
+        public PBomEditWin()
         {
             InitializeComponent();
+        }
 
-            this.DataContext = new PBomViewModel();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //关闭了对话框，也返回为TRUE了..
+            this.DialogResult = true;
         }
     }
 }

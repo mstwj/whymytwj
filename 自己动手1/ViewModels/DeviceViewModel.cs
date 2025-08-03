@@ -103,7 +103,11 @@ namespace 自己动手1.ViewModels
         private void App_MqttMessageReceived(object? sender, string e)
         {
             //这样就是直接给数据了..
-           // DeviceList[0].Properties[3].PropValue = e;
+            // DeviceList[0].Properties[3].PropValue = e;
+
+            // 真实对接    作业 
+            //e  就是一个Json字符串  反序列化 -》 对象 
+
         }
     }
 }

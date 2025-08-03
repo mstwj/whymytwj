@@ -12,6 +12,8 @@ using 自己动手1.Models;
 
 namespace 自己动手1.ViewModels
 {
+    //这里就个概念，就是VIEW 找他拿数据，他VIEWMODEL是不知道 VIEW存在的..viewmodel 是只知道MODEL的存在，也就是说
+    //这里的VIEW最大，VIEWMODEL2 MODEL是最小的..
     class MainViewModel
     {
                                    
