@@ -16,6 +16,7 @@ namespace 串口测试
         {
             base.OnStartup(e);
 
+            
             GlobalMonitor.Start(
                 () =>
                 {
@@ -35,6 +36,7 @@ namespace 串口测试
                         Application.Current.Shutdown();
                     });
                 });
+            
         }
 
         protected override void OnExit(ExitEventArgs e)
