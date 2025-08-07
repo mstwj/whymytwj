@@ -93,6 +93,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "上位机推送", "上位�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "串口测试", "串口测试\串口测试.csproj", "{485F9D98-FE22-4A60-A073-0BCFA791B1BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.Controls", "Zhaoxi.Controls\Zhaoxi.Controls.csproj", "{AA979577-A340-48E8-B7CF-4C95EE082EC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,10 @@ Global
 		{485F9D98-FE22-4A60-A073-0BCFA791B1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{485F9D98-FE22-4A60-A073-0BCFA791B1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{485F9D98-FE22-4A60-A073-0BCFA791B1BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -267,6 +273,7 @@ Global
 		{9B803832-FD70-470C-80A5-4AB08A9C510B} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
 		{BC0B70E2-A7E6-46B5-AC4E-B3ECBF8896E2} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
 		{485F9D98-FE22-4A60-A073-0BCFA791B1BB} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
+		{AA979577-A340-48E8-B7CF-4C95EE082EC8} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3B52457-CAF9-4B3D-A528-70CCF2C52C64}

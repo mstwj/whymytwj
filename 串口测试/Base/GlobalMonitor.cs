@@ -10,15 +10,21 @@ namespace 串口测试.Base
     public class GlobalMonitor
     {
 
-        public static SerialInfo SerialInfo { get; set; } 
+        public static SerialInfo SerialInfo { get; set; }
+
+        public static List<StorageModel> StorageList { get; set; }
+        public static List<DeviceModel> DeviceList { get; set; }
 
         static bool isRunning = true;
         static Task mainTask = null;
+        static RTU rtuInstance = null;
 
         public static void Start(Action successAction, Action<string> faultAction)
         {
-            mainTask = Task.Run(() =>
+            mainTask = Task.Run(async () =>
             {
+                //这里设计的很巧妙... 可以说，写的很好..
+                //初始化，就应该这样去写...
                 IndustrialBLL bll = new IndustrialBLL();
                 var si = bll.InitSerialInfo();
 
@@ -30,14 +36,33 @@ namespace 串口测试.Base
                     return;
                 }
 
+                // 获取存储区信息
+                //DataResult<List<StorageModel>> 这个是返回的..
+                var sa = bll.InitStorageArea();
+                if (sa.State)
+                    StorageList = sa.Data; //sa.Data是什么.. 是一个LIST。。。
+                else
+                {
+                    faultAction(sa.Message); return;
+                }
+
+                // 初始化设备变量集合及警戒值
+                var dr = bll.InitDevices();
+                if (dr.State)
+                    DeviceList = dr.Data;
+                else
+                {
+                    faultAction(dr.Message); return;
+                }
+
 
                 /// 初始化ModbusRTU串口通信
                 /// //这里也就一个呀...
                 /// //如果是2个呢？那不是使用同一个了吗？
-                var rtu = RTU.GetInstance(SerialInfo);
-                rtu.ResponseData = new Action<int, List<byte>>(ParsingData);
+                rtuInstance = RTU.GetInstance(SerialInfo);
+                rtuInstance.ResponseData = new Action<int, List<byte>>(ParsingData);
              
-                if (rtu.Connection())
+                if (rtuInstance.Connection())
                 {
                     successAction.Invoke();
 
@@ -45,8 +70,12 @@ namespace 串口测试.Base
                     {
                         int startAddress = 0;
                         Task.Delay(1000);
-                        //
 
+                        //int readCount = 1;
+                        //
+                        //                    
+                        //Task<bool> Send(int slaveAddr, byte funcCode, int startAddr, int len)
+                        //await rtuInstance.Send(1, (byte)3, 0, 1);
                     }
                 }
                 else
@@ -58,12 +87,20 @@ namespace 串口测试.Base
             });
         }
 
-        private static void ParsingData(int start_addr,List<byte> byteList)
+        private static void ParsingData(int start_addr, List<byte> byteList)
         {
+            //这里和我预料的是一样的，回的数据是对的.. 11 22 33 44 我发送一次回一次..
             //串口回调到这里了..
+            if (byteList != null && byteList.Count > 0)
+            {
+                int startByte = 4;
+                byte[] res = null;
 
+                res = new byte[4] { 0,0,byteList[startByte], byteList[startByte + 1] };
+                //item.CurrentValue = res.ByteArrsyToFloat();
+
+            }
         }
-
         public static void Dispose()
         {
             isRunning = false;
@@ -72,6 +109,24 @@ namespace 串口测试.Base
 
             if (mainTask != null)
                 mainTask.Wait();
+        }
+    }
+
+    public static class ExtendClass
+    {
+        public static float ByteArrsyToFloat(this byte[] value)
+        {
+            float fValue = 0f;
+            uint nRest = ((uint)value[2]) * 256
+                + ((uint)value[3]) +
+                65536 * (((uint)value[0]) * 256 + ((uint)value[1]));
+            unsafe
+            {
+                float* ptemp;
+                ptemp = (float*)(&nRest);
+                fValue = *ptemp;
+            }
+            return fValue;
         }
     }
 }

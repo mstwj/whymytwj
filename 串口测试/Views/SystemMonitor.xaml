@@ -4,25 +4,91 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:串口测试.Views"
-             xmlns:zxc="clr-namespace:串口测试.Base"
-             mc:Ignorable="d"              
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid  Height="auto" VerticalAlignment="Top" Margin="20,10" Background="{x:Null}">
+             xmlns:vm="clr-namespace:串口测试.ViewModels"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:zxc="clr-namespace:Zhaoxi.Controls;assembly=Zhaoxi.Controls"
+             xmlns:component="clr-namespace:Zhaoxi.Controls.Components;assembly=Zhaoxi.Controls"
+             xmlns:converter="clr-namespace:串口测试.Base"
+             mc:Ignorable="d"        
+             xmlns:base="clr-namespace:串口测试.Base"
+             d:DesignHeight="650" d:DesignWidth="1200">
+
+    <UserControl.Resources>
+        
+        <converter:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter"/>
+        <vm:SystemMonitorViewModel x:Key="smVM"/>
+
+        <ControlTemplate TargetType="ToggleButton" x:Key="StateButtonTemplate">
+            <Border CornerRadius="3" Background="#EEE" Height="20" Width="50" Name="back">
+                <Grid>
+                    <TextBlock Text="停机" VerticalAlignment="Center" Margin="4,0" FontSize="9"/>
+                    <TextBlock Text="运行" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4,0" Foreground="White" FontSize="9"/>
+                    <Border Margin="2" HorizontalAlignment="Left" Width="23" Background="#DDD" CornerRadius="2">
+                        <TextBlock Text="||" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
+                        <Border.RenderTransform>
+                            <TranslateTransform X="22" x:Name="tt"/>
+                        </Border.RenderTransform>
+                    </Border>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetName="tt" Storyboard.TargetProperty="X"/>
+                                <ColorAnimation Duration="0:0:0.2" To="#38baec" Storyboard.TargetName="back" Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="tt" Storyboard.TargetProperty="X"/>
+                                <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate TargetType="ToggleButton" x:Key="WarningButtonTemplate">
+            <TextBlock Text="&#xe62e;" FontFamily="pack://application:,,,;component/Assets/Fonts/#iconfont"
+               Foreground="#FF3300" FontSize="18" VerticalAlignment="Center"
+               Name="txt" Opacity="0"/>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Opacity" Value="1" TargetName="txt"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+    </UserControl.Resources>
+
+    <Grid DataContext="{Binding Source={StaticResource smVM}}" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
+        
+        
 
         <Border BorderBrush="#66DFFDFF" BorderThickness="1" CornerRadius="5" Background="#22000000" Visibility="Collapsed">
             <Border.Effect>
                 <DropShadowEffect Color="#FFDFFDFF" ShadowDepth="0" Direction="0" BlurRadius="5"/>
             </Border.Effect>
         </Border>
-        
-        
-       
-       
+
+
+
+        <!--左侧设备详情
         <Grid VerticalAlignment="Top" Margin="15,0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -45,6 +111,11 @@
             <TextBlock Text="出口温度：" Grid.Row="4" VerticalAlignment="Center" Foreground="#99FFFFFF"/>
             <TextBlock Text="补水压力：" Grid.Row="5" VerticalAlignment="Center" Foreground="#99FFFFFF"/>
 
+            <Button Content="Test1" Grid.Column="1" Grid.Row="0" Click="Button_Click" ></Button>
+            <Button Content="Test2" Grid.Column="1" Grid.Row="1" Click="Button_Click_1" ></Button>
+            <Button Content="Test3" Grid.Column="1" Grid.Row="2" Click="Button_Click_2" ></Button>
+            <Button Content="Test4" Grid.Column="1" Grid.Row="3" Click="Button_Click_3" ></Button>
+            
             <TextBlock Text="5 " Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#99FFFFFF"/>
             <TextBlock Text="m" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#99FFFFFF"/>
             <TextBlock Text="50 " Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#99FFFFFF"/>
@@ -59,8 +130,74 @@
             <TextBlock Text="Mpa" Grid.Column="3" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#99FFFFFF"/>
 
         </Grid>
+         -->
+        <!--左侧设备详情-->
+        <Grid Visibility="{Binding IsShowDetail,Converter={StaticResource Bool2VisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding CurrentDevice.DeviceName}" Foreground="White" FontSize="14" Margin="0,15"/>
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentDevice.MonitorValueList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ValueName,StringFormat=\{0\}:}" Foreground="#99FFFFFF" VerticalAlignment="Center"/>
+                            <lvc:CartesianChart Grid.Column="1" MinHeight="30" DataTooltip="{x:Null}">
+                                <lvc:CartesianChart.Series>
+                                    <lvc:LineSeries Fill="Transparent" Values="{Binding Values}" PointGeometrySize="0" StrokeThickness="0.5">
+                                        <lvc:LineSeries.Stroke>
+                                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                                <GradientStop Color="Orange" Offset="0.5"/>
+                                                <GradientStop Color="#00FFFFFF" Offset="0"/>
+                                                <GradientStop Color="#FFFFE2AE" Offset="0.1"/>
+                                            </LinearGradientBrush>
+                                        </lvc:LineSeries.Stroke>
+                                    </lvc:LineSeries>
+                                </lvc:CartesianChart.Series>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis ShowLabels="False"/>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis ShowLabels="False"/>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                            <TextBlock Text="{Binding CurrentValue}" Grid.Column="2" Foreground="#99FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <TextBlock Text="{Binding Unit}" Grid.Column="3" Foreground="#99FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Height="40">
+                <TextBlock Text="实时状态：" Foreground="#99FFFFFF" VerticalAlignment="Center"/>
+                <ToggleButton IsChecked="{Binding CurrentDevice.IsRunning}" Template="{StaticResource StateButtonTemplate}"/>
+            </StackPanel>
+            <ToggleButton Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding CurrentDevice.IsWarning}"
+                  Template="{StaticResource WarningButtonTemplate}" Margin="0,0,15,0"
+                  IsEnabled="False"/>
 
+            <ItemsControl Grid.Row="3" ItemsSource="{Binding CurrentDevice.WarningMessageList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Message}" Foreground="#CCFF4400" TextWrapping="Wrap" LineHeight="22">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="White" ShadowDepth="0" Direction="0" Opacity="0.7" BlurRadius="1"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
 
+        <!--右侧设备详情-->
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -72,7 +209,8 @@
             <UniformGrid Columns="3" Margin="0,40,0,0">
                 <StackPanel>
                     <TextBlock Text="监控值" HorizontalAlignment="Center" Foreground="#99FFFFFF"/>
-                    <zxc:CircularProgressBar Value="{Binding PageModel.GlobalMonitorValue1}" Width="60" Height="90" BackColor="#EEE" ForeColor="#20c9b4"/>
+
+                    <zxc:CircularProgressBar Value="70" Width="60" Height="90" ForeColor="#20c9b4"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="监控值" HorizontalAlignment="Center" Foreground="#99FFFFFF"/>
@@ -89,8 +227,54 @@
                     <Hyperlink Foreground="#66DFFDFF">详情</Hyperlink>
             </TextBlock>
 
-            <ItemsControl Grid.Row="3" ItemsSource="{Binding PageModel.Logs}" AlternationCount="2">
+            <ItemsControl Grid.Row="3" ItemsSource="{Binding Source={StaticResource smVM},Path=LogList}" AlternationCount="2">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border Background="#11FFFFFF" Name="back" Visibility="Collapsed" CornerRadius="14"/>
+                            <Grid TextBlock.Foreground="White" TextBlock.FontSize="10" Height="28">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding RowNumber,StringFormat=\{0:00\}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding DeviceName}" VerticalAlignment="Center" Grid.Column="1"/>
+                                <TextBlock Text="{Binding LogInfo}" VerticalAlignment="Center" Grid.Column="2"/>
+                                <Border Grid.Column="3" Height="26" CornerRadius="0,13,13,0" Name="type_back" Margin="0,1,1,1">
+                                    <TextBlock Text="{Binding LogType}" Grid.Column="3" VerticalAlignment="Center" Margin="8,0"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Visibility" Value="Visible" TargetName="back"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding LogType}" Value="1">
+                                <Setter Property="Background" Value="#66FF0000" TargetName="type_back"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Border Background="White">
+                <!--冷却塔-->
+                <component:CoolingTower Width="90" Height="110" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                        Margin="125,0,0,95"
+                        Command="{Binding ComponentCommand}"
+                        CommandParameter="{Binding Path=(base:GlobalMonitor.DeviceList)[0]}"
+                        IsRunning="{Binding Path=(base:GlobalMonitor.DeviceList)[0].IsRunning}"
+                        IsFault="{Binding Path=(base:GlobalMonitor.DeviceList)[0].IsWarning}"/>
+                
+            </Border>
+        </Grid>
+        
+        
+        
+        
     </Grid>
 </UserControl>

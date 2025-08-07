@@ -14,22 +14,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace 串口测试.Base
+namespace Zhaoxi.Controls
 {
     /// <summary>
-    /// CircularProgressBar.xaml 的交互逻辑
+    /// UserControl1.xaml 的交互逻辑
     /// </summary>
     public partial class CircularProgressBar : UserControl
     {
-   
-
         public double Value
         {
             get { return (double)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(CircularProgressBar), new PropertyMetadata(0.0, new PropertyChangedCallback(OnPropertyChanged)));
+            DependencyProperty.Register("Value", typeof(double), typeof(CircularProgressBar), new PropertyMetadata(default(double), new PropertyChangedCallback(OnPropertyChanged)));
 
         public Brush BackColor
         {
@@ -48,12 +46,6 @@ namespace 串口测试.Base
             DependencyProperty.Register("ForeColor", typeof(Brush), typeof(CircularProgressBar), new PropertyMetadata(Brushes.Orange));
 
 
-
-        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as CircularProgressBar).UpdateValue();
-        }
-
         public CircularProgressBar()
         {
             InitializeComponent();
@@ -66,27 +58,34 @@ namespace 串口测试.Base
             this.UpdateValue();
         }
 
+        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CircularProgressBar).UpdateValue();
+        }
+
         private void UpdateValue()
         {
             this.layout.Width = Math.Min(this.RenderSize.Width, this.RenderSize.Height);
-            this.layout.Height = Math.Min(this.RenderSize.Width, this.RenderSize.Height);
             double radius = Math.Min(this.RenderSize.Width, this.RenderSize.Height) / 2;
             if (radius <= 0) return;
 
+            double newValue = this.Value % 100.0;
             double newX = 0.0, newY = 0.0;
-            newX = radius + (radius - 3) * Math.Cos((this.Value % 100.0 * 3.6 - 90) * Math.PI / 180);
-            newY = radius + (radius - 3) * Math.Sin((this.Value % 100.0 * 3.6 - 90) * Math.PI / 180);
+            newX = radius + (radius - 3) * Math.Cos((newValue * 3.6 - 90) * Math.PI / 180);
+            newY = radius + (radius - 3) * Math.Sin((newValue * 3.6 - 90) * Math.PI / 180);
 
-            string pathDataStr = "M{0} 3A{3} {3} 0 {4} 1 {1} {2}";
+            //M75 3A75 75 0 0 1 147 75
+
+            string pathDataStr = "M{0} 3A{1} {1} 0 {4} 1 {2} {3}";
             pathDataStr = string.Format(pathDataStr,
                 radius + 0.01,
+                radius - 3,
                 newX,
                 newY,
-                radius - 3,
-                this.Value < 50 ? 0 : 1);
+                newValue < 50 && newValue > 0 ? 0 : 1
+                );
             var converter = TypeDescriptor.GetConverter(typeof(Geometry));
             this.path.Data = (Geometry)converter.ConvertFrom(pathDataStr);
-
         }
     }
 }
