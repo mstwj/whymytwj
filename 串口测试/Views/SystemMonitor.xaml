@@ -11,6 +11,7 @@
              xmlns:converter="clr-namespace:串口测试.Base"
              mc:Ignorable="d"        
              xmlns:base="clr-namespace:串口测试.Base"
+             Background="Black"
              d:DesignHeight="650" d:DesignWidth="1200">
 
     <UserControl.Resources>
@@ -129,9 +130,72 @@
             <TextBlock Text="50 " Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#99FFFFFF"/>
             <TextBlock Text="Mpa" Grid.Column="3" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#99FFFFFF"/>
 
+        </Grid>-->
+
+        <!--这里我们使用测试数据..  这样就不用电了...-->
+
+        <Grid DataContext="{Binding TestDevice}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding DeviceName}"></TextBlock>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Height="40">
+                <TextBlock Text="实时状态：" Foreground="#99FFFFFF" VerticalAlignment="Center"/>
+                <ToggleButton IsChecked="{Binding CurrentDevice.IsRunning}" Template="{StaticResource StateButtonTemplate}"/>
+            </StackPanel>
+            <ToggleButton Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding CurrentDevice.IsWarning}"
+                    Template="{StaticResource WarningButtonTemplate}" Margin="0,0,15,0"
+                    IsEnabled="False"/>
+            
+            
+
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding MonitorValueList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ValueName,StringFormat=\{0\}:}" Foreground="#99FFFFFF" VerticalAlignment="Center"/>
+                            <!--第一个-->
+                            <lvc:CartesianChart Grid.Column="1" MinHeight="30" DataTooltip="{x:Null}">
+                                <!--设置线属性-->
+                                <lvc:CartesianChart.Series>
+                                    <!--这里就1根线..-->
+                                    <lvc:LineSeries Fill="Transparent" Values="{Binding Values}" PointGeometrySize="0" StrokeThickness="0.5">
+                                        <lvc:LineSeries.Stroke>
+                                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                                <GradientStop Color="Orange" Offset="0.5"/>
+                                                <GradientStop Color="#00FFFFFF" Offset="0"/>
+                                                <GradientStop Color="#FFFFE2AE" Offset="0.1"/>
+                                            </LinearGradientBrush>
+                                        </lvc:LineSeries.Stroke>
+                                    </lvc:LineSeries>
+                                </lvc:CartesianChart.Series>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis ShowLabels="False"/>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis ShowLabels="False"/>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                            <TextBlock Text="{Binding CurrentValue}" Grid.Column="2" Foreground="#99FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <TextBlock Text="{Binding Unit}" Grid.Column="3" Foreground="#99FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
-         -->
-        <!--左侧设备详情-->
+
+        <!--左侧设备详情 如果不点就不出来..
         <Grid Visibility="{Binding IsShowDetail,Converter={StaticResource Bool2VisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -196,6 +260,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
+        -->
 
         <!--右侧设备详情-->
         <Grid Grid.Column="2">
@@ -261,7 +326,7 @@
         </Grid>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="3">
-            <Border Background="White">
+            
                 <!--冷却塔-->
                 <component:CoolingTower Width="90" Height="110" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                         Margin="125,0,0,95"
@@ -269,8 +334,16 @@
                         CommandParameter="{Binding Path=(base:GlobalMonitor.DeviceList)[0]}"
                         IsRunning="{Binding Path=(base:GlobalMonitor.DeviceList)[0].IsRunning}"
                         IsFault="{Binding Path=(base:GlobalMonitor.DeviceList)[0].IsWarning}"/>
-                
-            </Border>
+
+
+                <component:CoolingTower Width="95" Height="115" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                        Margin="98,0,0,52"
+                        Command="{Binding ComponentCommand}"
+                        CommandParameter="{Binding Path=(base:GlobalMonitor.DeviceList)[1]}"
+                        IsRunning="{Binding Path=(base:GlobalMonitor.DeviceList)[1].IsRunning}"
+                        IsFault="{Binding Path=(base:GlobalMonitor.DeviceList)[1].IsWarning}"/>
+
+           
         </Grid>
         
         

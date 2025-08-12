@@ -30,6 +30,7 @@ namespace 串口测试.ViewModels
             TabChangedCommand = new CommandBase(OnTabChanged);
 
 
+
             //默认情况下就打开这个..
             OnTabChanged("串口测试.Views.SystemMonitor");
         }

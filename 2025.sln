@@ -85,7 +85,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "公共类", "公共类\公�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "车库客户端WPF接口类库", "车库客户端WPF接口类库\车库客户端WPF接口类库.csproj", "{E1DD23DB-3BD4-4045-A929-BF64D596951B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "自己动手", "自己动手", "{5174CC6B-D060-45C9-AB4E-E557481CE946}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "自己动手(手机开发只能英文)", "自己动手(手机开发只能英文)", "{5174CC6B-D060-45C9-AB4E-E557481CE946}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "自己动手1", "自己动手1\自己动手1.csproj", "{9B803832-FD70-470C-80A5-4AB08A9C510B}"
 EndProject
@@ -94,6 +94,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "串口测试", "串口测试\串口测试.csproj", "{485F9D98-FE22-4A60-A073-0BCFA791B1BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.Controls", "Zhaoxi.Controls\Zhaoxi.Controls.csproj", "{AA979577-A340-48E8-B7CF-4C95EE082EC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLC自己动手2", "PLC自己动手2\PLC自己动手2.csproj", "{D50A1790-215A-4AD5-AF23-69CCBA71B39B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotUserEnPhone", "NotUserEnPhone\NotUserEnPhone.csproj", "{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +253,16 @@ Global
 		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA979577-A340-48E8-B7CF-4C95EE082EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50A1790-215A-4AD5-AF23-69CCBA71B39B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50A1790-215A-4AD5-AF23-69CCBA71B39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50A1790-215A-4AD5-AF23-69CCBA71B39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50A1790-215A-4AD5-AF23-69CCBA71B39B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -274,6 +288,8 @@ Global
 		{BC0B70E2-A7E6-46B5-AC4E-B3ECBF8896E2} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
 		{485F9D98-FE22-4A60-A073-0BCFA791B1BB} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
 		{AA979577-A340-48E8-B7CF-4C95EE082EC8} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
+		{D50A1790-215A-4AD5-AF23-69CCBA71B39B} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
+		{C89CB26F-215F-47A6-8DF3-5BA0977D48B0} = {5174CC6B-D060-45C9-AB4E-E557481CE946}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3B52457-CAF9-4B3D-A528-70CCF2C52C64}

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Fonts\digital_display.ttf" />
+    <None Remove="Assets\Fonts\iconfont.ttf" />
+    <None Remove="Assets\Images\avatar.png" />
+    <None Remove="Assets\Images\login_image.jpg" />
+    <None Remove="Assets\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Assets\Styles\ComboBoxStyle.xaml" />
+    <Page Remove="Assets\Styles\DataGridStyle.xaml" />
+    <Page Remove="Assets\Styles\LeftTabControlStyle.xaml" />
+    <Page Remove="Assets\Styles\ScrollViewerStyle.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.0-preview1.24240.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\digital_display.ttf" />
+    <Resource Include="Assets\Fonts\iconfont.ttf" />
+    <Resource Include="Assets\Images\avatar.png" />
+    <Resource Include="Assets\Images\login_image.jpg" />
+    <Resource Include="Assets\Images\Logo.png" />
+    <Resource Include="Assets\Styles\ComboBoxStyle.xaml" />
+    <Resource Include="Assets\Styles\DataGridStyle.xaml" />
+    <Resource Include="Assets\Styles\LeftTabControlStyle.xaml" />
+    <Resource Include="Assets\Styles\ScrollViewerStyle.xaml" />
+  </ItemGroup>
+
+</Project>

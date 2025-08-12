@@ -29,11 +29,73 @@ namespace 串口测试.ViewModels
             set { _isShowDetail = value; this.RaisePropertyChanged(); }
         }
 
+        public DeviceModel TestDevice { get; set; }
+
         public CommandBase ComponentCommand { get; set; }
 
         public SystemMonitorViewModel() 
         {
             InitLogInfo();
+
+            #region 测试数据，为了设置数据模板
+            TestDevice = new DeviceModel();
+            TestDevice.DeviceName = "冷却塔 1#";
+            TestDevice.IsRunning = true;
+            TestDevice.IsWarning = true;
+            TestDevice.MonitorValueList.Add(new MonitorValueModel
+            {
+                ValueId = "1",
+                ValueName = "液位",
+                Unit = "m",
+                CurrentValue = 45,
+                Values = new LiveCharts.ChartValues<LiveCharts.Defaults.ObservableValue> { new LiveCharts.Defaults.ObservableValue(0), new LiveCharts.Defaults.ObservableValue(0) }
+            }); ;
+            TestDevice.MonitorValueList.Add(new MonitorValueModel
+            {
+                ValueId = "1",
+                ValueName = "入口压力",
+                Unit = "Mpa",
+                CurrentValue = 34,
+                Values = new LiveCharts.ChartValues<LiveCharts.Defaults.ObservableValue> { new LiveCharts.Defaults.ObservableValue(0), new LiveCharts.Defaults.ObservableValue(0) }
+            });
+            TestDevice.MonitorValueList.Add(new MonitorValueModel
+            {
+                ValueId = "1",
+                ValueName = "入口温度",
+                Unit = "℃",
+                CurrentValue = 34,
+                Values = new LiveCharts.ChartValues<LiveCharts.Defaults.ObservableValue> { new LiveCharts.Defaults.ObservableValue(0), new LiveCharts.Defaults.ObservableValue(0) }
+            });
+            TestDevice.MonitorValueList.Add(new MonitorValueModel
+            {
+                ValueId = "1",
+                ValueName = "出口压力",
+                Unit = "Mpa",
+                CurrentValue = 34,
+                Values = new LiveCharts.ChartValues<LiveCharts.Defaults.ObservableValue> { new LiveCharts.Defaults.ObservableValue(0), new LiveCharts.Defaults.ObservableValue(0) }
+            });
+            TestDevice.MonitorValueList.Add(new MonitorValueModel
+            {
+                ValueId = "1",
+                ValueName = "出口温度",
+                Unit = "℃",
+                CurrentValue = 34,
+                Values = new LiveCharts.ChartValues<LiveCharts.Defaults.ObservableValue> { new LiveCharts.Defaults.ObservableValue(0), new LiveCharts.Defaults.ObservableValue(0) }
+            });
+            TestDevice.MonitorValueList.Add(new MonitorValueModel
+            {
+                ValueId = "1",
+                ValueName = "补水压力",
+                Unit = "Mpa",
+                CurrentValue = 34,
+                Values = new LiveCharts.ChartValues<LiveCharts.Defaults.ObservableValue> { new LiveCharts.Defaults.ObservableValue(0), new LiveCharts.Defaults.ObservableValue(0) }
+            });
+
+            TestDevice.WarningMessageList.Add(new WarningMessageModel { Message = "冷却塔1#液位极低，当前值：0" });
+            TestDevice.WarningMessageList.Add(new WarningMessageModel { Message = "冷却塔1#入口压力极低，当前值：0" });
+            TestDevice.WarningMessageList.Add(new WarningMessageModel { Message = "冷却塔1#入口温度极低，当前值：0" });
+
+            #endregion
 
             //这里很复杂，是 冷却塔绑定了这个按钮...
             //其实，我还要去画个 冷却塔出来..
