@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NotUserEnPhone.Views.LoginPage"
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#1a32c3" Offset="0"/>
+                <GradientStop Color="#7a36d6" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!--StackLayout 注意就是一个垂直反向的战.. Xamarin.Forms-->
+        <VerticalStackLayout VerticalOptions="Center">
+            <Frame HorizontalOptions="Center" VerticalOptions="Center" Padding="0" WidthRequest="80" HeightRequest="76" CornerRadius="40"
+                   BorderColor="White" Margin="0,-100,0,20">
+                <!--S老师说，这个LOGOG.PNG 放哪里都是OK的. 这里编译的时候，报错1次，说什么，名字冲突什么的，
+                我删除了. 冲突的IMAGES的那个文件，就OK了.我也不知道为什么..s-->
+                <Image Source="logo.png" BackgroundColor="Transparent" Aspect="AspectFit"/>
+            </Frame>
+            <Label  Text="朝夕MES" VerticalOptions="Center"  HorizontalOptions="Center" TextColor="White" FontSize="20"
+                    Margin="0,0,0,80"/>
+
+            <Frame BackgroundColor="#22000000" Padding="20,2" BorderColor="Transparent" Margin="20,10" CornerRadius="25">
+                <Entry Placeholder="请输入工号/手机号/邮箱地址" VerticalTextAlignment="Center"
+                       FontFamily="OpenSansRegular" FontSize="14" TextColor="White"/>
+            </Frame>
+            <Frame BackgroundColor="#22000000" Padding="20,2" BorderColor="Transparent" Margin="20,0" CornerRadius="25">
+                <Entry Placeholder="请输入密码" VerticalTextAlignment="Center" IsPassword="True"/>
+            </Frame>
+            <Button Text="Login" Background="orange" Margin="20,60,20,0" HeightRequest="40" CornerRadius="20" Clicked="Button_Clicked"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

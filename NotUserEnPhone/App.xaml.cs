@@ -8,5 +8,11 @@
 
             MainPage = new AppShell();
         }
+
+        protected override async void OnStart()
+        {
+            base.OnStart();
+            //await Shell.Current.GoToAsync("//LoginPage");
+        }
     }
 }

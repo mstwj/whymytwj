@@ -3,13 +3,26 @@
     x:Class="NotUserEnPhone.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:NotUserEnPhone"
+    xmlns:local="clr-namespace:NotUserEnPhone.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="NotUserEnPhone">
 
+    <!--如果理解不了，就理解为 页面 这里程序启动默认为第一个ROUTE
+    SHELL 很简单，谁在第一个，就显示哪一个..-->
+    <ShellContent
+    Title="Login"
+    ContentTemplate="{DataTemplate local:LoginPage}"
+    Route="LoginPage" />
+    
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+        Title="Device"
+        ContentTemplate="{DataTemplate local:DevicePage}"
+        Route="DevicePage" />
+    
 
 </Shell>
