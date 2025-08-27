@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MyIPHoneNonChang.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyIPHoneNonChang.Views"
+    
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarForegroundColor="#1ED488"
+    Shell.TabBarTitleColor="#1ED488"
+    Shell.TabBarUnselectedColor="#CEDBD3"
+    Title="MyIPHoneNonChang">
+
+    <!--注意这里不需要ROUTE导航..Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarBackgroundColor="White" 下面的背景是白色的
+    Shell.TabBarForegroundColor="#1ED488" 前景是这个颜色.
+    Shell.TabBarTitleColor="#1ED488"前景字体也是
+    Shell.TabBarUnselectedColor="#CEDBD3" 未选中的颜色.,Shell.NavBarIsVisible="False" 上面的导航不要了
+    这里，把通知给变了...要修改安卓里面的代码，是可以修的，我就不修改了..-->
+    <TabBar>
+        <ShellContent
+            Title="农场"
+            ContentTemplate="{DataTemplate local:FarmView}"
+            Icon="nc_icon.png"/>
+        <ShellContent
+            Title="大鹏"
+            ContentTemplate="{DataTemplate local:ShedView}"
+            Icon="dp_icon.png"/>
+        <ShellContent
+            Title="我的"
+            ContentTemplate="{DataTemplate local:MineView}"
+            Icon="wd_icon.png"/>
+    </TabBar>
+</Shell>

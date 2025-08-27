@@ -17,9 +17,9 @@
                    BorderColor="White" Margin="0,-100,0,20">
                 <!--S老师说，这个LOGOG.PNG 放哪里都是OK的. 这里编译的时候，报错1次，说什么，名字冲突什么的，
                 我删除了. 冲突的IMAGES的那个文件，就OK了.我也不知道为什么..s-->
-                <Image Source="logo.png" BackgroundColor="Transparent" Aspect="AspectFit"/>
+                <Image Source="logo_65.png" BackgroundColor="Transparent" Aspect="AspectFit"/>
             </Frame>
-            <Label  Text="朝夕MES" VerticalOptions="Center"  HorizontalOptions="Center" TextColor="White" FontSize="20"
+            <Label  Text="文君MES" VerticalOptions="Center"  HorizontalOptions="Center" TextColor="White" FontSize="20"
                     Margin="0,0,0,80"/>
 
             <Frame BackgroundColor="#22000000" Padding="20,2" BorderColor="Transparent" Margin="20,10" CornerRadius="25">

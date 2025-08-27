@@ -27,7 +27,7 @@
             </Ellipse>
 
             <!--标题-->
-            <Label Text="朝夕MES" TextColor="Red" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label Text="文君MES" TextColor="Red" VerticalOptions="Center" HorizontalOptions="Center"/>
 
             <!--旋转木马:轮播图  4个  -->
             <CarouselView Grid.Row="1" ItemsSource="{Binding CarsouelList}" Grid.RowSpan="2"

@@ -75,7 +75,25 @@ namespace 串口测试.Base
                         //
                         //                    
                         //Task<bool> Send(int slaveAddr, byte funcCode, int startAddr, int len)
-                        //await rtuInstance.Send(1, (byte)3, 0, 1);
+                        await rtuInstance.Send(1, (byte)3, 0, 1);
+                        /*
+                        if (item.Length > 100)
+                        {
+                            startAddr = item.StartAddress;
+                            int readCount = item.Length / 100;
+                            for (int i = 0; i < readCount; i++)
+                            {
+                                int readLen = i == readCount ? item.Length - 100 * i : 100;
+                                await rtuInstance.Send(item.SlaveAddress, (byte)int.Parse(item.FuncCode), startAddr + 100 * i, readLen);
+                            }
+                        }
+                        if (item.Length % 100 > 0)
+                        {
+                            await rtuInstance.Send(item.SlaveAddress, (byte)int.Parse(item.FuncCode), startAddr + 100 * (item.Length / 100), item.Length % 100);
+                        }
+                        好像以上代码在循环发送，发送什么呢？好像是在不停发送，MONDBUS...
+                        */
+
                     }
                 }
                 else
@@ -98,7 +116,17 @@ namespace 串口测试.Base
 
                 res = new byte[4] { 0,0,byteList[startByte], byteList[startByte + 1] };
                 //item.CurrentValue = res.ByteArrsyToFloat();
-
+                // 查找设备监控点位与当前返回报文相关的监控数据列表
+                // 根据从站地址、功能码、起始地址
+                //这里没有一直去读取数据库。只是初始化读了一次，然后就开始工作了.. 
+                //没有一直读取数据库呀...
+                /*
+                var mvl = (from q in DeviceList
+                           from m in q.MonitorValueList
+                           where m.StorageAreaId == (byteList[0].ToString() + byteList[1].ToString("00") + start_addr.ToString())
+                           select m
+                         ).ToList();
+                */
             }
         }
         public static void Dispose()

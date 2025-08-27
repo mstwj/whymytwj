@@ -1,0 +1,33 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HandyControlUI控件使用"
+        xmlns:hc="https://handyorg.github.io/handycontrol" 
+        x:Class="HandyControlUI控件使用.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <StackPanel>
+        <Button Content="提交" Name="BtnOk" Click="BtnOk_Click"></Button>
+        <Button Content="2"></Button>
+        <Button Content="3"></Button>
+        <Button Content="4"></Button>
+    </StackPanel>
+    <!-- 
+    <Grid>
+        
+        <Button Content="开始加载" Click="StartLoading_Click"/>
+
+        
+        <Grid x:Name="loadingOverlay" Background="#fbfcfc" Opacity="0.5" Visibility="Collapsed">
+            <hc:LoadingCircle Width="100" Height="100" Foreground="#FF4788FF" IsRunning="True"/>
+        </Grid>
+
+
+    </Grid>主内容区域 -->
+        
+
+   
+</Window>

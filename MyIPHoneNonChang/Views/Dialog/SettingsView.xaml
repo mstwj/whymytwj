@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xtk:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xtk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MyIPHoneNonChang.Views.Dialog.SettingsView"
+             Color="Transparent"
+             CanBeDismissedByTappingOutsideOfPopup="False">
+    <Frame Padding="0"
+           CornerRadius="10"
+           BorderColor="Transparent"
+           BackgroundColor="#F5F9F9"
+           WidthRequest="320"
+           HeightRequest="680">
+        <Grid RowDefinitions="40,*,50">
+            <BoxView BackgroundColor="#0ECA7B" CornerRadius="10,10,0,0"/>
+            <Label Text="&#xe604;"
+                   FontFamily="Iconfont"
+                   WidthRequest="30"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   Margin="15,0"
+                   FontSize="18"
+                   TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReturnCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="设置"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="White"/>
+
+            <ScrollView Grid.Row="1">
+                <Grid RowDefinitions="50,50,50,40,40,40,40,50,50,40,40,50,40,40,50,40,40,10,*" Grid.Row="1">
+                    <BoxView BackgroundColor="#0ECA7B"
+                             Margin="10,0,0,0"
+                             WidthRequest="4"
+                             CornerRadius="2"
+                             HeightRequest="13"
+                             HorizontalOptions="Start"/>
+                    <Label Text="基础信息"
+                           Margin="20,0,0,0"
+                           FontAttributes="Bold"
+                           TextColor="#555"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <BoxView BackgroundColor="White" Grid.Row="1"/>
+                    <Label Text="位置"
+                           Grid.Row="1"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           Margin="15,0"/>
+                    <Label Text="光明温室大棚"
+                           TextColor="#555"
+                           Grid.Row="1"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           Margin="15,0"/>
+
+                    <BoxView BackgroundColor="#0ECA7B"
+                             Margin="10,0,0,0"
+                             WidthRequest="4"
+                             CornerRadius="2"
+                             HeightRequest="13"
+                             HorizontalOptions="Start"
+                             Grid.Row="2"/>
+                    <Label Text="继电器组"
+                           Grid.Row="2"
+                           Margin="20,0,0,0"
+                           FontAttributes="Bold"
+                           TextColor="#555"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <BoxView Grid.Row="3"
+                             Grid.RowSpan="4"
+                             BackgroundColor="White"/>
+                    <Grid Grid.Row="3"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="1."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,5"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="灌溉器"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="隐藏"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="显示"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s1}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s1"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+                    <Grid Grid.Row="4"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="2."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,5"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="卷帘"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="隐藏"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="显示"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s2}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s2"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+                    <Grid Grid.Row="5"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="3."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,5"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="卷帘"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="隐藏"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="显示"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s3}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s3"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+                    <Grid Grid.Row="6"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="4."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,5"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="卷帘"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="隐藏"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="显示"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s4}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s4"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+
+
+
+                    <BoxView BackgroundColor="#0ECA7B"
+                             Margin="10,0,0,0"
+                             WidthRequest="4"
+                             CornerRadius="2"
+                             HeightRequest="13"
+                             HorizontalOptions="Start"
+                             Grid.Row="7"/>
+                    <Label Text="报警配置"
+                           Grid.Row="7"
+                           Margin="20,0,0,0"
+                           FontAttributes="Bold"
+                           TextColor="#555"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <BoxView BackgroundColor="White"
+                             Grid.Row="8"
+                             Grid.RowSpan="9"/>
+
+                    <BoxView Background="#EEE"
+                             HeightRequest="1"
+                             Grid.Row="8"
+                             VerticalOptions="End"
+                             Margin="10,0"/>
+                    <Grid Grid.Row="8"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="1."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,10"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="土壤温度"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="禁用"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="使用"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s5}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s5"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+
+                    <Label Text="最高预警值"
+                           Grid.Row="9"
+                           Margin="45,0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <HorizontalStackLayout Grid.Row="9"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Margin="20,0">
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 0 10 0"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                        <Label Text="90" Margin="15,0"/>
+
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 5 10 5M5 0 5 10"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+
+                    <Label Text="最低预警值"
+                           Grid.Row="10"
+                           Margin="45,0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <HorizontalStackLayout Grid.Row="10"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Margin="20,0">
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 0 10 0"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                        <Label Text="90" Margin="15,0"/>
+
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 5 10 5M5 0 5 10"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+
+
+                    <BoxView Background="#EEE"
+                             HeightRequest="1"
+                             Grid.Row="11"
+                             VerticalOptions="End"
+                             Margin="10,0"/>
+                    <Grid Grid.Row="11"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="2."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,10"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="土壤湿度"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="禁用"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="使用"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s6}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s6"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+
+                    <Label Text="最高预警值"
+                           Grid.Row="12"
+                           Margin="45,0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <HorizontalStackLayout Grid.Row="12"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Margin="20,0">
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 0 10 0"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                        <Label Text="90" Margin="15,0"/>
+
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 5 10 5M5 0 5 10"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+
+                    <Label Text="最低预警值"
+                           Grid.Row="13"
+                           Margin="45,0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <HorizontalStackLayout Grid.Row="13"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Margin="20,0">
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 0 10 0"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                        <Label Text="90" Margin="15,0"/>
+
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 5 10 5M5 0 5 10"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+
+
+                    <BoxView Background="#EEE"
+                             HeightRequest="1"
+                             Grid.Row="14"
+                             VerticalOptions="End"
+                             Margin="10,0"/>
+                    <Grid Grid.Row="14"
+                          ColumnDefinitions="30,*,50,50"
+                          Margin="15,0">
+                        <Label Text="3."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Frame CornerRadius="13"
+                               Grid.Column="1"
+                               Margin="0,10"
+                               Padding="0"
+                               BorderColor="#DDD">
+                            <Label Text="土壤湿度"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   Margin="10,0"/>
+                        </Frame>
+                        <Label Text="禁用"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"/>
+                        <Label Text="使用"
+                               Background="White"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#888"
+                               HorizontalTextAlignment="End"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding Source={x:Reference s7}, Path=IsToggled}"/>
+                        <Switch Grid.Column="3"
+                                x:Name="s7"
+                                ThumbColor="#0ECA7B"/>
+                    </Grid>
+
+                    <Label Text="最高预警值"
+                           Grid.Row="15"
+                           Margin="45,0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <HorizontalStackLayout Grid.Row="15"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Margin="20,0">
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 0 10 0"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                        <Label Text="90" Margin="15,0"/>
+
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 5 10 5M5 0 5 10"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+
+                    <Label Text="最低预警值"
+                           Grid.Row="16"
+                           Margin="45,0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+
+                    <HorizontalStackLayout Grid.Row="16"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Margin="20,0">
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 0 10 0"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                        <Label Text="90" Margin="15,0"/>
+
+                        <Frame BackgroundColor="White"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               CornerRadius="3">
+                            <Path Data="M0 5 10 5M5 0 5 10"
+                                  Stroke="#888"
+                                  StrokeThickness="1"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </ScrollView>
+
+
+            <Button Grid.Row="2"
+                    Background="#0ECA7B"
+                    Text="保存"
+                    VerticalOptions="Start"
+                    Margin="20,5"
+                    CornerRadius="22"/>
+        </Grid>
+    </Frame>
+</xtk:Popup>

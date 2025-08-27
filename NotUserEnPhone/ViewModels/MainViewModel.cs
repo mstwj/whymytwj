@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NotUserEnPhone.Base;
 using NotUserEnPhone.Models;
 
 namespace NotUserEnPhone.ViewModels
@@ -11,7 +12,7 @@ namespace NotUserEnPhone.ViewModels
     public class MainViewModel
     {
         public List<CarsouelItemModel> CarsouelList { get; set; }
-
+        Mqtt Mqtt = new Mqtt();
         public List<FunctionGroupModel> FuncList { get; set; }
         public ObservableCollection<FunctionItemModel> OftenList { get; set; }
         public MainViewModel()

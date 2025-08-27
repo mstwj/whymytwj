@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xtk:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xtk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MyIPHoneNonChang.Views.Dialog.DataView"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             Color="Transparent"
+             CanBeDismissedByTappingOutsideOfPopup="False">
+    <xtk:Popup.Resources>
+        <Style TargetType="RadioButton" x:Key="TimeButtonStyle">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="TextColor" Value="#888"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="FontAttributes" Value="None"/>
+            <Setter Property="ControlTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <BoxView BackgroundColor="{TemplateBinding BackgroundColor}" CornerRadius="14"/>
+                            <Label Text="{TemplateBinding Content}"
+                                   TextColor="{TemplateBinding TextColor}"
+                                   FontAttributes="{TemplateBinding FontAttributes}"
+                                   FontSize="11"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger TargetType="RadioButton" Property="IsChecked" Value="True">
+                    <Setter Property="BackgroundColor" Value="White"/>
+                    <Setter Property="BorderColor" Value="#EEE"/>
+                    <Setter Property="TextColor" Value="#555"/>
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="RadioButton" x:Key="ClassButtonStyle">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BackgroundColor" Value="#11DDDDDD"/>
+            <Setter Property="TextColor" Value="#8A95A8"/>
+            <Setter Property="ControlTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <BoxView BackgroundColor="{TemplateBinding BackgroundColor}" CornerRadius="6"/>
+                            <BoxView BackgroundColor="White"
+                                     Opacity="0.95"
+                                     CornerRadius="5"
+                                     Margin="1"/>
+                            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label Text="{TemplateBinding Value}"
+                                       FontFamily="Iconfont"
+                                       TextColor="{TemplateBinding TextColor}"
+                                       FontSize="28"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="{TemplateBinding Content}"
+                                       TextColor="{TemplateBinding TextColor}"
+                                       FontSize="10"
+                                       HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger TargetType="RadioButton" Property="IsChecked" Value="True">
+                    <Setter Property="TextColor" Value="#18CE81"/>
+                    <Setter Property="BackgroundColor" Value="#18CE81"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </xtk:Popup.Resources>
+
+    <Frame Padding="0"
+           CornerRadius="10"
+           BorderColor="Transparent"
+           BackgroundColor="#F5F9F9"
+           WidthRequest="320"
+           HeightRequest="480">
+        <Grid RowDefinitions="40,60,40,155,90,*,80">
+            <BoxView BackgroundColor="#0ECA7B" CornerRadius="10,10,0,0"/>
+            <Label Text="&#xe604;"
+                   FontFamily="Iconfont"
+                   WidthRequest="30"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   Margin="15,0"
+                   FontSize="18"
+                   TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReturnCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="数据分析"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="White"/>
+
+            <Frame Grid.Row="1"
+                   Padding="0"
+                   CornerRadius="30"
+                   BackgroundColor="#F2F7FC"
+                   VerticalOptions="Center"
+                   Margin="15,12,150,12"
+                   BorderColor="#DDD">
+
+                <Grid ColumnDefinitions="*,*,*">
+                    <RadioButton Content="小时"
+                                 IsChecked="True"
+                                 Style="{StaticResource TimeButtonStyle}"/>
+                    <RadioButton Content="天"
+                                 Grid.Column="1"
+                                 Style="{StaticResource TimeButtonStyle}"/>
+                    <RadioButton Content="月"
+                                 Grid.Column="2"
+                                 Style="{StaticResource TimeButtonStyle}"/>
+                </Grid>
+            </Frame>
+
+            <Frame Grid.Row="1"
+                   Margin="0,0,10,0"
+                   Padding="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"
+                   HeightRequest="33"
+                   WidthRequest="70"
+                   CornerRadius="37"
+                   BackgroundColor="#0AC677"
+                   BorderColor="#0AC677">
+                <Grid>
+                    <Label VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="&#xe60e;"
+                                      FontFamily="Iconfont"
+                                      FontSize="16"
+                                      TextColor="White"/>
+                                <Span Text="设置"
+                                      FontSize="12"
+                                      TextColor="White"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button BackgroundColor="Transparent"/>
+                </Grid>
+            </Frame>
+
+
+            <Label Text="环境温度"
+                   FontAttributes="Bold"
+                   Grid.Row="2"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+            <lvc:CartesianChart Grid.Row="3"
+                                Series="{Binding SeriesList}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}"
+                                Sections="{Binding Sections}"/>
+
+            <Frame Grid.Row="4"
+                   BorderColor="Transparent"
+                   Padding="0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   Margin="10">
+                <Grid ColumnDefinitions="*,*,*">
+                    <BoxView WidthRequest="1"
+                             BackgroundColor="#DDD"
+                             HorizontalOptions="End"
+                             Margin="0,15"/>
+                    <BoxView WidthRequest="1"
+                             Grid.Column="2"
+                             BackgroundColor="#DDD"
+                             HorizontalOptions="Start"
+                             Margin="0,15"/>
+
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="24"
+                                          TextColor="#00C370"
+                                          FontSize="20"
+                                          FontAttributes="Bold"/>
+                                    <Span Text=" ℃" TextColor="#888"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="最低值"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#555"/>
+                    </StackLayout>
+
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Grid.Column="1">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="32"
+                                          TextColor="#00C370"
+                                          FontSize="20"
+                                          FontAttributes="Bold"/>
+                                    <Span Text=" ℃" TextColor="#888"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="平均值"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#555"/>
+                    </StackLayout>
+
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Grid.Column="2">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="39"
+                                          TextColor="#FE4314"
+                                          FontSize="20"
+                                          FontAttributes="Bold"/>
+                                    <Span Text=" ℃" TextColor="#888"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="最高值"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#555"/>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <Grid Grid.Row="6"
+                  BackgroundColor="White"
+                  ColumnDefinitions="*,*,*,*">
+                <RadioButton Content="环境温度"
+                             IsChecked="True"
+                             Value="&#xe610;"
+                             Style="{StaticResource ClassButtonStyle}"/>
+                <RadioButton Content="环境湿度"
+                             Value="&#xe61a;"
+                             Grid.Column="1"
+                             Style="{StaticResource ClassButtonStyle}"/>
+                <RadioButton Content="瞬时风速"
+                             Value="&#xe64d;"
+                             Grid.Column="2"
+                             Style="{StaticResource ClassButtonStyle}"/>
+                <RadioButton Content="瞬时雨量"
+                             Value="&#xe622;"
+                             Grid.Column="3"
+                             Style="{StaticResource ClassButtonStyle}"/>
+            </Grid>
+        </Grid>
+    </Frame>
+</xtk:Popup>
