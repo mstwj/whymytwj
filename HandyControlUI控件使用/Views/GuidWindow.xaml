@@ -1,0 +1,97 @@
+﻿<Window x:Class="HandyControlUI控件使用.Views.GuidWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HandyControlUI控件使用.Views"
+        mc:Ignorable="d"
+        xmlns:hc="https://handyorg.github.io/handycontrol" 
+        Title="GuidWindow" Height="450" Width="800">
+    <StackPanel Margin="20">
+        <hc:Row Margin="10">
+            <hc:Col >
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+        </hc:Row>
+
+        <hc:Row Margin="10">
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="2" Offset="1">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+        </hc:Row>
+
+        <hc:Row Margin="10">
+            <hc:Col Span="12">
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="12">
+                <Border Background="{StaticResource BackgroundBrush}" Height="30"></Border>
+            </hc:Col>
+        </hc:Row>
+
+        <hc:Row Margin="10">
+            <hc:Col Span="8">
+                <Border Background="{StaticResource WarningBrush}" Height="30"></Border>
+            </hc:Col>
+
+            <hc:Col Span="8">
+                <Border Background="{StaticResource LightInfoBrush}" Height="30"></Border>
+            </hc:Col>
+
+            <hc:Col Span="8">
+                <Border Background="{StaticResource DangerBrush}" Height="30"></Border>
+            </hc:Col>
+            
+        </hc:Row>
+
+        <hc:Row Margin="10" Gutter="10">
+            <hc:Col Span="6">
+                <Border Background="{StaticResource AccentBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="6">
+                <Border Background="{StaticResource BorderBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="6">
+                <Border Background="{StaticResource ColorPickerRainbowBrush}" Height="30"></Border>
+            </hc:Col>
+            <hc:Col Span="6">
+                <Border Background="{StaticResource DarkAccentBrush}" Height="30"></Border>
+            </hc:Col>
+        </hc:Row>
+
+        <hc:Row Margin="10">
+            <hc:Col >
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+        </hc:Row>
+
+        <hc:Row Margin="10">
+            <hc:Col >
+                <Border Background="{StaticResource InfoBrush}" Height="30"></Border>
+            </hc:Col>
+        </hc:Row>
+        
+
+    </StackPanel>
+</Window>

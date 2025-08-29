@@ -9,12 +9,38 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <StackPanel>
-        <Button Content="提交" Name="BtnOk" Click="BtnOk_Click"></Button>
-        <Button Content="2"></Button>
-        <Button Content="3"></Button>
-        <Button Content="4"></Button>
-    </StackPanel>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Width="200">
+            <Button Content="对话框显示-不是固态的" Name="BtnOk" Click="BtnOk_Click"></Button>
+            <Button Content="删栏显示" Name="SNBtn" Click="SNBtn_Click"></Button>
+            <Button Content="弹出消息" Name="TCBtn" Click="TCBtn_Click"></Button>
+            <Button Content="MessageBox" Name="MessBtn" Click="MessBtn_Click"></Button>
+            <!--
+            <TreeView HorizontalAlignment="Left" Height="302" Margin="66,65,0,0" VerticalAlignment="Top" Width="240">
+                <TreeViewItem Header="学生管理">
+                    <TreeViewItem Header="系统管理">
+                        <TreeViewItem Header="用户管理" />
+                        <TreeViewItem Header="校色管理" />
+                    </TreeViewItem>
+                    <TreeViewItem Header="学生管理">
+                        <TreeViewItem Header="学生通知" />
+                        <TreeViewItem Header="学生分类" />
+                        <TreeViewItem Header="学生列表" />
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeView>
+            -->
+        </StackPanel>
+
+        <WrapPanel DockPanel.Dock="Top">
+            <Button Content="111" HorizontalAlignment="Right"></Button>
+            <Button Content="222" HorizontalAlignment="Left"></Button>
+        </WrapPanel>
+        
+        <Grid >
+            
+        </Grid>
+    </DockPanel>
     <!-- 
     <Grid>
         
