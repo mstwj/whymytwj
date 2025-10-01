@@ -9,13 +9,62 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200">
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition Width="200">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        
+        <Grid Column="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding MeTimer}"></TextBlock>
+            
+            <TreeView  Grid.Row="1" Height="402"  VerticalAlignment="Top" Width="200">
+                <TreeViewItem Header="整体">
+                    <TreeViewItem Header="摄像头">
+                        <TreeViewItem Header="摄像头1" MouseDoubleClick="TreeViewItem_MouseDoubleClick" />
+                        <TreeViewItem Header="摄像头2" MouseDoubleClick="TreeViewItem_MouseDoubleClick"/>
+                        <TreeViewItem Header="摄像头3"  MouseDoubleClick="TreeViewItem_MouseDoubleClick"/>
+                        <TreeViewItem Header="摄像头4" />
+                        <TreeViewItem Header="摄像头5" />
+                        <TreeViewItem Header="摄像头6" />
+                    </TreeViewItem>
+                    <TreeViewItem Header="设备">
+                        <TreeViewItem Header="设备1" />
+                        <TreeViewItem Header="设备2" />
+                        <TreeViewItem Header="设备3" />
+                        <TreeViewItem Header="设备4" />
+                        <TreeViewItem Header="设备5" />
+                        <TreeViewItem Header="设备6" />
+                        <TreeViewItem Header="设备7" />
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeView>
+
+        </Grid>
+
+        <ContentControl  Grid.Column="1" Content="{Binding MainContent}"/>
+
+        
+    </Grid>
+    
+    <!--
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200">
             <Button Content="对话框显示-不是固态的" Name="BtnOk" Click="BtnOk_Click"></Button>
             <Button Content="删栏显示" Name="SNBtn" Click="SNBtn_Click"></Button>
             <Button Content="弹出消息" Name="TCBtn" Click="TCBtn_Click"></Button>
             <Button Content="MessageBox" Name="MessBtn" Click="MessBtn_Click"></Button>
-            <!--
             <TreeView HorizontalAlignment="Left" Height="302" Margin="66,65,0,0" VerticalAlignment="Top" Width="240">
                 <TreeViewItem Header="学生管理">
                     <TreeViewItem Header="系统管理">
@@ -29,7 +78,6 @@
                     </TreeViewItem>
                 </TreeViewItem>
             </TreeView>
-            -->
         </StackPanel>
 
         <WrapPanel DockPanel.Dock="Top">
@@ -41,18 +89,7 @@
             
         </Grid>
     </DockPanel>
-    <!-- 
-    <Grid>
-        
-        <Button Content="开始加载" Click="StartLoading_Click"/>
-
-        
-        <Grid x:Name="loadingOverlay" Background="#fbfcfc" Opacity="0.5" Visibility="Collapsed">
-            <hc:LoadingCircle Width="100" Height="100" Foreground="#FF4788FF" IsRunning="True"/>
-        </Grid>
-
-
-    </Grid>主内容区域 -->
+    --> 
         
 
    

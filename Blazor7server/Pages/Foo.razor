@@ -1,0 +1,15 @@
+﻿@page "/foo"
+
+<div>Begin:@BeginTime</div>
+
+@foreach(var item in Items)
+{
+	<div>@item</div>
+}
+
+<Blazor7server.Compnments.Dummy Icon="oi oi-home"></Blazor7server.Compnments.Dummy>
+
+<div>Finish: @DateTime.Now</div>
+
+
+

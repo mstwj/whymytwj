@@ -1,0 +1,76 @@
+﻿@page "/login"
+@using BlazorLearWebApp8.Components.Layout
+@using BlazorLearWebApp8.Components.Vo
+
+@layout LoginLayout
+@inject AjaxService ajaxService
+@inject SwalService swalService 
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+
+<!-- 如果 不制定，默认继承MainLayout层..
+ValidateForm ,有个MODLE。。。
+-->
+
+<div class="login-item login-item-floating">
+    <div class="text-center">
+        <h4 class="text-dark">欢迎登入</h4>
+        <h4 class="text-dark">用户登录!</h4>
+    </div>
+
+    <ValidateForm Model="@loginVo" OnValidSubmit="OnValidSubmit">
+        <FloatingLabel DisplayText="用户名" @bind-Value="@loginVo.UserName" PlaceHolder="请输入用户名" />
+        <FloatingLabel DisplayText="密码" @bind-Value="@loginVo.Password" type="password" PlaceHolder="请输入密码" />
+        <Checkbox @bind-Value="@loginVo.IsKeep" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
+        <Button Text="登录" Color="Color.Primary" ButtonType="ButtonType.Submit"></Button>
+    </ValidateForm>
+</div>
+
+@code{
+    private LoginVo? loginVo { get; set; } = new LoginVo();
+
+    //这里只处理成功就OK了..
+    private async Task OnValidSubmit(EditContext arg)
+    {
+        //登入还是要走MVC那东西..
+
+        var document = await ajaxService.InvokeAsync(new AjaxOption()
+        {
+             Url = "/api/Accout/Login",
+             Data = loginVo
+        });
+
+        //if(document.RootElement.GetProperty("code").GetInt32() == 20000)
+        //{
+
+        //}
+
+        if (document?.RootElement.GetProperty("code").GetInt32() == 20000){
+            //这里必须使用 GOTO去跳转，可以理解为 重新链接一次链接.. 断开原来的链接..
+            await ajaxService.Goto("/");
+        }else
+        {
+            await swalService.Show(new SwalOption()
+            {
+                Category = SwalCategory.Error,
+                Content = document?.RootElement.GetProperty("message").GetString()?? "系统异常",
+                Title = "登入失败"
+            });
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            //如果已经登入.. 跳到根目录 。。。
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+}

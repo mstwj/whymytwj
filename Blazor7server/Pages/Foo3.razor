@@ -1,0 +1,23 @@
+﻿@page "/foo3"
+
+<h1>级联传参</h1>
+
+<button @onclick="OnClick">得到日期</button>
+
+<!--默认就是FLASE IsFixed="false"这里很主要，如果是FALSE就是把修改后的值传下去，如果是TRUE，
+	意思是，只是传开始值，不管以后怎么变动，都不会传递...
+-->
+<CascadingValue Value="Items" IsFixed="false">
+	<Blazor7server.Compnments.Foo33Component></Blazor7server.Compnments.Foo33Component>
+</CascadingValue>
+
+@code {
+
+	private List<string> Items { get; set; } = new(50);
+
+	private void OnClick()
+	{
+		Items.Add(DateTime.Now.ToString());
+	}
+
+}

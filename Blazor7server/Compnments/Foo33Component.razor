@@ -1,0 +1,40 @@
+﻿
+<div>@ValueString</div>
+
+@if(Items != null)
+{
+	foreach(var item in Items)
+	{
+		<div>@item</div>
+	}
+}
+
+
+@code {
+	private string? ValueString{ get; set; }
+
+
+	[CascadingParameter]
+	private List<string?> Items { get; set; }
+
+	/*
+	
+	[CascadingParameter]
+	private List<string?> Items{ get; set; }
+
+	//为什么会触发onparamterset -- 因为变动了.. 他不会触发oninterilzie..
+	//可不可以不使用CS的触发..这里是父变动了，触发了子 OnParamtersSet()
+	//当然可以.. 在UI里面做判断，不要写在CS里面..
+	protected override void OnParametersSet()
+	{
+		//数据源有改变，这里都会去回调..
+		base.OnParametersSet();
+
+		ValueString = "";
+		if (Items !=null)
+		{
+			ValueString = string.Join(",", Items);
+		}
+	}
+	*/
+}

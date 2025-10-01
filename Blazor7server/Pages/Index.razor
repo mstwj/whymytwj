@@ -1,0 +1,41 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<!--@Value为什么要加 因为是个string ，如果不是string 你可以不加..-->
+<Blazor7server.Compnments.DummyInput @bind-Value="@Value"></Blazor7server.Compnments.DummyInput>
+
+<div>@Value</div>
+
+<button @onclick="OnClick">Test</button>
+
+<Blazor7server.Compnments.Foo4Component>
+	<HeaderTemplate Context="v">
+		<h3>@v.Summary</h3>
+	</HeaderTemplate>
+	<ChildContent>
+		<div>ChildContent</div>
+	</ChildContent>	
+	<FooterTemplate>
+		<h2>234234</h2>
+	</FooterTemplate>
+</Blazor7server.Compnments.Foo4Component>
+
+<br />
+
+<Blazor7server.Compnments.Foo6Component>
+	<Template>
+		<div>Header</div>
+		<div>@context</div>
+		<div>Footer</div>
+	</Template>
+	<ChildContent>
+		<div>Body</div>
+	</ChildContent>
+</Blazor7server.Compnments.Foo6Component>

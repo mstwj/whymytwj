@@ -1,0 +1,26 @@
+﻿@page "/foo1"
+@inject IJSRuntime Runtime
+
+<CascadingValue Value="Foos" IsFixed="true">
+	
+	<Blazor7server.Compnments.Foo2Component></Blazor7server.Compnments.Foo2Component>
+	<Blazor7server.Compnments.Foo3Component></Blazor7server.Compnments.Foo3Component>
+</CascadingValue>
+
+
+<Blazor7server.Compnments.RenderTemplate>
+	@foreach(var i in Foos)
+	{
+		<div>Comp @i</div>
+	}
+</Blazor7server.Compnments.RenderTemplate>
+
+<!-- 为什么没有显示，想一想，由外到内，由上倒下。 Foo2Comoninet是主建，顺序就是 foreach完了
+
+，Foo2Componet还没有渲染呀，上到下嘛.. 所以就没有输出嘛..
+ 我自己的组件，看看 很简单..
+ 这就是一个很简单的例子，就说怎么去解决不显示的问题，你只要简简单单的这样抱一下，就OK了，就这样搞一下，
+ 很简单...--这样，数据就渲染出来了，从内到外，从上到下...
+-->
+
+

@@ -1,0 +1,25 @@
+﻿@using Blazor7server.Data
+<h3>Foo4Component</h3>
+
+@ChildContent
+
+@if (HeaderTemplate != null)
+{
+	@HeaderTemplate(new Data.WeatherForecast() { Summary = "test1111" })
+}
+
+@FooterTemplate
+
+@code {
+
+	//变成V了..
+
+	[Parameter]
+	public RenderFragment? ChildContent{ get; set; }
+
+	[Parameter]
+	public RenderFragment<WeatherForecast>? HeaderTemplate { get; set; }
+
+	[Parameter]
+	public RenderFragment? FooterTemplate { get; set; }
+}

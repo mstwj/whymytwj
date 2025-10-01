@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="HandyControlUI控件使用.Views.MyCircleTest"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HandyControlUI控件使用.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+    <!--绑定目标
+        该表达式将当前控件（即RelativeSource=Self）的ActualWidth属性
+    与绑定源的ActualWidth属性绑定。这意味着两者会保持同步更新
+    若需绑定到父元素或子元素的属性，可使用RelativeSource指定绑定源的相对位置
+    <TextBlock Width="{Binding RelativeSource={RelativeSource Self}, Path=Parent.ActualWidth}"
+    使子控件宽度与父容器一致/>  
+
+    -->
+
+    <Grid >
+        <StackPanel>
+            <TextBlock Text="{Binding Value,RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" FontSize="20" Foreground="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="显示" Foreground="Blue" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

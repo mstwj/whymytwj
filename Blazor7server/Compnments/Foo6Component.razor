@@ -1,0 +1,22 @@
+﻿<h3>Foo6Component</h3>
+
+@Template(ChildContent)
+
+@ChildContent
+
+@code {
+	[Parameter]
+	public RenderFragment<RenderFragment>? Template { get; set; }
+
+	[Parameter]
+	public RenderFragment? ChildContent{ get; set; }
+
+	protected override void OnParametersSet()
+	{
+		ChildContent ??= new RenderFragment(builder =>
+		{
+			builder.AddContent(0, "");
+		});
+	}
+
+}

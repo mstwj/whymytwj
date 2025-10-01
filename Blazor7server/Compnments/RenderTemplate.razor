@@ -1,0 +1,16 @@
+﻿@namespace Blazor7server.Compnments
+
+@ChildContent
+
+@code {
+
+	[Parameter]
+	public RenderFragment? ChildContent{ get; set; }
+
+	[Parameter]
+	public RenderFragment? HerdContent{ get; set; }
+
+	[Parameter]
+	public RenderFragment? FootContent{ get; set; }
+
+}

@@ -1,0 +1,46 @@
+﻿@page "/jstest"
+@inject IJSRuntime JSRuntime
+
+<div id="@Id"></div>
+<div >@Value</div>
+<h3>Jstest</h3>
+
+<button @onclick="Click"></button>
+
+@code {
+	private string Id { get; set; } = "bb_9527";
+	private double Value { get; set; }
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if(firstRender)
+		{
+			//这样好不好呢?不知道..  注意这里是 import,js代码就要EXMPORT了..
+			//var mode = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/Jstest.js");
+			//await mode.InvokeVoidAsync("test", Id);
+			//第一次运行，为什么找不到呢？因为我们没有引用..
+			//无返回值
+			//await JSRuntime.InvokeVoidAsync("test",Id);
+			//有返回值
+			//修改了，还是0，为什么，因为没有触发刷新..
+			//Value  = await JSRuntime.InvokeAsync<double>("test", Id);
+		}
+	}
+
+
+	//有一些小技巧，这里ASYNC和 AWAIT能不写吗？当然可以，如果不写，会怎么样，界面不会刷新的。
+	//为什么，因为你线程直接返回不等待了。。 加上AWAIT线程会等JS返回，按钮他自动调用 刷新..
+	// 还有注意就算你 C# ASYNC AWAIT了，你JS 也必须这样。。 要不然，线程直接不等JS代码，也直接返回了，也不行的..
+
+	private async Task Click()
+	{
+		//为什么点击自动刷新呢？
+		//为什么老师点了，OK呢？(这里我也启作用了.. 看来不需要动态加载JS，每次启动的时候，有会更新..)
+		Value = await JSRuntime.InvokeAsync<double>("test", Id);
+	
+		//var mode = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/Jstest.js");
+		//Value  = await mode.InvokeAsync<double>("test", Id);
+		
+
+
+	}
+}

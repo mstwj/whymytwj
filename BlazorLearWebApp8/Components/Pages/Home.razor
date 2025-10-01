@@ -1,0 +1,45 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject DialogService DialogService
+
+@attribute [Authorize]
+@attribute [TabItemOption(Text = "首页", Icon = "fa-solid fa-suitcase")]
+
+
+<h1>@(_user?.Identity?.IsAuthenticated == true? "已登入": "未登入")</h1>
+
+<Button Text="点我" onClick="@OnClick"></Button>
+
+@code {
+
+    private ClaimsPrincipal? _user; 
+
+    //@attribute [Authorize]
+    //如果，有COOKE我会得到这个信息..
+    private string hello = "Hello";
+    private void OnClick()
+    {
+        //DialogService dialogService = DialogService;
+        //dialogService.ShowModal<ChangePassword>(new ResultDialogOption(){
+        //
+        //});
+        //说什么不要处理，要zFROM表单里面去处理..
+        DialogService.Show(new DialogOption() {
+            ShowFooter = false,
+            Title = "修改密码",
+            Size = Size.Large,            
+            BodyTemplate = BootstrapDynamicComponent.CreateComponent<ChangePassword>().Render()
+        });
+    }
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		_user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+
+	}
+}

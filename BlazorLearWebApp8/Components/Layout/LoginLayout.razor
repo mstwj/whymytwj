@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+<!--这里必须报上，为什么，走MVC走不过去，老师说必须包上..-->
+
+<BootstrapBlazorRoot>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <Card class="shadow-lg border-0 my-5">
+                    <BodyTemplate>
+                            @Body
+                    </BodyTemplate>
+                </Card>
+            </div>
+        </div>
+    </div>
+</BootstrapBlazorRoot>

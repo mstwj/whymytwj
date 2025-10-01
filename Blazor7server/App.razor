@@ -1,0 +1,17 @@
+﻿<!--如果找到和找不到.. RouteView这个是组件，RouteData="@routeData"这个是参数
+    这里你要看清楚，.cshtml和razor的区别，.cshtml是html主板页，我们使用不了的..
+    MainLayout--找到了.. MainLayout是一个.razor,
+-->
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <!--这里H1 ，就好像默认焦点一样..-->
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

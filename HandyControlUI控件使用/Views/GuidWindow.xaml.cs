@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HandyControlUI控件使用.ViewModels;
 
 namespace HandyControlUI控件使用.Views
 {
@@ -22,6 +23,7 @@ namespace HandyControlUI控件使用.Views
         public GuidWindow()
         {
             InitializeComponent();
+            
         }
     }
 }

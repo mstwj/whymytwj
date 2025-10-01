@@ -1,0 +1,60 @@
+﻿@inherits LayoutComponentBase
+
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<!--layout 指令要使用的指定母版 App--Routes 在到这里的... APP和ROUTES，我们都不需要修改..
+    这里你要在心里去区分，前后段的...心里有数才可以，那些是前端，那些是后端...
+-->
+
+<BootstrapBlazorRoot>
+    <CascadingValue Value="this" IsFixed="true">
+        <Layout IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader"
+                IsFixedFooter="@IsFixedFooter" 
+                ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@Menus"
+                UseTabSet="@UseTabSet" TabDefaultUrl="layout-page" AdditionalAssemblies="new[] { GetType().Assembly }"
+                >
+            <Header>
+                <Logout ImageUrl="./images/Argo.png" DisplayName="Adminstraptores" UserName="Admin" class="bg-primary" >
+                    <LinkTemplate>
+                        <LogoutLink Url="/api/Accout/Logout"></LogoutLink>
+                    </LinkTemplate>
+                </Logout>
+                <span class="ms-3 flex-fill">Bootstrap of Blazor</span>
+                <Logout DisplayName="@_user?.FindFirst(ClaimTypes.Name)?.Value" UserName="Admin">
+                    <LinkTemplate>
+                        <a href="#"><i class="fa-solid fa-suitcase"></i>个人中心</a>
+                        <a href="#"><i class="fa-solid fa-cog"></i>设置</a>
+                        <a href="#"><i class="fa-solid fa-bell"></i>通知<span class="badge badge-pill badge-success"></span></a>
+                        <LogoutLink />
+                    </LinkTemplate>
+                </Logout>
+            </Header>
+            <Side>
+                <div class="layout-banner">
+                    <div class="layout-title">
+                        <span>后台管理</span>
+                    </div>
+                </div>
+            </Side>
+            <Main>
+                @Body
+            </Main>
+            <Footer>
+                <div class="text-center flex-fill">
+          
+                </div>
+            </Footer>
+        </Layout>
+    </CascadingValue>
+
+</BootstrapBlazorRoot>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+

@@ -1,0 +1,70 @@
+﻿@page "/user"
+@using BlazorLearWebApp8.Entity
+@using MiniExcelLibs
+
+@inject SwalService SwalService
+@inject DownloadService DownloadService
+
+
+@attribute [TabItemOption(Text = "用户管理",Icon="fa-solid fa-suitcase")]
+
+
+<!--
+<Button @onclick="onClick">下载模板</Button>
+-->
+
+<ButtonUpload TValue="string" ShowUploadFileList="false" BrowserButtonClass="btn-seconday" onchange="OnChange">上传按钮</ButtonUpload>
+
+
+<Table IsBordered="true" TItem="UserEntity" IsStriped="true" ShowToolbar="true" ShowExtendButtons="true" ShowExportButton="true" IsPagination="true" PageItemsSource="new []{5,10}">
+	<TableColumns>
+		<TableColumn @bind-Field="@context.UserName"> </TableColumn>
+		<TableColumn @bind-Field="@context.Password"> </TableColumn>
+		<TableColumn @bind-Field="@context.NickName"> </TableColumn>
+	</TableColumns>
+
+</Table>
+
+@code {
+
+	//@attribute [TabItemOption(Text = "用户管理",Icon="fa-solid fa-suitcase")]
+	//必须上面这样的写法.. 固定的 .. 不这样写就有问题..
+	//private Task onClick()
+	//{
+		//注意修改为 输出到目录..(编译后，就没有了，就在BIN目录下面了...)
+		//Bin目录下面是没有 user_teplate.docx文件的..
+		//DownloadService.DownloadFromFileAsync("用户模板.docx", "./Asset/user_teplate.docx");
+	//}
+
+
+	private async Task OnChange(UploadFile uploadFile)
+	{
+		if (uploadFile.GetExtension() != ".xlsx")
+		{
+			await SwalService.Show(new SwalOption()
+			{
+				Content = "只支持上传.",
+				Category = SwalCategory.Error
+			});
+			return;
+		}
+
+		var stream = new MemoryStream();
+		await uploadFile.File!.OpenReadStream().CopyToAsync(stream);
+		var users = (await stream.QueryAsync<UserEntity>()).ToList();
+
+		//这里需要验证的，比如 用户名重复乌鸦，密码空呀.. 
+		foreach(var user in users)
+		{
+			//var use = await UserEntity.Select.Where(x => x.UserName == user.UserName).FirstAsync();
+			//if (use != null)
+			//{
+			//提升保持.. 就已经有了这个用户了..
+			//}
+			//反正就这样搞，这样就可以导入一个表的数据l...
+			await user.SaveAsync();
+		}
+
+	}
+
+}

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>5655426c-15d2-4c17-8d7e-4e73b3a0e4e3</UserSecretsId>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="Microsoft.JSInterop" />
+	</ItemGroup>
+</Project>
