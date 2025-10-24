@@ -1,0 +1,256 @@
+﻿<Window x:Class="无功功率补偿.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:无功功率补偿"
+        mc:Ignorable="d"
+        Title="无功功率补偿" Height="750" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="A相电压 " VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="0"  Text="{Binding Adianya}" Height="20"  VerticalAlignment="Center" Width="100"  HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="1" Text="B相电压" VerticalAlignment="Center"  Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="1"  Text="{Binding Bdianya}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="2" Text="C相电压" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="2"  Text="{Binding Cdianya}" Height="20"   VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="3" Text="A相电流 " VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="3"  Text="{Binding Adianliu}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="4" Text="B相电流" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="4"  Text="{Binding Bdianliu}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="5" Text="C相电流" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="5"  Text="{Binding Cdianliu}" Height="20"   VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="6" Text="功率因数" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="6"  Text="{Binding Oldfactor}" Height="20"   VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+
+            <Button Grid.Row="7" Command="{Binding BtnCommandStart3}" Visibility="Hidden" Content="点击计算2"></Button>
+
+            <Button Grid.Row="7" Command="{Binding BtnCommandStart2}"  Content="开始"></Button>
+
+            <Button Grid.Row="8" Command="{Binding BtnCommandStartStop}"  Content="停止"></Button>
+
+        </Grid>
+
+
+        <Grid Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+            </Grid.RowDefinitions>
+
+
+
+
+            <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="A相视在功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="0" IsReadOnly="True" Text="{Binding ShowASzgl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="B相视在功率：" VerticalAlignment="Center" Margin="20 0 0 0"> </TextBlock>
+            <TextBox Grid.Row="1" IsReadOnly="True" Text="{Binding ShowBSzgl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="C相视在功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="2" IsReadOnly="True" Text="{Binding ShowCSzgl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="A相有功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="3" IsReadOnly="True" Text="{Binding ShowAyggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="B相有功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="4" IsReadOnly="True" Text="{Binding ShowByggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="5" TextWrapping="Wrap" Text="C相有功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="5" IsReadOnly="True" Text="{Binding ShowCyggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="6" TextWrapping="Wrap" Text="A相无功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="6" IsReadOnly="True" Text="{Binding ShowAwggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="7" TextWrapping="Wrap" Text="B相无功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="7" IsReadOnly="True" Text="{Binding ShowBwggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="8" TextWrapping="Wrap" Text="C相无功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="8" IsReadOnly="True" Text="{Binding ShowCwggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="9" TextWrapping="Wrap" Text="A相电压 ：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="9" IsReadOnly="True" Text="{Binding ShowAdianya}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="10" TextWrapping="Wrap" Text="B相电压 ：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="10" IsReadOnly="True" Text="{Binding ShowBdianya}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="11" TextWrapping="Wrap" Text="C相电压 ：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="11" IsReadOnly="True" Text="{Binding ShowCdianya}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="12" TextWrapping="Wrap" Text="A相电流 ：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="12" IsReadOnly="True" Text="{Binding ShowAdianliu}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="13" TextWrapping="Wrap" Text="B相电流 ：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="13" IsReadOnly="True" Text="{Binding ShowBdianliu}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="14" TextWrapping="Wrap" Text="C相电流：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="14" IsReadOnly="True" Text="{Binding ShowCdianliu}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="15" TextWrapping="Wrap" Text="A相功率因数：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="15" IsReadOnly="True" Text="{Binding ShowAglys}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="16" TextWrapping="Wrap" Text="B相功率因数：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="16" IsReadOnly="True" Text="{Binding ShowBglys}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="17" TextWrapping="Wrap" Text="C相功率因数：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="17" IsReadOnly="True" Text="{Binding ShowCglys}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="18" TextWrapping="Wrap" Text="需要投入电容(10KVAR)：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="18" IsReadOnly="True" Text="{Binding ShowTrdn}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+        </Grid>
+
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+            </Grid.RowDefinitions>
+
+
+            <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="A相总谐波电压畸变率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="0" IsReadOnly="True" Text="{Binding ShowAdianyajb}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="B相总谐波电压畸变率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="1" IsReadOnly="True" Text="{Binding ShowBdianyajb}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0"  />
+
+            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="C相总谐波电压畸变率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="2" IsReadOnly="True" Text="{Binding ShowCdianyajb}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0"  />
+
+            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="A相总谐波电流畸变率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="3" IsReadOnly="True" Text="{Binding ShowAdianliujb}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="B相总谐波电流畸变率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="4" IsReadOnly="True" Text="{Binding ShowBdianliujb}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="5" TextWrapping="Wrap" Text="C相总谐波电流畸变率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="5" IsReadOnly="True" Text="{Binding ShowCdianliujb}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="6" TextWrapping="Wrap" Text="系统三相无功功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="6" IsReadOnly="True" Text="{Binding ShowABCwggl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="7" TextWrapping="Wrap" Text="系统三相视在功率：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="7" IsReadOnly="True" Text="{Binding ShowABCszgl}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="8" TextWrapping="Wrap" Text="(燃煤-A有功)碳排放结算值1：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="8" IsReadOnly="True" Text="{Binding ShowTPF1}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="9" TextWrapping="Wrap" Text="(燃煤-B有功)碳排放结算值2：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="9" IsReadOnly="True" Text="{Binding ShowTPF2}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="10" TextWrapping="Wrap" Text="(燃煤-C有功)碳排放结算值3：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="10" IsReadOnly="True" Text="{Binding ShowTPF3}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="11" TextWrapping="Wrap" Text="(风电-A有功)碳排放结算值4：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="11" IsReadOnly="True" Text="{Binding ShowTPF4}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="12" TextWrapping="Wrap" Text="(风电-B有功)碳排放结算值5：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="12" IsReadOnly="True" Text="{Binding ShowTPF5}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="13" TextWrapping="Wrap" Text="(风电-C有功)碳排放结算值6：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="13" IsReadOnly="True" Text="{Binding ShowTPF6}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="14" TextWrapping="Wrap" Text="(光伏-A有功)碳排放结算值7：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="14" IsReadOnly="True" Text="{Binding ShowTPF7}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="15" TextWrapping="Wrap" Text="(光伏-B有功)碳排放结算值8：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="15" IsReadOnly="True" Text="{Binding ShowTPF8}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="16" TextWrapping="Wrap" Text="(光伏-C有功)碳排放结算值9：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="16" IsReadOnly="True" Text="{Binding ShowTPF9}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="17" TextWrapping="Wrap" Text="(水力-A有功)碳排放结算值10：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="17" IsReadOnly="True" Text="{Binding ShowTPF10}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="18" TextWrapping="Wrap" Text="(水力-B有功)碳排放结算值11：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="18" IsReadOnly="True" Text="{Binding ShowTPF11}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+            <TextBlock Grid.Row="19" TextWrapping="Wrap" Text="(水力-C有功)碳排放结算值12：" VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
+            <TextBox Grid.Row="19" IsReadOnly="True" Text="{Binding ShowTPF12}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+            <TextBlock Grid.Row="20" TextWrapping="Wrap" Text="电容温度：" VerticalAlignment="Center" Margin="20 0 0 0"> </TextBlock>
+            <TextBox Grid.Row="20" IsReadOnly="True" Text="{Binding ShowDRWD}" Height="20"  VerticalAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" />
+
+
+
+        </Grid>
+
+    </Grid>
+</Window>

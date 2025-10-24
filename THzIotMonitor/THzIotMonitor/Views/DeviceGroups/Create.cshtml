@@ -1,0 +1,41 @@
+﻿@model THzIotPlatform.Models.DeviceGroup
+
+<h1>新建设备组</h1>
+
+<!-- 表单提交：action 必须指向 Create（POST方法） -->
+<form action="/DeviceGroups/Create" method="post" asp-antiforgery="true">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="GroupName">设备组名称</label>
+        <input type="text" id="GroupName" name="GroupName" class="form-control" />
+        <span asp-validation-for="GroupName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GroupName">公司名称</label>
+        <input type="text" id="CompanyName" name="CompanyName" class="form-control" />
+        <span asp-validation-for="CompanyName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GroupName">经度</label>
+        <input type="text" id="Longitude" name="Longitude" class="form-control" />
+        <span asp-validation-for="Longitude" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GroupName">纬度</label>
+        <input type="text" id="Latitude" name="Latitude" class="form-control" />
+        <span asp-validation-for="Latitude" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">备注</label>
+        <textarea id="Description" name="Description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">保存</button>
+    <!-- 返回列表：明确指向 Index 方法 -->
+    <a href="/DeviceGroups/Index" class="btn btn-secondary ms-2">返回</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

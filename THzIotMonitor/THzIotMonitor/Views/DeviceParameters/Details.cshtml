@@ -1,0 +1,46 @@
+﻿@model THzIotPlatform.Models.DeviceParameter
+
+@{
+    ViewData["Title"] = "设备参数详情";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="h4 mb-0">设备参数详情</h2>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <dl class="row">
+                <dt class="col-sm-3">所属设备</dt>
+                <dd class="col-sm-9">@Model.Device?.DeviceName</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.ParameterName)：</strong>
+                @Html.DisplayFor(model => model.ParameterName)
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.AccessAddress)：</strong>
+                @Html.DisplayFor(model => model.AccessAddress)
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.IsGroupProperty)：</strong>
+                @(Model.IsGroupProperty ? "是" : "否")
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.IsAccumulatedParameter)：</strong>
+                @(Model.IsAccumulatedParameter ? "是" : "否")
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.Unit)：</strong>
+                @Html.DisplayFor(model => model.Unit)
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="/DeviceParameters/Edit/@Model.Id" class="btn btn-warning">编辑</a>
+            <a href="/DeviceParameters/Index" class="btn btn-outline-secondary">返回列表</a>
+        </div>
+    </div>
+</div>

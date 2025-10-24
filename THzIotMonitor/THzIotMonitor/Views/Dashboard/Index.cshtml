@@ -1,0 +1,1665 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳門俾利喇購物廣場（本地测试）电力监控仪表盘</title>
+
+    <!-- 核心依赖 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+    <!-- 辅助依赖 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        warning: '#FF7D00',
+                        danger: '#F53F3F',
+                        success: '#00B42A',
+                        dark: '#1D2129',
+                        running: '#36D399',
+                        stopped: '#3B82F6',
+                        error: '#F87272',
+                        'light-bg': '#F2F3F5'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 20px rgba(0, 0, 0, 0.08)',
+                        'card-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 自定義工具類 -->
+    <style type="text/tailwindcss">
+        .content-auto {
+            content-visibility: auto;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .chart-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1D2129;
+        }
+
+        .chart-value {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .chart-average {
+            font-size: 0.875rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+            .chart-average span {
+                margin-left: 0.25rem;
+                font-weight: 600;
+            }
+    </style>
+
+    <!-- 全局樣式 -->
+    <style>
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+            .stat-card:hover {
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+            .animate-fade-in.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        .refresh-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            background-color: rgba(22, 93, 255, 0.8);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+            .refresh-indicator.visible {
+                opacity: 1;
+            }
+
+        .device-status-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .device-status-card:hover {
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+
+        .device-status-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #1D2129;
+            display: flex;
+            align-items: center;
+        }
+
+        .device-status-icon {
+            margin-right: 0.5rem;
+            color: #165DFF;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: #F2F3F5;
+            stroke-width: 8;
+        }
+
+        .circle-progress {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        /* TRANE设备样式 */
+        .trane-card {
+            background: linear-gradient(135deg, rgba(22, 93, 255, 0.05) 0%, rgba(54, 207, 201, 0.05) 100%);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(22, 93, 255, 0.1);
+        }
+
+        .trane-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00B42A;
+        }
+
+        .status-legend {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .status-color {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .bg-device-running {
+            background-color: #00B42A;
+        }
+
+        .bg-device-stopped {
+            background-color: #165DFF;
+        }
+
+        .bg-device-fault {
+            background-color: #F53F3F;
+        }
+    </style>
+
+    <script>
+        // 頁面加載動畫觸發
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                setTimeout(() => el.classList.add('active'), 10);
+            });
+        });
+    </script>
+</head>
+<body class="bg-light-bg font-inter text-dark min-h-screen">
+    <!-- 刷新指示器 -->
+    <div id="refresh-indicator" class="refresh-indicator">
+        <i class="fa fa-refresh fa-spin mr-1"></i> 正在刷新...
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- 頁面標題 -->
+        <div class="mb-8 animate-fade-in">
+            <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark">澳門俾利喇購物廣場（本地测试）电力监控仪表盘</h1>
+            <p class="text-gray-500 mt-2">实时监控和分析电力使用数据 - 每5秒自动刷新</p>
+        </div>
+
+        <!-- 加載狀態 -->
+        <div id="loading" class="flex justify-center items-center h-64">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </div>
+
+        <!-- 錯誤狀態 -->
+        <div id="error" class="hidden bg-danger/10 border border-danger/30 text-danger p-4 rounded-lg mb-6">
+            <i class="fa fa-exclamation-circle mr-2"></i>
+            <span>数据加载失败，请稍后重试</span>
+        </div>
+
+        <!-- 主內容區 -->
+        <div id="dashboard-content" class="hidden">
+            <!-- 状态概览 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="stat-card animate-fade-in">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm">今日用电量 (kWh)</p>
+                            <h3 id="today-electricity" class="text-2xl font-bold mt-1">6,286</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-fade-in" style="animation-delay: 0.1s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm">本月用电量 (kWh)</p>
+                            <h3 id="monthly-electricity" class="text-2xl font-bold mt-1">245,286</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-fade-in" style="animation-delay: 0.2s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm">实时功率 (kW)</p>
+                            <h3 id="active-power" class="text-2xl font-bold mt-1">85.33</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-warning/10 flex items-center justify-center text-warning">
+                            <i class="fa fa-tachometer"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 三相電力數據和設備故障 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="stat-card animate-fade-in">
+                    <h3 class="font-bold text-lg mb-4">三相电力参数</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div id="phase-data-container" class="col-span-3">
+                            <!-- 三相数据将通过JS动态填充 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card animate-fade-in" style="animation-delay: 0.3s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm">总功率因数</p>
+                            <h3 id="power-factor" class="text-2xl font-bold mt-1">0.9859</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center text-success">
+                            <i class="fa fa-balance-scale"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mt-6">
+                        <div>
+                            <p class="text-gray-500 text-sm">环境温度</p>
+                            <h3 id="ambient-temperature" class="text-2xl font-bold mt-1">16.8°C</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <i class="fa fa-thermometer-half"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mt-6">
+                        <div>
+                            <p class="text-gray-500 text-sm">总有功功率</p>
+                            <h3 id="total-active-power" class="text-2xl font-bold mt-1">458.3 kW</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 設備運行狀態 -->
+            <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-8">
+                <div class="flex items-center animate-fade-in">
+                    <i class="fa fa-microchip text-blue-500 mr-2 text-xl"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">設備運行狀態</h1>
+                </div>
+
+                <!-- 環形圖容器 -->
+                <div class="relative w-64 h-64 animate-fade-in" style="animation-delay: 0.2s">
+                    <!-- Chart.js 底層環形圖 -->
+                    <canvas id="statusChart" class="w-full h-full"></canvas>
+
+                    <!-- SVG 進度條（置於上層） -->
+                    <svg width="120" height="120" class="absolute top-0 left-0 w-full h-full">
+                        <circle class="circle-bg" cx="50%" cy="50%" r="50"></circle>
+                        <circle id="device-status-circle" class="circle-progress" cx="50%" cy="50%" r="50" stroke="#36CFC9"></circle>
+                    </svg>
+
+                    <!-- 中心計數 -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-4xl font-bold text-gray-800" id="device-total">9</span>
+                        <span class="text-gray-500">合計</span>
+                    </div>
+                </div>
+
+                <!-- 狀態說明 -->
+                <div class="space-y-3 animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="status-dot bg-running mr-2"></span>
+                            <span class="text-gray-700">運行</span>
+                        </div>
+                        <span class="font-medium" id="running-count">6</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="status-dot bg-stopped mr-2"></span>
+                            <span class="text-gray-700">停機</span>
+                        </div>
+                        <span class="font-medium" id="stopped-count">2</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="status-dot bg-error mr-2"></span>
+                            <span class="text-gray-700">故障</span>
+                        </div>
+                        <span class="font-medium" id="fault-count">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANE设备数据（替代主要用电项） -->
+            <div class="stat-card mb-6 animate-fade-in trane-card relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg">TRANE 设备监控数据</h3>
+                    <div class="text-sm text-gray-500">实时监控</div>
+                </div>
+
+                
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        
+                        <!-- 设备状态信息 -->
+                        <div class="bg-white rounded-lg p-4 shadow-sm">
+                            <h4 class="font-semibold mb-2 text-primary">设备状态</h4>
+                            <div class="flex items-center mb-2">
+                                <span class="status-dot bg-running mr-2"></span>
+                                <span id="trane-status-text">正常运行</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- 设备参数 -->
+                        <div class="bg-white rounded-lg p-4 shadow-sm h-full">
+                            <h4 class="font-semibold mb-3 text-primary">运行参数</h4>
+
+                            <div class="device-spec">
+                                <span class="spec-label">电流</span>
+                                <span class="spec-value" id="trane-current">7.3 A</span>
+                            </div>
+
+                            <div class="device-spec">
+                                <span class="spec-label">电压</span>
+                                <span class="spec-value" id="trane-voltage">226.1 V</span>
+                            </div>
+
+                            <div class="device-spec">
+                                <span class="spec-label">总有功功率</span>
+                                <span class="spec-value" id="trane-active-power">2.07 kW</span>
+                            </div>
+
+                            <div class="device-spec">
+                                <span class="spec-label">总无功功率</span>
+                                <span class="spec-value" id="trane-reactive-power">39.7 Kvar</span>
+                            </div>
+
+                            <div class="device-spec">
+                                <span class="spec-label">总有功电量</span>
+                                <span class="spec-value" id="trane-active-energy">680012 kWh</span>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- 新增的两个功率监控图表 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- 电容有功功率/无功功率图表 -->
+                <div class="stat-card animate-fade-in">
+                    <div class="chart-title-container">
+                        <div>
+                            <h3 class="chart-title">電容有功功率/無功功率 (KW/Kvar)</h3>
+                            <div class="chart-average">平均 <span id="capacitor-average">53.64</span></div>
+                        </div>
+                        <div class="text-secondary chart-value" id="capacitor-current">186.6</div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="capacitor-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 设备有功功率/无功功率图表 -->
+                <div class="stat-card animate-fade-in" style="animation-delay: 0.2s">
+                    <div class="chart-title-container">
+                        <div>
+                            <h3 class="chart-title">设备有功功率/無功功率 (KW/Kvar)</h3>
+                            <div class="chart-average">平均 <span id="energy-average">22.73</span></div>
+                        </div>
+                        <div class="text-secondary chart-value" id="energy-current">161.43</div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="energy-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 本周耗电量表格 -->
+            <div class="stat-card mb-6 animate-fade-in">
+                <div class="chart-title-container">
+                    <h3 class="chart-title">本周耗电量明细</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table id="fault-table" class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">日期</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">耗电量 (kWh)</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">同比变化</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fault-table-body" class="divide-y divide-gray-200">
+                            <!-- 表格内容将通过JS动态填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 圖表區域 -->
+            <div class="grid grid-cols-1 gap-6 mb-8">
+                <div class="lg:col-span-2 stat-card animate-fade-in">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold text-lg">用电量趋势对比</h3>
+                        <div class="text-sm text-gray-500">近30天数据</div>
+                    </div>
+                    <div class="h-80">
+                        <canvas id="electricity-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 三相实时电流数据（最近24小时） -->
+                <div class="stat-card mb-6 animate-fade-in">
+                    <div class="chart-title-container">
+                        <h3 class="chart-title">三相实时电流数据（最近24小时）</h3>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-primary mr-2"></span>
+                                <span class="text-sm">L1</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-secondary mr-2"></span>
+                                <span class="text-sm">L2</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-warning mr-2"></span>
+                                <span class="text-sm">L3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-80">
+                        <canvas id="threePhaseCurrentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 本周耗电量 -->
+                <div class="stat-card mb-6 animate-fade-in">
+                    <div class="chart-title-container">
+                        <h3 class="chart-title">本周耗电量</h3>
+                        <div>
+                            <span class="chart-value" id="weekly-total">37,893.4 kWh</span>
+                            <div class="chart-average">
+                                平均每日: <span id="daily-average">5,413.3 kWh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="weeklyConsumptionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 全局变量
+            let mockData = null;
+            let refreshInterval;
+            let chartInstances = {};
+            const CURRENT_THRESHOLD = 60; // 假设电流阈值为60A
+            // TRANE设备初始数据
+            const traneData = {
+                status: "加载中",
+                current: 0,
+                voltage: 0,
+                totalActivePower: 0,
+                totalReactivePower: 0,
+                totalActiveEnergy: 0
+            };
+
+            // 页面加载完成后初始化
+            document.addEventListener('DOMContentLoaded', function() {
+                loadData();
+                refreshInterval = setInterval(loadData, 5000);
+            });
+
+            // 加载数据
+            async function loadData() {
+                const refreshIndicator = document.getElementById('refresh-indicator');
+                refreshIndicator.classList.add('visible');
+
+                try {
+                    // 模拟数据
+                    const data = await getMockData();
+                    mockData = data;
+
+                    // 更新页面状态
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('dashboard-content').classList.remove('hidden');
+                    document.getElementById('error').classList.add('hidden');
+
+
+                    // 更新仪表盘数据
+                    updateDashboard(data);
+                    // 更新TRANE设备数据
+                    updateTraneData();
+                } catch (error) {
+                    console.error('数据加载失败:', error);
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('dashboard-content').classList.add('hidden');
+                    document.getElementById('error').classList.remove('hidden');
+                } finally {
+                    setTimeout(() => {
+                        refreshIndicator.classList.remove('visible');
+                    }, 500);
+                }
+            }
+
+            // 更新仪表盘
+            function updateDashboard(data) {
+                populateOverviewData(data);
+                updateDeviceStatus(data.deviceStatus);
+                populatePhaseData(data.phaseDatas);
+                // 将故障数据替换为本周耗电量数据
+                populateWeeklyConsumption(data.weeklyConsumptionData);
+                updateCharts(data);
+
+                // 更新功率图表数据
+                updatePowerCharts(data.powerData);
+
+                // 新增：更新本周耗电量柱状图
+                updateWeeklyConsumptionChart(data.weeklyConsumptionData);
+
+                // 新增：更新三相电流图表
+                updateThreePhaseCurrentChart(data.threePhaseCurrentData);
+            }
+
+            // 更新TRANE设备数据
+        async function updateTraneData() {
+                try {
+                    // 调用后台API获取TRANE设备数据
+                    const response = await fetch('/Dashboard/GetElectricitySummary', {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API请求失败: ${response.status}`);
+                    }
+
+                    // 解析API返回的数据
+                    const apiData1 = await response.json();
+
+                    // 更新traneData对象
+                    traneData.status = apiData1.status || "未知";
+                    traneData.current = parseFloat(apiData1.tuaneCurrent) || 0;
+                    traneData.voltage = parseFloat(apiData1.tuaneVoltage) || 0;
+                    traneData.totalActivePower = parseFloat(apiData1.tuaneTotalActivePower) || 0;
+                    traneData.totalReactivePower = parseFloat(apiData1.tuaneTotalReactivePower) || 0;
+                    traneData.totalActiveEnergy = parseFloat(apiData1.tuaneTotalActiveEnergy) || 0;
+
+                    
+
+                } catch (error) {
+                    console.error('获取TRANE设备数据失败:', error);
+                    traneData.status = "数据获取失败";
+                } finally {
+                    // 更新显示数据（无论成功失败都更新UI）
+                    document.getElementById('trane-status-text').textContent = traneData.status;
+                    document.getElementById('trane-current').textContent = `${traneData.current.toFixed(1)} A`;
+                    document.getElementById('trane-voltage').textContent = `${traneData.voltage.toFixed(1)} V`;
+                    document.getElementById('trane-active-power').textContent = `${traneData.totalActivePower.toFixed(2)} kW`;
+                    document.getElementById('trane-reactive-power').textContent = `${traneData.totalReactivePower.toFixed(1)} Kvar`;
+                    document.getElementById('trane-active-energy').textContent = `${traneData.totalActiveEnergy.toLocaleString()} kWh`;
+                }
+            }
+
+            // 更新功率图表
+            function updatePowerCharts(powerData) {
+                // 检查数据是否有效
+                if (!powerData || !powerData.capacitor || !powerData.energy) {
+                    console.error('无效的功率数据');
+                    return;
+                }
+
+                // 更新电容功率图表
+                document.getElementById('capacitor-current').textContent = powerData.capacitor.currentValue;
+                document.getElementById('capacitor-average').textContent = powerData.capacitor.averageValue;
+
+                // 更新能源功率图表
+                document.getElementById('energy-current').textContent = powerData.energy.currentValue;
+                document.getElementById('energy-average').textContent = powerData.energy.averageValue;
+
+                // 销毁旧图表
+                if (chartInstances.capacitor) {
+                    chartInstances.capacitor.destroy();
+                    chartInstances.capacitor = null;
+                }
+                if (chartInstances.energy) {
+                    chartInstances.energy.destroy();
+                    chartInstances.energy = null;
+                }
+
+                // 创建新图表
+                if (powerData.capacitor.timestamps && powerData.capacitor.activePower) {
+                    chartInstances.capacitor = drawCapacitorChart(powerData.capacitor);
+                }
+                if (powerData.energy.timestamps && powerData.energy.activePower) {
+                    chartInstances.energy = drawEnergyChart(powerData.energy);
+                }
+            }
+
+            // 绘制电容有功功率/无功功率图表
+            function drawCapacitorChart(data) {
+                const ctx = document.getElementById('capacitor-chart').getContext('2d');
+
+                // 创建渐变背景
+                const capacitorGradient = ctx.createLinearGradient(0, 0, 0, 250);
+                capacitorGradient.addColorStop(0, 'rgba(54, 207, 201, 0.2)');
+                capacitorGradient.addColorStop(1, 'rgba(54, 207, 201, 0)');
+
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.timestamps || [],
+                        datasets: [
+                            {
+                                label: '有功功率 (KW)',
+                                data: data.activePower || [],
+                                borderColor: '#36CFC9',
+                                backgroundColor: capacitorGradient,
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#36CFC9',
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                label: '无功功率 (Kvar)',
+                                data: data.reactivePower || [],
+                                borderColor: '#165DFF',
+                                backgroundColor: 'transparent',
+                                tension: 0.4,
+                                fill: false,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#165DFF',
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 12,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.8)',
+                                padding: 10,
+                                titleFont: { size: 12 },
+                                bodyFont: { size: 12 },
+                                callbacks: {
+                                    label: function(context) {
+                                        const dataset = context.dataset || {};
+                                        const label = dataset.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                ticks: {
+                                    callback: function(value) {
+                                        const dataset = this.chart.data.datasets[this.datasetIndex];
+                                        if (!dataset) return value;
+                                        return value + (dataset.label.includes('KW') ? ' KW' : ' Kvar');
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: 5
+                                }
+                            }
+                        },
+                        animation: { duration: 1000, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+
+            // 绘制设备有功功率/无功功率图表
+            function drawEnergyChart(data) {
+                const ctx = document.getElementById('energy-chart').getContext('2d');
+
+                // 创建渐变背景
+                const energyGradient = ctx.createLinearGradient(0, 0, 0, 250);
+                energyGradient.addColorStop(0, 'rgba(54, 207, 201, 0.2)');
+                energyGradient.addColorStop(1, 'rgba(54, 207, 201, 0)');
+
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.timestamps || [],
+                        datasets: [
+                            {
+                                label: '有功功率 (KW)',
+                                data: data.activePower || [],
+                                borderColor: '#36CFC9',
+                                backgroundColor: energyGradient,
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#36CFC9',
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                label: '无功功率 (Kvar)',
+                                data: data.reactivePower || [],
+                                borderColor: '#165DFF',
+                                backgroundColor: 'transparent',
+                                tension: 0.4,
+                                fill: false,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#165DFF',
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 12,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.8)',
+                                padding: 10,
+                                titleFont: { size: 12 },
+                                bodyFont: { size: 12 },
+                                callbacks: {
+                                    label: function(context) {
+                                        const dataset = context.dataset || {};
+                                        const label = dataset.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                ticksFormat: function(value) {
+                                    return value + ' KW';
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: 5
+                                }
+                            }
+                        },
+                        animation: { duration: 1000, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+
+            // 更新设备运行状态
+            function updateDeviceStatus(status) {
+                const runningCountEl = document.getElementById('running-count');
+                const stoppedCountEl = document.getElementById('stopped-count');
+                const faultCountEl = document.getElementById('fault-count');
+                const deviceTotalEl = document.getElementById('device-total');
+                const deviceStatusCircleEl = document.getElementById('device-status-circle');
+
+                if (!runningCountEl || !stoppedCountEl || !faultCountEl || !deviceTotalEl || !deviceStatusCircleEl) {
+                    console.error('设备状态元素不存在');
+                    return;
+                }
+
+                // 更新计数器
+                runningCountEl.textContent = status.running;
+                stoppedCountEl.textContent = status.stopped;
+                faultCountEl.textContent = status.fault;
+
+                // 计算总数和百分比
+                const total = status.running + status.stopped + status.fault;
+                deviceTotalEl.textContent = total;
+
+                // 计算SVG进度条
+                const circumference = 2 * Math.PI * 50; // 圆周长
+                const runningPercentage = total > 0 ? (status.running / total) : 0;
+                const offset = circumference - (runningPercentage * circumference);
+
+                // 应用样式
+                deviceStatusCircleEl.style.strokeDasharray = circumference;
+                deviceStatusCircleEl.style.strokeDashoffset = offset;
+
+                // 状态颜色切换
+                if (status.fault > 0) {
+                    deviceStatusCircleEl.setAttribute('stroke', '#F53F3F');
+                } else if (status.running === 0 && total > 0) {
+                    deviceStatusCircleEl.setAttribute('stroke', '#165DFF');
+                } else {
+                    deviceStatusCircleEl.setAttribute('stroke', '#36CFC9');
+                }
+            }
+
+            // 更新图表
+            function updateCharts(data) {
+                // 销毁旧图表
+                if (chartInstances.electricity) {
+                    chartInstances.electricity.destroy();
+                    chartInstances.electricity = null;
+                }
+                // 销毁原区域用电量图表
+                if (chartInstances.area) {
+                    chartInstances.area.destroy();
+                    chartInstances.area = null;
+                }
+                if (chartInstances.topItems) {
+                    chartInstances.topItems.destroy();
+                    chartInstances.topItems = null;
+                }
+                if (chartInstances.status) {
+                    chartInstances.status.destroy();
+                    chartInstances.status = null;
+                }
+                // 销毁新增的三相电流图表（如果存在）
+                if (chartInstances.threePhaseCurrent) {
+                    chartInstances.threePhaseCurrent.destroy();
+                    chartInstances.threePhaseCurrent = null;
+                }
+
+                // 创建新图表
+                chartInstances.electricity = drawElectricityChart(data.chartData);
+                // 绘制三相实时电流图表（替换区域用电量图表）
+                chartInstances.threePhaseCurrent = drawThreePhaseCurrentChart(data.threePhaseCurrentData);
+                //chartInstances.topItems = drawTopItemsChart(data.topElectricityItems);
+                chartInstances.status = drawStatusChart(data.deviceStatus);
+            }
+
+            // 绘制三相实时电流图表（最近24小时）
+            function drawThreePhaseCurrentChart(phaseData) {
+                // 修复：将area-chart改为threePhaseCurrentChart，与HTML中定义的ID匹配
+                const ctx = document.getElementById('threePhaseCurrentChart').getContext('2d');
+
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: phaseData.timestamps || [],
+                        datasets: [
+                            {
+                                label: 'L1 电流 (A)',
+                                data: phaseData.l1 || [],
+                                borderColor: '#36CFC9',
+                                backgroundColor: 'rgba(54, 207, 201, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'L2 电流 (A)',
+                                data: phaseData.l2 || [],
+                                borderColor: '#165DFF',
+                                backgroundColor: 'rgba(22, 93, 255, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'L3 电流 (A)',
+                                data: phaseData.l3 || [],
+                                borderColor: '#F53F3F',
+                                backgroundColor: 'rgba(245, 63, 63, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: { position: 'top' },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.8)',
+                                padding: 10,
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw} A`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                title: {
+                                    display: true,
+                                    text: '电流 (A)'
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                title: {
+                                    display: true,
+                                    text: '时间'
+                                },
+                                ticks: {
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: 8
+                                }
+                            }
+                        },
+                        animation: { duration: 1000, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+
+            // 绘制设备状态环形图
+            function drawStatusChart(status) {
+                const ctx = document.getElementById('statusChart').getContext('2d');
+                return new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['运行', '停机', '故障'],
+                        datasets: [{
+                            data: [status.running, status.stopped, status.fault],
+                            backgroundColor: ['#36D399', '#3B82F6', '#F53F3F'],
+                            borderWidth: 0,
+                            hoverOffset: 15
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const dataset = context.dataset || {};
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value}台`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 获取数据
+            async function getMockData() {
+            try {
+                    // 调用后台API
+                    const apiUrl = '/Dashboard/GetElectricitySummary';
+                    const response = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                        },
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`请求失败: ${response.status} ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+
+                    // 如果有错误信息，抛出错误
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+
+                    // 转换API数据为前端所需格式
+                    return data;
+                } 
+                catch (error) {
+                    console.error('获取数据失败，使用备用模拟数据:', error);
+                    // 保留原有的模拟数据生成作为 fallback
+                    //return generateMockData();
+                }
+
+            }
+            // 转换API数据为前端所需格式
+            function transformApiData(apiData) {
+                return {
+                    todayElectricity: apiData.TodayElectricity,
+                    monthlyElectricity: apiData.MonthlyElectricity,
+                    activePower: apiData.ActivePower,
+                    powerFactor: apiData.powerFactor,
+                    ambientTemperature: apiData.ambientTemperature,
+                    totalActivePower: apiData.totalActivePower,
+
+                    deviceStatus: {
+                        running: apiData.deviceStatus.running,
+                        stopped: apiData.deviceStatus.stopped,
+                        fault: apiData.deviceStatus.fault
+                    },
+
+                    // 转换三相数据格式
+                    phaseDatas: apiData.PhaseDatas.map(phase => ({
+                        name: phase.Name,
+                        value: `${phase.Value} ${phase.Unit}`
+                    })),
+
+                    // 转换每周用电量数据
+                    weeklyConsumption: apiData.weeklyConsumptionData.days.map((day, index) => ({
+                        date: day,
+                        consumption: apiData.weeklyConsumptionData.values[index],
+                        // 可以根据实际需求计算同比变化
+                        change: (Math.random() * 10) - 5
+                    })),
+
+                    chartData: {
+                        dates: apiData.ChartData.Dates,
+                        currentMonthValues: apiData.ChartData.CurrentMonthValues,
+                        lastMonthValues: apiData.ChartData.LastMonthValues
+                    },
+
+                    // 转换三相电流数据（注意属性名大小写转换）
+                    threePhaseCurrentData: {
+                        timestamps: apiData.threePhaseCurrentData.timestamps,
+                        l1: apiData.threePhaseCurrentData.phases.L1,
+                        l2: apiData.threePhaseCurrentData.phases.L2,
+                        l3: apiData.threePhaseCurrentData.phases.L3
+                    },
+
+                    // 转换主要用电项数据
+                    topElectricityItems: {
+                        labels: apiData.TopElectricityItems.map(item => item.Name),
+                        values: apiData.TopElectricityItems.map(item => item.Electricity)
+                    },
+
+                    // 转换功率数据
+                    powerData: apiData.powerData
+                };
+            }
+
+            // 填充概览数据
+            function populateOverviewData(data) {
+                document.getElementById('today-electricity').textContent = data.todayElectricity.toLocaleString();
+                document.getElementById('monthly-electricity').textContent = data.monthlyElectricity.toLocaleString();
+                document.getElementById('active-power').textContent = data.activePower;
+                document.getElementById('power-factor').textContent = data.powerFactor;
+                document.getElementById('ambient-temperature').textContent = `${data.ambientTemperature}°C`;
+                document.getElementById('total-active-power').textContent = `${data.totalActivePower} kW`;
+            }
+
+            // 填充三相电力数据
+             function populatePhaseData(phaseDatas) {
+                const container = document.getElementById('phase-data-container');
+                container.innerHTML = '';
+
+                // 创建表格 - 修正数据映射关系
+                const table = document.createElement('table');
+                table.className = 'min-w-full';
+                table.innerHTML = `
+                    <thead>
+                        <tr class="border-b">
+                            <th class="py-2 text-left text-sm font-medium text-gray-500">参数</th>
+                            <th class="py-2 text-left text-sm font-medium text-gray-500">L1</th>
+                            <th class="py-2 text-left text-sm font-medium text-gray-500">L2</th>
+                            <th class="py-2 text-left text-sm font-medium text-gray-500">L3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-2 text-sm">电压 (V)</td>
+                            <td class="py-2 text-sm">${phaseDatas[0]?.value || '-'}</td>
+                            <td class="py-2 text-sm">${phaseDatas[3]?.value || '-'}</td>
+                            <td class="py-2 text-sm">${phaseDatas[6]?.value || '-'}</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-2 text-sm">总柜一次电流 (A)</td>
+                            <td class="py-2 text-sm">${phaseDatas[1]?.value || '-'}</td>
+                            <td class="py-2 text-sm">${phaseDatas[4]?.value || '-'}</td>
+                            <td class="py-2 text-sm">${phaseDatas[7]?.value || '-'}</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-2 text-sm">功率因数</td>
+                            <td class="py-2 text-sm">${phaseDatas[2]?.value || '-'}</td>
+                            <td class="py-2 text-sm">${phaseDatas[5]?.value || '-'}</td>
+                            <td class="py-2 text-sm">${phaseDatas[8]?.value || '-'}</td>
+                        </tr>
+                    </tbody>
+                `;
+                container.appendChild(table);
+            }
+
+            // 填充本周耗电量数据（替换故障记录）
+            function populateWeeklyConsumption(weeklyData) {
+              const tableBody = document.getElementById('fault-table-body');
+              tableBody.innerHTML = '';
+
+              // 确保表格标题正确
+              const tableHeader = document.querySelector('#fault-table thead tr');
+              if (tableHeader) {
+                tableHeader.innerHTML = `
+                  <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">星期</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">耗电量 (kWh)</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">同比变化</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                `;
+              }
+
+              // 处理数据为空的情况
+              if (!weeklyData || !weeklyData.days || !weeklyData.values || weeklyData.days.length !== weeklyData.values.length) {
+                tableBody.innerHTML = `
+                  <tr>
+                    <td colspan="4" class="px-4 py-8 text-center text-gray-500">
+                      暂无耗电量记录
+                    </td>
+                  </tr>
+                `;
+                return;
+              }
+
+              // 遍历数据并创建表格行
+              weeklyData.days.forEach((day, index) => {
+                const consumption = weeklyData.values[index];
+
+                // 这里可以根据实际业务逻辑计算同比变化
+                // 这里使用随机值作为示例，实际应根据真实数据计算
+                const changeValue = (Math.random() * 10 - 5).toFixed(1); // -5% 到 5% 之间的随机值,同比变化率 = [(当前周期数值 - 去年同期数值) / 去年同期数值] × 100%
+
+                // 计算同比变化样式
+                let changeClass = 'text-gray-500';
+                let changeIcon = '';
+
+                if (parseFloat(changeValue) > 0) {
+                  changeClass = 'text-green-500';
+                  changeIcon = '↑';
+                } else if (parseFloat(changeValue) < 0) {
+                  changeClass = 'text-red-500';
+                  changeIcon = '↓';
+                }
+
+                // 简单的状态判断逻辑（可根据实际需求调整）
+                const isAbnormal = consumption > 7000 || consumption < 5000;
+                const statusClass = isAbnormal ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800';
+                const statusText = isAbnormal ? '异常' : '正常';
+
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 transition-colors';
+                row.innerHTML = `
+                  <td class="px-4 py-3 whitespace-nowrap text-sm">
+                    ${day}
+                  </td>
+                  <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">
+                    ${consumption.toFixed(2)}
+                  </td>
+                  <td class="px-4 py-3 whitespace-nowrap text-sm ${changeClass}">
+                    ${changeIcon} ${Math.abs(changeValue)}%
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                      ${statusText}
+                    </span>
+                  </td>
+                `;
+                tableBody.appendChild(row);
+              });
+            }
+
+            // 绘制用电量趋势图
+            function drawElectricityChart(chartData) {
+                const ctx = document.getElementById('electricity-chart').getContext('2d');
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.dates || [],
+                        datasets: [
+                            {
+                                label: '上月',
+                                data: chartData.lastMonthValues || [],
+                                borderColor: '#165DFF',
+                                backgroundColor: 'rgba(22, 93, 255, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            },
+                            {
+                                label: '本月',
+                                data: chartData.currentMonthValues || [],
+                                borderColor: '#36CFC9',
+                                backgroundColor: 'rgba(54, 207, 201, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: { position: 'top' },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.8)',
+                                padding: 10
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                ticks: { callback: value => value + ' kWh' }
+                            },
+                            x: { grid: { display: false } }
+                        },
+                        animation: { duration: 1000, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+
+            // 新增：更新本周耗电量柱状图
+            function updateWeeklyConsumptionChart(weeklyData) {
+                // 检查数据是否有效
+                if (!weeklyData || !weeklyData.days || !weeklyData.values) {
+                    console.error('无效的本周耗电量数据');
+                    return;
+                }
+
+                // 计算总计和平均值
+                const total = weeklyData.values.reduce((sum, value) => sum + value, 0);
+                const average = total / weeklyData.values.length;
+
+                // 更新总计和平均值显示
+                document.getElementById('weekly-total').textContent = `${total.toFixed(1)} kWh`;
+                document.getElementById('daily-average').textContent = `${average.toFixed(1)} kWh`;
+
+                // 销毁旧图表
+                if (chartInstances.weeklyConsumption) {
+                    chartInstances.weeklyConsumption.destroy();
+                    chartInstances.weeklyConsumption = null;
+                }
+
+                // 创建新图表
+                chartInstances.weeklyConsumption = drawWeeklyConsumptionChart(weeklyData);
+            }
+
+                        // 更新三相实时电流图表 - 修复键名大小写问题
+            function updateThreePhaseCurrentChart(data) {
+                // 增强数据验证，确保所有必要属性都存在
+                if (!data || !data.timestamps || !data.phases ||
+                    !Array.isArray(data.timestamps) || typeof data.phases !== 'object') {
+                    console.error('无效的三相电流数据结构:', data);
+                    return;
+                }
+
+                // 为每个相数据提供默认值，注意使用小写l1、l2、l3以匹配数据
+                const l1Data = Array.isArray(data.phases.l1) ? data.phases.l1 : [];
+                const l2Data = Array.isArray(data.phases.l2) ? data.phases.l2 : [];
+                const l3Data = Array.isArray(data.phases.l3) ? data.phases.l3 : [];
+
+                // 检查是否有电流超过阈值
+                const l1Over = l1Data.some(value => typeof value === 'number' && value > CURRENT_THRESHOLD);
+                const l2Over = l2Data.some(value => typeof value === 'number' && value > CURRENT_THRESHOLD);
+                const l3Over = l3Data.some(value => typeof value === 'number' && value > CURRENT_THRESHOLD);
+
+                // 更新警报显示
+                const alertElement = document.getElementById('current-alert');
+                if (alertElement) {
+                    const alertMessage = alertElement.querySelector('#alert-message') || alertElement;
+
+                    if (l1Over || l2Over || l3Over) {
+                        let message = '电流超过阈值: ';
+                        if (l1Over) message += 'L1相, ';
+                        if (l2Over) message += 'L2相, ';
+                        if (l3Over) message += 'L3相, ';
+
+                        // 移除最后的逗号和空格
+                        message = message.slice(0, -2);
+                        alertMessage.textContent = message;
+                        alertElement.classList.add('visible');
+                    } else {
+                        alertElement.classList.remove('visible');
+                    }
+                }
+
+                // 销毁旧图表（如果存在）
+                if (chartInstances.threePhaseCurrent) {
+                    chartInstances.threePhaseCurrent.destroy();
+                }
+
+                // 创建新图表 - 使用处理后的数据
+                chartInstances.threePhaseCurrent = drawThreePhaseCurrentChart({
+                    ...data,
+                    phases: {
+                        l1: l1Data,  // 保持小写以匹配数据
+                        l2: l2Data,
+                        l3: l3Data
+                    }
+                });
+            }
+
+            // 绘制三相实时电流图表（最近24小时）- 修复版
+            function drawThreePhaseCurrentChart(data) {
+                // 再次验证数据，确保安全
+                if (!data || !data.timestamps || !data.phases ||
+                    !Array.isArray(data.timestamps) || !Array.isArray(data.phases.l1) ||
+                    !Array.isArray(data.phases.l2) || !Array.isArray(data.phases.l3)) {
+                    console.error('无效的三相电流数据:', data);
+                    return null;
+                }
+
+                // 确保canvas元素存在
+                const canvas = document.getElementById('threePhaseCurrentChart');
+                if (!canvas) {
+                    console.error('未找到ID为threePhaseCurrentChart的canvas元素');
+                    return null;
+                }
+
+                const ctx = canvas.getContext('2d');
+                if (!ctx) {
+                    console.error('无法获取canvas上下文');
+                    return null;
+                }
+
+                // 创建渐变填充
+                const l1Gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                l1Gradient.addColorStop(0, 'rgba(22, 93, 255, 0.2)');
+                l1Gradient.addColorStop(1, 'rgba(22, 93, 255, 0)');
+
+                const l2Gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                l2Gradient.addColorStop(0, 'rgba(54, 207, 201, 0.2)');
+                l2Gradient.addColorStop(1, 'rgba(54, 207, 201, 0)');
+
+                const l3Gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                l3Gradient.addColorStop(0, 'rgba(245, 63, 63, 0.2)');
+                l3Gradient.addColorStop(1, 'rgba(245, 63, 63, 0)');
+
+                // 确保阈值常量已定义
+                const CURRENT_THRESHOLD = window.CURRENTThreshold || 130;
+
+                // 计算Y轴的合理范围，避免空数据导致的错误
+                const allValues = [...data.phases.l1, ...data.phases.l2, ...data.phases.l3].filter(v => typeof v === 'number');
+                const minValue = allValues.length > 0 ? Math.min(...allValues) * 0.9 : 0;
+                const maxValue = allValues.length > 0 ? Math.max(...allValues) * 1.1 : CURRENT_THRESHOLD * 1.2;
+
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.timestamps || [],
+                        datasets: [
+                            {
+                                label: 'L1 电流 (A)',
+                                data: data.phases.l1 || [],  // 使用小写l1
+                                borderColor: '#165DFF',
+                                backgroundColor: l1Gradient,
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#165DFF',
+                                pointRadius: 2,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                label: 'L2 电流 (A)',
+                                data: data.phases.l2 || [],  // 使用小写l2
+                                borderColor: '#36CFC9',
+                                backgroundColor: l2Gradient,
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#36CFC9',
+                                pointRadius: 2,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                label: 'L3 电流 (A)',
+                                data: data.phases.l3 || [],  // 使用小写l3
+                                borderColor: '#F53F3F',
+                                backgroundColor: l3Gradient,
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 2,
+                                pointBackgroundColor: '#F53F3F',
+                                pointRadius: 2,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                // 阈值参考线
+                                label: '阈值 (A)',
+                                data: data.timestamps.map(() => CURRENT_THRESHOLD),
+                                borderColor: 'rgba(255, 125, 0, 0.7)',
+                                borderWidth: 2,
+                                borderDash: [5, 5],
+                                fill: false,
+                                tension: 0,
+                                pointRadius: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 12,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.8)',
+                                padding: 10,
+                                callbacks: {
+                                    label: function(context) {
+                                        const dataset = context.dataset || {};
+                                        const label = dataset.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                min: minValue,
+                                max: maxValue,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                title: {
+                                    display: true,
+                                    text: '电流 (A)'
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: 8
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutQuart'
+                        }
+                    }
+                });
+            }
+
+
+
+
+
+                                    // 新增：绘制本周耗电量柱状图
+            function drawWeeklyConsumptionChart(data) {
+                const ctx = document.getElementById('weeklyConsumptionChart').getContext('2d');
+
+                // 为每个柱子生成颜色，高于平均值的用不同颜色
+                const average = data.values.reduce((sum, value) => sum + value, 0) / data.values.length;
+                const backgroundColors = data.values.map(value =>
+                    value > average ? 'rgba(22, 93, 255, 0.7)' : 'rgba(54, 207, 201, 0.7)'
+                );
+
+                return new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.days || [],
+                        datasets: [{
+                            label: '耗电量 (kWh)',
+                            data: data.values || [],
+                            backgroundColor: backgroundColors,
+                            borderColor: data.values.map(value =>
+                                value > average ? 'rgba(22, 93, 255, 1)' : 'rgba(54, 207, 201, 1)'
+                            ),
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.8)',
+                                padding: 10,
+                                callbacks: {
+                                    label: function(context) {
+                                        return `耗电量: ${context.raw.toFixed(2)} kWh`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + ' kWh';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        },
+                        animation: { duration: 1000, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+
+            
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@model THzIotPlatform.Models.DeviceParameter
+
+@{
+    ViewData["Title"] = "删除设备参数";
+}
+
+<div class="card">
+    <div class="card-header bg-danger-subtle">
+        <h2 class="h4 mb-0 text-danger">删除确认</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted mb-4">确定要删除以下设备参数吗？此操作不可撤销。</p>
+
+        <!-- 待删除参数信息 -->
+        <div class="border p-3 rounded mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>所属设备：</strong>@Model.Device.DeviceName
+                </div>
+                <div class="col-md-6">
+                    <strong>参数名称：</strong>@Model.ParameterName
+                </div>
+                <div class="col-md-6 mt-2">
+                    <strong>访问地址：</strong>@Model.AccessAddress
+                </div>
+                <div class="col-md-6 mt-2">
+                    <strong>单位：</strong>@Model.Unit
+                </div>
+            </div>
+        </div>
+
+        <!-- 确认表单 -->
+        <form action="/DeviceParameters/Delete" method="post" class="mt-4">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+            <button type="submit" class="btn btn-danger">确认删除</button>
+            <a href="/DeviceParameters/Index" class="btn btn-outline-secondary">取消</a>
+        </form>
+    </div>
+</div>

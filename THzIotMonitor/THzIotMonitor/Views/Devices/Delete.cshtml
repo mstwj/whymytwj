@@ -1,0 +1,22 @@
+﻿@model THzIotPlatform.Models.Device
+@{
+    ViewData["Title"] = "删除设备组";
+}
+<h2>@ViewData["Title"]</h2>
+<!-- 警告提示 -->
+<div class="alert alert-danger" role="alert">
+    确认要删除设备组 <strong>@Model.DeviceName</strong> 吗？此操作不可撤销！
+    @if (Model.Parameters != null && Model.Parameters.Any())
+    {
+        <p class="mt-2">注意：该设备关联了 @Model.Parameters.Count 个参数，删除前请先处理关联参数。</p>
+    } 
+</div>
+
+<!-- 删除表单 -->
+<form action="/Devices/Delete" method="post" class="mt-4">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+    <button type="submit" class="btn btn-danger">确认删除</button>
+    <a href="/Devices/Index" class="btn btn-outline-secondary">取消</a>
+</form>

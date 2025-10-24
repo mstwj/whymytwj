@@ -1,0 +1,89 @@
+﻿@model THzIotPlatform.Models.DeviceParameter
+
+@{
+    ViewData["Title"] = "新增设备参数";
+    // 从ViewData获取设备列表（用于下拉选择）  
+    var devices = ViewData["Devices"] as IEnumerable<THzIotPlatform.Models.Device> ?? new List<THzIotPlatform.Models.Device>();
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="h4 mb-0">新增设备参数</h2>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post" novalidate>
+            @* 防跨站请求伪造令牌 *@
+            @Html.AntiForgeryToken()
+
+            <div class="row g-3">
+                <!-- 设备编码（下拉选择） -->
+                <div class="col-md-6">
+                    <label asp-for="DeviceCode" class="form-label">所属设备</label>
+                    <select id="DeviceCode" name="DeviceCode"  class="form-select">
+                        <option value="">请选择设备</option>
+                        @foreach (var group in devices)
+                        {
+                            <option value="@group.DeviceCode">@group.DeviceName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DeviceCode" class="text-danger"></span>
+                    
+                </div>
+
+                <!-- 参数名称 -->
+                <div class="col-md-6">
+                    <label asp-for="ParameterName" class="form-label">参数名称</label>
+                    <input type="text" id="ParameterName" name="ParameterName" class="form-control" placeholder="请输入参数名称">
+                    <span asp-validation-for="ParameterName" class="text-danger"></span>
+                </div>
+
+                <!-- 访问地址 -->
+                <div class="col-md-6">
+                    <label asp-for="AccessAddress" class="form-label">访问地址</label>
+                    <input type="text" id="AccessAddress" name="AccessAddress"  class="form-control" placeholder="请输入参数访问地址">
+                    <span asp-validation-for="AccessAddress" class="text-danger"></span>
+                </div>
+
+                <!-- 是否设备组属性 -->
+                <div class="col-md-3">
+                    <label id="IsGroupProperty" name="IsGroupProperty" class="form-label">是否设备组属性</label>
+                    <select id="IsGroupProperty" name="IsGroupProperty" class="form-select">
+                        <option value="false">否</option>
+                        <option value="true">是</option>
+                    </select>
+                    <span asp-validation-for="IsGroupProperty" class="text-danger"></span>
+                </div>
+
+                <!-- 是否累加参数 -->
+                <div class="col-md-3">
+                    <label asp-for="IsAccumulatedParameter" class="form-label">是否累加参数</label>
+                    <select id="IsAccumulatedParameter" name="IsAccumulatedParameter"  class="form-select">
+                        <option value="false">否</option>
+                        <option value="true">是</option>
+                    </select>
+                    <span asp-validation-for="IsAccumulatedParameter" class="text-danger"></span>
+                </div>
+
+                <!-- 单位 -->
+                <div class="col-md-6">
+                    <label asp-for="Unit" class="form-label">单位</label>
+                    <input type="text" id="Unit" name="Unit" asp-for="Unit" class="form-control" placeholder="例如：V、A、kW">
+                    <span asp-validation-for="Unit" class="text-danger"></span>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @* 客户端验证脚本 *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

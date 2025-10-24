@@ -1,0 +1,137 @@
+﻿@model THzIotPlatform.Models.PaginationViewModel<THzIotPlatform.Models.DeviceGroup>
+
+@{
+    ViewData["Title"] = "设备组列表";
+}
+
+<!-- 搜索栏 -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>@ViewData["Title"]</h2>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="/DeviceGroups/Create" class="btn btn-primary">新建设备组</a>
+    </div>
+</div>
+
+<!-- 搜索表单 -->
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="搜索设备组名称..."
+               value="@ViewData["SearchText"]" />
+        <button class="btn btn-outline-secondary" type="submit">搜索</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">重置</a>
+    </div>
+</form>
+
+<!-- 设备组列表 -->
+<!-- 遍历数据时，从 Model.Data 中获取列表 -->
+@if (Model.Data != null && Model.Data.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>设备组名称</th>
+                <th>设备数量</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* ❶ 修正前（错误）：直接遍历 Model（分页模型不是列表）*@
+            @* @foreach (var group in Model) *@
+
+            @* ❷ 修正后（正确）：遍历 Model.Data（分页模型中的列表属性）*@
+            @foreach (var group in Model.Data)
+            {
+                <tr>
+                    <td>@group.GroupName</td>
+                    <td>@(group.Devices?.Count ?? 0)</td>
+                    <td>
+                        <a href="/DeviceGroups/Details/@group.Id" class="btn btn-sm btn-info">
+                            详情
+                        </a>
+                        <!-- 编辑链接：带 id 参数 -->
+                        <a href="/DeviceGroups/Edit/@group.Id"  class="btn btn-sm btn-warning ms-2">
+                            编辑
+                        </a>
+                        <!-- 删除链接：带 id 参数 -->
+                        <a href="/DeviceGroups/Delete/@group.Id" class="btn btn-sm btn-danger ms-2">
+                            删除
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            <!-- 首页 -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a href="@Url.Action("Index", "DeviceGroups", new { page = 1, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == 1 ? "tabindex='-1'" : "")>
+                    首页
+                </a>
+            </li>
+
+            <!-- 上一页 -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a href="@Url.Action("Index", "DeviceGroups", new { page = Model.CurrentPage - 1, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == 1 ? "tabindex='-1'" : "")>
+                    上一页
+                </a>
+            </li>
+
+            <!-- 页码列表 -->
+            @{
+                int startPage = Math.Max(1, Model.CurrentPage - 2);
+                int endPage = Math.Min(Model.TotalPages, startPage + 4);
+
+                if (startPage > 1)
+                {
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                }
+
+                for (int i = startPage; i <= endPage; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a href="@Url.Action("Index", "DeviceGroups", new { page = i, search = ViewData["SearchText"] })"
+                           class="page-link">
+                            @i
+                        </a>
+                    </li>
+                }
+
+                if (endPage < Model.TotalPages)
+                {
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                }
+            }
+
+            <!-- 下一页 -->
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a href="@Url.Action("Index", "DeviceGroups", new { page = Model.CurrentPage + 1, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == Model.TotalPages ? "tabindex='-1'" : "")>
+                    下一页
+                </a>
+            </li>
+
+            <!-- 末页 -->
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a href="@Url.Action("Index", "DeviceGroups", new { page = Model.TotalPages, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == Model.TotalPages ? "tabindex='-1'" : "")>
+                    末页
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+}
+else
+{
+    <p class="alert alert-info">未找到设备组数据</p>
+}

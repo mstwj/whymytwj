@@ -1,0 +1,100 @@
+﻿@model THzIotPlatform.Models.Device
+
+@{
+    ViewData["Title"] = "编辑设备组";
+    var deviceGroups = ViewData["DeviceGroups"] as IEnumerable<THzIotPlatform.Models.DeviceGroup> ?? new List<THzIotPlatform.Models.DeviceGroup>();
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- 表单：POST 提交到 Edit Action -->
+<form action="/Devices/Edit" method="post" class="mt-4">
+    @Html.AntiForgeryToken()
+
+    <!-- 隐藏域：传递设备组 ID（不可修改） -->
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="GroupName">设备名称</label>
+                <input type="text" id="DeviceName" name="DeviceName" class="form-control" value="@Model.DeviceName" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="GroupId" class="form-label">所属设备组</label>
+                <select id="GroupId" name="GroupId" class="form-select">
+                    @foreach (var group in deviceGroups)
+                    {
+                        <option value="@group.Id"
+                                @(group.Id == Model.GroupId ? "selected" : "")>
+                            @group.GroupName
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="GroupId" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">设备编码</label>
+                <input type="text" id="DeviceCode" name="DeviceCode" class="form-control" value="@Model.DeviceCode" />
+                <span asp-validation-for="DeviceCode" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DeviceType" class="form-label">设备类型</label>
+                <select id="DeviceType" name="DeviceType" class="form-select">
+                    <option value="电表" @(Model?.DeviceType == "电表" ? "selected" : "")>电表</option>
+                    <option value="自动补偿控制器" @(Model?.DeviceType == "自动补偿控制器" ? "selected" : "")>自动补偿控制器</option>
+                </select>
+                <span asp-validation-for="DeviceType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">设备品牌</label>
+                <input type="text" id="Brand" name="Brand" class="form-control" value="@Model.Brand" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">设备型号</label>
+                <input type="text" id="Model" name="Model" class="form-control" value="@Model.Model" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <!-- 出厂日期 -->
+            <div class="form-group mb-3">
+                <label asp-for="ManufactureDate" class="form-label">出厂日期</label>
+                <input type="datetime-local" class="form-control" id="ManufactureDate" name="ManufactureDate" value="@(Model.ManufactureDate.HasValue? Model.ManufactureDate.Value.ToString("yyyy-MM-ddTHH:mm") : "")" />
+                <span asp-validation-for="ManufactureDate" class="text-danger"></span>
+            </div>
+
+            <!-- 购买日期 -->
+            <div class="form-group mb-3">
+                <label asp-for="PurchaseDate" class="form-label">购买日期</label>
+                <input type="datetime-local" class="form-control" id="PurchaseDate" name="PurchaseDate" value="@(Model.PurchaseDate.HasValue? Model.PurchaseDate.Value.ToString("yyyy-MM-ddTHH:mm") : "")" />
+                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">出厂编号</label>
+                <input type="text" id="FactoryNumber" name="FactoryNumber" class="form-control" value="@Model.FactoryNumber" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">安装机位</label>
+                <input type="text" id="InstallationLocation"name="InstallationLocation" class="form-control" value="@Model.InstallationLocation" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Remarks">备注</label>
+                <textarea id="Remarks" name="Remarks" class="form-control">@Model.Remarks</textarea>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">更新</button>
+            <a href="/Devices/Index" class="btn btn-outline-secondary">取消</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

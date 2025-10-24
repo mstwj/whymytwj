@@ -1,0 +1,94 @@
+﻿@model THzIotPlatform.Models.DeviceParameter
+
+@{
+    ViewData["Title"] = "编辑设备参数";
+    var devices = ViewData["Devices"] as IEnumerable<THzIotPlatform.Models.Device> ?? new List<THzIotPlatform.Models.Device>();
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="h4 mb-0">编辑设备参数</h2>
+    </div>
+    <div class="card-body">
+        <form action="/DeviceParameters/Edit" method="post" novalidate>
+            @Html.AntiForgeryToken()
+            @* 隐藏字段：参数ID *@
+            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+            <div class="row g-3">
+                <!-- 设备编码（下拉选择，回显当前设备） -->
+                <div class="form-group mb-3">
+                    <label asp-for="DeviceCode" class="form-label">所属设备</label>
+                    <select id="DeviceCode" name="DeviceCode" class="form-select">
+                        @foreach (var group in devices)
+                        {
+                            <option value="@group.DeviceCode"
+                                    @(group.DeviceCode == Model.DeviceCode ? "selected" : "")>
+                                @group.DeviceName
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="GroupId" class="text-danger"></span>
+
+                </div>
+
+                <!-- 参数名称（回显） -->
+                <div class="form-group">
+                    <label asp-for="GroupName">参数名称</label>
+                    <input type="text" id="ParameterName" name="ParameterName" class="form-control" value="@Model.ParameterName" />
+                    <span asp-validation-for="ParameterName" class="text-danger"></span>
+                </div>
+
+                <!-- 访问地址（回显） -->
+                <div class="col-md-6">
+                    <label asp-for="AccessAddress" class="form-label">访问地址</label>
+                    <input type="text" id="AccessAddress" name="AccessAddress" class="form-control" value="@Model.AccessAddress">
+                    <span asp-validation-for="AccessAddress" class="text-danger"></span>
+                </div>
+
+                <!-- 是否设备组属性（回显） -->
+                <div class="col-md-3">
+                    <label asp-for="IsGroupProperty" class="form-label">是否设备组属性</label>
+                    <select id="IsGroupProperty" name="IsGroupProperty"  class="form-select">
+                        <option value="false" @(Model.IsGroupProperty == false ? "selected" : "")>否</option>
+                        <option value="true" @(Model.IsGroupProperty == true ? "selected" : "")>是</option>
+                    </select>
+                    <span asp-validation-for="IsGroupProperty" class="text-danger"></span>
+                </div>
+
+                <!-- 是否累加参数（回显） -->
+                <div class="col-md-3">
+                    <label asp-for="IsAccumulatedParameter" class="form-label">是否累加参数</label>
+                    <select id="IsAccumulatedParameter" name="IsAccumulatedParameter" class="form-select">
+                        <option value="false" @(Model.IsAccumulatedParameter == false ? "selected" : "")>否</option>
+                        <option value="true" @(Model.IsAccumulatedParameter == true ? "selected" : "")>是</option>
+                    </select>
+                    <span asp-validation-for="IsAccumulatedParameter" class="text-danger"></span>
+                </div>
+
+                <!-- 单位（回显） -->
+                <div class="col-md-6">
+                    <label asp-for="Unit" class="form-label">单位</label>
+                    <input type="text" id="Unit" name="Unit" class="form-control" value="@Model.AccessAddress">
+                    <span asp-validation-for="Unit" class="text-danger"></span>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="col-12">
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">更新</button>
+                        <a href="/DeviceParameters/Index" class="btn btn-outline-secondary">取消</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+   
+}

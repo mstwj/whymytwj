@@ -28,10 +28,10 @@ namespace OpcClient
             {
                 //证书就算了..
                 //匿名只要一个地址..(没有外网，这样就OK了..只要不暴露就可以了..)
-                //Session session = await AnonymousConnection("opc.tcp://127.0.0.1:49320");
+                Session session = await AnonymousConnection("opc.tcp://127.0.0.1:49320");
 
                 //可以用户名和密码登入..
-                Session session = await UserNameConnection("opc.tcp://127.0.0.1:49320","tong","tong");
+               // Session session = await UserNameConnection("opc.tcp://127.0.0.1:49320","tong","tong");
 
                 //浏览节点...
                 //Browser browser = new Browser(session);
@@ -39,10 +39,10 @@ namespace OpcClient
                 //这里是怎么来的，直接看的..
                 //var collection = browser.Browse("ns=2;s=通道 1.设备 1.标记 1");
                 //读-同步
-                //SyncRead(session);
+                SyncRead(session);
 
                 //读-异步
-                //AsSyncRead(session);
+                AsSyncRead(session);
 
                 //订阅 -- 变化就读，不变就不读..
                 //Subscription(session);
@@ -51,7 +51,7 @@ namespace OpcClient
                 //SyncWrite(session);
 
                 //写 -- 异步..
-                AsyncWrite(session);
+                //AsyncWrite(session);
 
             }
             catch (Exception ex)

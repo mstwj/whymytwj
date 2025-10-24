@@ -1,0 +1,133 @@
+﻿@model THzIotPlatform.Models.PaginationViewModel<THzIotPlatform.Models.Device>
+
+@{
+    ViewData["Title"] = "设备列表";
+    
+}
+
+<!-- 搜索栏 -->
+<div class="mb-3">
+    <form asp-action="Index" method="get" class="row g-3">
+        <div class="col-auto">
+            <input type="text" name="search" value="@ViewData["SearchText"]" class="form-control" placeholder="搜索设备名称/设备编码" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">搜索</button>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-1">重置</a>
+        </div>
+        <div class="col-auto ms-auto">
+            <a href="/Devices/Create" class="btn btn-success">新增设备</a>
+        </div>
+    </form>
+</div>
+
+<!-- 数据表格 -->
+@if (Model.Data.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>设备名称</th>
+                <th>所属设备组</th>
+                <th>设备编码</th>
+                <th>设备类型</th>
+                <th>参数数量</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in Model.Data)
+            {
+                <tr>
+                    <td>@device.DeviceName</td>
+                    <td>@device.DeviceGroup?.GroupName</td> <!-- 关联设备组名称 -->
+                    <td>@device.DeviceCode</td>
+                    <td>@device.DeviceType</td>
+                    <td>@(device.Parameters?.Count ?? 0)</td>
+                    <td>
+                        <span class="badge @(device.IsOnline ? "bg-success" : "bg-danger")">
+                            @(device.IsOnline ? "在线" : "离线")
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/Devices/Details/@device.Id" class="btn btn-sm btn-info">详情</a>
+                        <a href="/Devices/Edit/@device.Id" class="btn btn-sm btn-warning ms-1">编辑</a>
+                        <a href="/Devices/Delete/@device.Id" class="btn btn-sm btn-danger ms-1">删除</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            <!-- 首页 -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a href="@Url.Action("Index", "Devices", new { page = 1, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == 1 ? "tabindex='-1'" : "")>
+                    首页
+                </a>
+            </li>
+
+            <!-- 上一页 -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a href="@Url.Action("Index", "Devices", new { page = Model.CurrentPage - 1, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == 1 ? "tabindex='-1'" : "")>
+                    上一页
+                </a>
+            </li>
+
+            <!-- 页码列表 -->
+            @{
+                int startPage = Math.Max(1, Model.CurrentPage - 2);
+                int endPage = Math.Min(Model.TotalPages, startPage + 4);
+
+                if (startPage > 1)
+                {
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                }
+
+                for (int i = startPage; i <= endPage; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a href="@Url.Action("Index", "Devices", new { page = i, search = ViewData["SearchText"] })"
+                           class="page-link">
+                            @i
+                        </a>
+                    </li>
+                }
+
+                if (endPage < Model.TotalPages)
+                {
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                }
+            }
+
+            <!-- 下一页 -->
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a href="@Url.Action("Index", "Devices", new { page = Model.CurrentPage + 1, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == Model.TotalPages ? "tabindex='-1'" : "")>
+                    下一页
+                </a>
+            </li>
+
+            <!-- 末页 -->
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a href="@Url.Action("Index", "Devices", new { page = Model.TotalPages, search = ViewData["SearchText"] })"
+                   class="page-link"
+                   @(Model.CurrentPage == Model.TotalPages ? "tabindex='-1'" : "")>
+                    末页
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
+else
+{
+    <div class="alert alert-info">未查询到设备数据</div>
+}

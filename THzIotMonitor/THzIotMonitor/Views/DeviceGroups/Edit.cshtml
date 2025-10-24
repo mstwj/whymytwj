@@ -1,0 +1,54 @@
+﻿@model THzIotPlatform.Models.DeviceGroup
+
+@{
+    ViewData["Title"] = "编辑设备组";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- 表单：POST 提交到 Edit Action -->
+<form action="/DeviceGroups/Edit" method="post" class="mt-4">
+    @Html.AntiForgeryToken()
+
+    <!-- 隐藏域：传递设备组 ID（不可修改） -->
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="GroupName">设备组名称</label>
+                <input type="text" id="GroupName" name="GroupName" class="form-control" value="@Model.GroupName" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">公司名称</label>
+                <input type="text" id="CompanyName" name="CompanyName" class="form-control" value="@Model.CompanyName" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">经度</label>
+                <input type="text" id="Longitude" name="Longitude" class="form-control" value="@Model.Longitude" />
+                <span asp-validation-for="Longitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName">纬度</label>
+                <input type="text" id="Latitude" name="Latitude" class="form-control" value="@Model.Latitude" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">备注</label>
+                <textarea id="Description" name="Description" class="form-control">@Model.Description</textarea>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">更新</button>
+            <a href="/DeviceGroups/Index" class="btn btn-outline-secondary">取消</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

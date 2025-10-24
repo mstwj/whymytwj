@@ -1,0 +1,72 @@
+﻿@page "/"
+@attribute [TabItemOption(Text = "首页", Closable = false)]
+
+<PageTitle>首页</PageTitle>
+
+
+<h1>太赫兹智慧无功补偿节能设备產品介紹</h1>
+
+<!-- 本周耗电量表格 -->
+<div class="stat-card mb-6 animate-fade-in">
+    <div class="chart-title-container">
+        <h3 class="chart-title">本周耗电量明细</h3>
+    </div>
+    <div class="overflow-x-auto">
+        <table id="fault-table" class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">日期</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">耗电量 (kWh)</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">同比变化</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                </tr>
+            </thead>
+            <tbody id="fault-table-body" class="divide-y divide-gray-200">
+                <!-- 表格内容将通过JS动态填充 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<Row ItemsPerRow="ItemsPerRow.Two">
+    <Card>
+        <BodyTemplate>
+            <h5 class="card-title">公司产品 1</h5>
+            <p class="card-text">公司产品图片</p>
+			<p class="card-text">公司产品设备的简介:我就不写了</p>
+			<a href="#" class="btn btn-primary">设备详细说明</a>
+        </BodyTemplate>
+    </Card>
+
+	<Card>
+        <BodyTemplate>
+            <h5 class="card-title">产品 2</h5>
+            <p class="card-text">这里是一张图片</p>
+			<p class="card-text">这里是设备的简介:我就不写了</p>
+			<a href="#" class="btn btn-primary">设备详细说明</a>
+        </BodyTemplate>
+    </Card>
+
+	<Card>
+        <BodyTemplate>
+            <h5 class="card-title">产品 3</h5>
+            <p class="card-text">这里是一张图片</p>
+			<p class="card-text">这里是设备的简介:我就不写了</p>
+			<a href="#" class="btn btn-primary">设备详细说明</a>
+        </BodyTemplate>
+    </Card>
+
+
+	<Card>
+        <BodyTemplate>
+            <h5 class="card-title">产品 4</h5>
+            <p class="card-text">这里是一张图片</p>
+			<p class="card-text">这里是设备的简介:我就不写了</p>
+			<a href="#" class="btn btn-primary">设备详细说明</a>
+        </BodyTemplate>
+    </Card>
+
+</Row>
+
+

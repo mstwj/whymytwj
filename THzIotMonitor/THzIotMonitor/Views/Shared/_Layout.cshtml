@@ -1,0 +1,177 @@
+﻿<!-- Views/Shared/_Layout.cshtml -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 太赫兹物联网AI云智控监测平台</title>
+    <!-- 引入公共资源 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- 公共样式 -->
+    <style>
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            padding: 1rem 0;
+        }
+
+        .menu-item {
+            padding: 0.75rem 1.5rem;
+            display: block;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+            .menu-item:hover, .menu-item.active {
+                background-color: #007bff;
+                color: white;
+            }
+
+        .content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        @@media (max-width: 768px) {
+            .main-content
+
+        {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        }
+        /* 演示大屏按钮：立体悬浮风格 */
+        .screen-btn {
+            background-color: #212529; /* 深黑灰色，与蓝色导航对比强烈 */
+            color: white !important;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 0 #00000033, 0 6px 8px rgba(0,0,0,0.2); /* 双层阴影，模拟悬浮 */
+            position: relative;
+            top: 0;
+        }
+
+            /* hover 悬浮效果强化 */
+            .screen-btn:hover {
+                background-color: #343a40; /* 加深底色 */
+                top: -2px; /* 上浮更明显 */
+                box-shadow: 0 6px 0 #00000044, 0 8px 12px rgba(0,0,0,0.3); /* 阴影增强 */
+                color: white !important;
+                text-decoration: none;
+            }
+
+            /* 点击状态：按下效果 */
+            .screen-btn:active {
+                top: 2px; /* 下沉 */
+                box-shadow: 0 2px 0 #00000022, 0 3px 4px rgba(0,0,0,0.1); /* 阴影缩小 */
+            }
+    </style>
+    <!-- 页面特有样式占位 -->
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <div class="page-container">
+        <!-- 顶部区域 -->
+        <header class="header">
+            <!-- 左侧：Logo + 平台标题 -->
+            <div class="header-title">
+                <div class="logo">
+                    <i class="fa fa-cloud text-white"></i>
+                </div>
+                <h1 class="mb-0">太赫兹物联网AI云智控监测平台</h1>
+            </div>
+
+            <!-- 右侧：演示大屏跳转按钮（核心新增） -->
+            <a href="/Dashboard" class="screen-btn">
+                <i class="fa fa-desktop mr-2"></i> 电容系统数字化大屏
+            </a>
+        </header>
+
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 左侧菜单（公共导航） -->
+            <nav class="sidebar">
+                @{
+                    string currentController = ViewContext.RouteData.Values["Controller"]?.ToString() ?? "";
+                }
+                <a href="/DeviceGroups" class="menu-item @(currentController == "DeviceGroups" ? "active" : "")">
+                    <i class="fa fa-cubes mr-2"></i>设备组管理
+                </a>
+                <a href="/Devices" class="menu-item @(currentController == "Devices" ? "active" : "")">
+                    <i class="fa fa-microchip mr-2"></i>设备管理
+                </a>
+                <a href="/DeviceParameters" class="menu-item @(currentController == "DeviceParameters" ? "active" : "")">
+                    <i class="fa fa-sliders mr-2"></i>设备参数管理
+                </a>
+                <a href="/ParameterDatas" class="menu-item @(currentController == "ParameterDatas" ? "active" : "")">
+                    <i class="fa fa-line-chart mr-2"></i>设备运行数据查询
+                </a>
+                <a href="/AlarmDatas" class="menu-item @(currentController == "AlarmDatas" ? "active" : "")">
+                    <i class="fa fa-bell mr-2"></i>设备报警数据查询
+                </a>
+            </nav>
+
+            <!-- 右侧内容（由子视图填充） -->
+            <main class="content">
+                @RenderBody() <!-- 首页/其他页面的内容会在这里显示 -->
+            </main>
+        </div>
+    </div>
+
+    <!-- 公共脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 页面特有脚本占位 -->
+    @RenderSection("Scripts", required: false)
+    <!-- 引入 jQuery（全局可用） -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+
+    <!-- 引入验证脚本（解决 _ValidationScriptsPartial 缺失的间接问题） -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

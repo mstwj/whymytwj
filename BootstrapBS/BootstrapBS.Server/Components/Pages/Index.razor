@@ -1,0 +1,17 @@
+﻿@page "/"
+
+@inherits WebSiteModuleComponentBase
+
+<DemoBlock Title="图表比例 1">
+
+	<Chart @ref="_lineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+	<ConsoleLogger @ref="_logger" />
+</DemoBlock>
+
+<DemoBlock Title="图表比例 2"
+           
+           Name="IsAnimation">
+    <Chart @ref="_continueChart" IsAnimation="false" OnInitAsync="OnInitContinue" />
+</DemoBlock>
+
+

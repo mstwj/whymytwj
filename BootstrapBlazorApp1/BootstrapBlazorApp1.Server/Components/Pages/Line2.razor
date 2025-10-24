@@ -1,0 +1,26 @@
+﻿@page "/line2"
+@inject IStringLocalizer<Line> Localizer
+
+
+<DemoBlock Title="Line 图"
+           Introduction="使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作，通过设置 <code>BorderWidth</code> 属性，可以设置折线图线宽，默认值3，通过设置 <code>ChartOptions.LegendLabelsFontSize</code> 属性，可以设置图例 <code>Lables</code> 字体大小"
+           Name="LineOnInit">
+    <Chart @ref="_lineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(_lineChart)"><i class="fa-solid fa-chart-line"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>重载</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(_lineChart, ref _lineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(_lineChart, ref _lineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(_lineChart, ref _lineDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(_lineChart, ref _lineDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+    <ConsoleLogger @ref="_logger" />
+</DemoBlock>
+
+<DemoBlock >
+    <Chart @ref="_continueChart" IsAnimation="false" OnInitAsync="OnInitContinue" />
+</DemoBlock>
+
+

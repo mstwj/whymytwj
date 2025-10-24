@@ -1,0 +1,271 @@
+﻿@page "/test1"
+@implements IDisposable
+
+@using System.Reflection;
+@using Opc.Ua;
+@using Opc.Ua.Client;
+
+
+<Row ItemsPerRow="ItemsPerRow.Three">
+    <Card>
+        <BodyTemplate>
+            <h5 class="card-title">电压表</h5>
+            <Chart @ref="_continueChart1" IsAnimation="false" OnInitAsync="OnInitContinue" />
+            <a href="#" class="btn btn-primary">（手动）配置投递电容</a>
+        </BodyTemplate>
+    </Card>
+    <Card>
+        <BodyTemplate>
+			<h5 class="card-title">电流表</h5>
+			<Chart @ref="_continueChart2" IsAnimation="false" OnInitAsync="OnInitContinue" />
+			<a href="#" class="btn btn-primary">（手动）配置投递电容</a>
+        </BodyTemplate>
+    </Card>
+    <Card>
+        <BodyTemplate>
+            <h5 class="card-title">功率表</h5>
+            <Chart @ref="_continueChart3" IsAnimation="false" OnInitAsync="OnInitContinue" />
+			<a href="#" class="btn btn-primary">（手动）配置投递电容</a>
+        </BodyTemplate>
+    </Card>
+    <Card>
+        <BodyTemplate>
+            <h5 class="card-title">电容补偿后(电压表)</h5>
+			<Chart @ref="_continueChart11" IsAnimation="false" OnInitAsync="OnInitContinue" />
+			<a href="#" class="btn btn-primary">（手动）配置投递电容</a>
+        </BodyTemplate>
+    </Card>
+    <Card>
+        <BodyTemplate>
+			<h5 class="card-title">电容补偿后(电流表)</h5>
+            <Chart @ref="_continueChart22" IsAnimation="false" OnInitAsync="OnInitContinue" />
+			<a href="#" class="btn btn-primary">（手动）配置投递电容</a>
+        </BodyTemplate>
+    </Card>
+    <Card>
+        <BodyTemplate>
+			<h5 class="card-title">电容补偿后(功率表)</h5>
+            <Chart @ref="_continueChart33" IsAnimation="false" OnInitAsync="OnInitContinue" />
+			<a href="#" class="btn btn-primary">（手动）配置投递电容</a>
+        </BodyTemplate>
+    </Card>
+</Row>
+
+@code {
+
+
+	//@NotNull 等注解来指定该属性不能为空
+	[Inject]
+	[NotNull]
+	private NavigationManager? Navigation { get; set; }
+
+	/// <summary>
+	/// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
+	/// </summary>
+	[Parameter]
+	public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
+	[Parameter]
+	public IEnumerable<MenuItem>? Menus { get; set; }
+
+	[Parameter]
+	public bool IsFixedTabHeader { get; set; }
+
+	private Chart _continueChart1 = default!;
+	private Chart _continueChart2 = default!;
+	private Chart _continueChart3 = default!;
+
+	private Chart _continueChart11 = default!;
+	private Chart _continueChart22 = default!;
+	private Chart _continueChart33 = default!;
+
+
+	private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+	protected override Task OnAfterRenderAsync(bool firstRender)
+	{
+		return base.OnAfterRenderAsync(firstRender);
+	}
+
+	static async Task<Int32> AsSyncRead(Session session)
+	{
+		try
+		{
+			ReadValueIdCollection readValueIds = new ReadValueIdCollection();
+			readValueIds.Add(new ReadValueId
+				{
+					NodeId = "ns=2;s=模拟器示例.函数.Ramp1",
+					AttributeId = Attributes.Value
+				});
+
+			CancellationToken ct = new CancellationToken();
+			//这里又个UI的问题，如果是主线程，这里就不等，如果是 工作线程，这里就等待了。
+			//我们的客户端是浏览器，这里是工作线程来这里，所以，我们这里是等待情况的..
+			ReadResponse readResponse = await session.ReadAsync(new RequestHeader(),
+				0,//有数据缓存，是服务器缓存的数据，0是当前.
+				TimestampsToReturn.Both,//返回2方的时间.
+				readValueIds,
+				ct);
+
+			foreach (var item in readResponse.Results)
+			{
+				if (item.StatusCode == StatusCodes.Good)
+				{
+					return ((Int32)item.WrappedValue.Value);
+				}				
+			}
+
+			return 0;
+		}
+		catch (Exception ex)
+		{
+			throw;
+		}
+	}
+
+	static Task<Session> AnonymousConnection(string endpoint)
+	{
+
+		return Session.Create(
+			new Opc.Ua.ApplicationConfiguration()
+		    {
+			   ClientConfiguration = new ClientConfiguration()
+			},
+			new ConfiguredEndpoint(null, new EndpointDescription(endpoint)), //连接的IP..
+			true,//不知道..
+			"zhaoxi-opc",//SESION NAME,连接上服务器后，我是什么名字呢？这个顺便定义..
+			5000, //长时间不通信，就踢..
+			new UserIdentity(),//必须这样..
+			new List<string>() { } //不知道 。。
+		);
+
+	}
+
+	public Session? session;
+
+	/// <summary>
+	/// <inheritdoc/>
+	/// </summary>
+	/// <param name="firstRender"></param>
+	protected override void OnAfterRender(bool firstRender)
+	{
+		base.OnAfterRender(firstRender);
+
+		if (firstRender)
+		{
+
+			//这里--就初始化一个数据就OK了...
+			Task.Run(async () =>
+			{
+				//线程..初始化
+				session = await AnonymousConnection("opc.tcp://127.0.0.1:49320");
+
+				while (!_cancellationTokenSource.IsCancellationRequested)
+				{
+					try
+					{
+						await Task.Delay(200, _cancellationTokenSource.Token);
+
+						
+
+						if (session != null)
+						{
+							Task<Int32> task =	AsSyncRead(session);
+							ShebeiData = await task;
+
+						}
+
+						await _continueChart1.Reload();
+						await _continueChart2.Reload();
+						await _continueChart3.Reload();
+						await _continueChart11.Reload();
+						await _continueChart22.Reload();
+						await _continueChart33.Reload();
+					}
+					catch (OperationCanceledException) { }
+				}
+
+				//线程正常退出...
+				if (session != null)
+					session.Close();				
+
+			});
+		}
+	}
+
+	public Int32 ShebeiData { get; set; }
+
+	private readonly Random _randomer = new();
+
+	//整个数据列表..
+	private readonly List<float> _continueData = [1.1f, 4.2f, 5.3f, 3.3f, 4.0f, 2.0f, 6.3f, 4.5f, 19.2f, 3.3f, 1.2f, 4.0f, 5.2f, 3.7f, 4.4f];
+
+	//开始位置..
+	private int _lineChartStartIndex = 0;
+
+	private async Task<ChartDataSource> OnInitContinue()
+	{
+		var ds = new ChartDataSource();
+		ds.Options.Title = "实时数据";
+		//数据字符大小..
+		ds.Options.LegendLabelsFontSize = 16; 
+		ds.Options.X.Title = "数量";
+		ds.Options.Y.Title = "数值";
+		ds.Options.Responsive = false;
+
+		ds.Options.YScalesMin = 0;
+		ds.Options.YScalesMax = 100;
+		
+		//_lineChartStartIndex每次刷新+1...
+		_lineChartStartIndex++;
+
+		//_continueData一共15个数值...
+		_continueData.RemoveAt(0);
+
+		//这里是0到0.1的数值...
+		//_continueData.Add(_randomer.NextSingle());
+		_continueData.Add(ShebeiData);
+
+		//ds.Labels--这里就是15个范围...(这里默认是+1一直到加15个为止..)
+		ds.Labels = Enumerable.Range(_lineChartStartIndex, 15).Select(i => i.ToString());
+
+		ds.Data.Add(new ChartDataset()
+			{
+				BorderWidth = 1,
+				Label = "实时数据",
+				//这里的DATA数据很是智能，他会自动找最大值，然后X值.又重新计算..
+				Data = _continueData.Select(i => (object)i),
+				ShowPointStyle = false,
+				PointStyle = ChartPointStyle.Circle,
+				PointRadius = 2,
+				PointHoverRadius = 4
+			});
+		await Task.Delay(100);
+		return ds;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		//返回的是一个DLL...
+		AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
+	}
+
+	private void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			_cancellationTokenSource.Cancel();
+			_cancellationTokenSource.Dispose();
+		}
+	}
+
+
+	public void Dispose()
+	{
+		Dispose(true);
+		GC.SuppressFinalize(this);
+	}
+
+
+}

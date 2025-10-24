@@ -1,0 +1,137 @@
+﻿@model THzIotPlatform.Models.PaginationViewModel<THzIotPlatform.Models.DeviceParameter>
+
+@{
+    ViewData["Title"] = "设备参数管理";
+    // 接收查询条件（用于回显）
+    var searchDeviceCode = ViewData["SearchDeviceCode"] as string ?? "";
+}
+
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0">设备参数列表</h2>
+        <a href="/DeviceParameters/Create" class="btn btn-primary">新增设备参数</a>
+    </div>
+    <div class="card-body">
+        <!-- 筛选表单 -->
+        <form asp-action="Index" method="get" class="row g-3 mb-4">
+            <div class="col-md-6">
+                <label class="form-label">设备参数</label>
+                <input type="text" name="searchDeviceCode" class="form-control"
+                       placeholder="输入参数名称\访问地址筛选" value="@searchDeviceCode">
+            </div>
+            <div class="col-md-2 align-self-end">
+                <button type="submit" class="btn btn-secondary w-100">查询</button>
+            </div>
+            <div class="col-md-2 align-self-end">
+                <a asp-action="Index" class="btn btn-outline-secondary w-100">重置</a>
+            </div>
+        </form>
+
+        
+        <!-- 数据表格 -->
+        @if (Model.Data.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>参数名称</th>
+                        <th>所属设备</th>
+                        <th>访问地址</th>
+                        <th>是否设备组属性</th>
+                        <th>是否为累加参数</th>
+                        <th>单位</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var device in Model.Data)
+                    {
+                        <tr>
+                                <td>@device.ParameterName</td>
+                                <td>@device.Device?.DeviceName</td> <!-- 关联设备名称 -->
+                                <td>@device.AccessAddress</td>
+                                <td>@(device.IsGroupProperty ? "是" : "否")</td>
+                                <td>@(device.IsAccumulatedParameter ? "是" : "否")</td>
+                                <td>@Html.DisplayFor(modelItem => device.Unit)</td>
+                                <td>
+                                    <a href="/DeviceParameters/Details/@device.Id" class="btn btn-sm btn-info">详情</a>
+                                    <a href="/DeviceParameters/Edit/@device.Id" class="btn btn-sm btn-warning ms-1">编辑</a>
+                                    <a href="/DeviceParameters/Delete/@device.Id" class="btn btn-sm btn-danger ms-1">删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    <!-- 首页 -->
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a href="@Url.Action("Index", "DeviceParameters", new { page = 1, search = ViewData["SearchText"] })"
+                           class="page-link"
+                           @(Model.CurrentPage == 1 ? "tabindex='-1'" : "")>
+                            首页
+                        </a>
+                    </li>
+
+                    <!-- 上一页 -->
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a href="@Url.Action("Index", "DeviceParameters", new { page = Model.CurrentPage - 1, search = ViewData["SearchText"] })"
+                           class="page-link"
+                           @(Model.CurrentPage == 1 ? "tabindex='-1'" : "")>
+                            上一页
+                        </a>
+                    </li>
+
+                    <!-- 页码列表 -->
+                    @{
+                        int startPage = Math.Max(1, Model.CurrentPage - 2);
+                        int endPage = Math.Min(Model.TotalPages, startPage + 4);
+
+                        if (startPage > 1)
+                        {
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        }
+
+                        for (int i = startPage; i <= endPage; i++)
+                        {
+                            <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                                <a href="@Url.Action("Index", "DeviceParameters", new { page = i, search = ViewData["SearchText"] })"
+                                   class="page-link">
+                                    @i
+                                </a>
+                            </li>
+                        }
+
+                        if (endPage < Model.TotalPages)
+                        {
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        }
+                    }
+
+                    <!-- 下一页 -->
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a href="@Url.Action("Index", "DeviceParameters", new { page = Model.CurrentPage + 1, search = ViewData["SearchText"] })"
+                           class="page-link"
+                           @(Model.CurrentPage == Model.TotalPages ? "tabindex='-1'" : "")>
+                            下一页
+                        </a>
+                    </li>
+
+                    <!-- 末页 -->
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a href="@Url.Action("Index", "DeviceParameters", new { page = Model.TotalPages, search = ViewData["SearchText"] })"
+                           class="page-link"
+                           @(Model.CurrentPage == Model.TotalPages ? "tabindex='-1'" : "")>
+                            末页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            }
+            else
+            {
+                <div class="alert alert-info">未找到符合条件的设备参数</div>
+            }
+    </div>
+</div>

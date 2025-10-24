@@ -1,0 +1,106 @@
+﻿@model THzIotPlatform.Models.Device
+
+@{
+    ViewData["Title"] = "设备详情";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card" style="max-width: 800px;">
+    <div class="card-header">
+        <h5 class="card-title">@Model.DeviceName</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">设备 ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">设备名称</dt>
+            <dd class="col-sm-9">@Model.DeviceName</dd>
+
+            <dt class="col-sm-3">所属设备组</dt>
+            <dd class="col-sm-9">@Model.DeviceGroup?.GroupName</dd>
+
+            <dt class="col-sm-3">设备编码</dt>
+            <dd class="col-sm-9">@Model.DeviceCode</dd>
+
+            <dt class="col-sm-3">设备类型</dt>
+            <dd class="col-sm-9">@Model.DeviceType</dd>
+
+            <dt class="col-sm-3">设备品牌</dt>
+            <dd class="col-sm-9">@Model.Brand</dd>
+            <dt class="col-sm-3">设备型号</dt>
+            <dd class="col-sm-9">@Model.Model</dd>
+
+            <dt class="col-sm-3">出厂日期</dt>
+            <dd class="col-sm-9">@Model.ManufactureDate?.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+            <dt class="col-sm-3">购买日期</dt>
+            <dd class="col-sm-9">@Model.PurchaseDate?.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+            <dt class="col-sm-3">出厂编号</dt>
+            <dd class="col-sm-9">@Model.FactoryNumber</dd>
+            <dt class="col-sm-3">安装机位</dt>
+            <dd class="col-sm-9">@Model.InstallationLocation</dd>
+           
+
+            <dt class="col-sm-3">状态</dt>
+            <dd class="col-sm-9">
+                <span class="badge @(Model.IsOnline ? "bg-success" : "bg-danger")">
+                    @(Model.IsOnline ? "在线" : "离线")
+                </span>
+            </dd>
+
+            <dt class="col-sm-3">备注</dt>
+            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Remarks) ? "无" : Model.Remarks)</dd>
+
+            <dt class="col-sm-3">创建时间</dt>
+            <dd class="col-sm-9">@Model.CreateTime?.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+
+            <dt class="col-sm-3">更新时间</dt>
+            <dd class="col-sm-9">@Model.UpdateTime?.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <div class="card-footer">
+            <a href="/Devices/Edit/@Model.Id" class="btn btn-warning">编辑</a>
+            <a href="/Devices/Index" class="btn btn-outline-secondary">返回列表</a>
+        </div>
+    </div>
+</div>
+<!-- 关联设备列表 -->
+@if (Model.Parameters != null && Model.Parameters.Any())
+{
+    <div class="card">
+        <div class="card-header">
+            <h3>关联设备参数</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>参数名称</th>
+                        <th>访问地址</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var device in Model.Parameters)
+                    {
+                        <tr>
+                            <td>@device.ParameterName</td>
+                            <td>@device.AccessAddress</td>
+                            <td>
+                                <a href="/DeviceParameters/Details/@device.Id" class="btn btn-sm btn-info">详情</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        该设备暂无参数
+    </div>
+}

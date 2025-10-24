@@ -1,0 +1,85 @@
+﻿@model THzIotPlatform.Models.DeviceGroup
+
+@{
+    ViewData["Title"] = "设备组详情";
+}
+
+<!-- 面包屑导航 -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="DeviceGroups" asp-action="Index">设备组列表</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.GroupName</li>
+    </ol>
+</nav>
+
+<!-- 设备组基础信息 -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>基础信息</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>ID：</strong> @Model.Id</p>
+                <p><strong>设备组名称：</strong> @Model.GroupName</p>
+                <p><strong>公司名称：</strong>@(string.IsNullOrEmpty(Model.CompanyName) ? "无" : Model.CompanyName) </p>
+                <p><strong>经度：</strong> @Model.Longitude</p>
+                <p><strong>纬度：</strong> @Model.Latitude</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>创建时间：</strong> @Model.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                <p><strong>关联设备数量：</strong> @(Model.Devices?.Count ?? 0)</p>
+            </div>
+        </div>
+        <p><strong>备注：</strong> @(string.IsNullOrEmpty(Model.Description) ? "无" : Model.Description)</p>
+    </div>
+    <div class="card-footer">
+        <a href="/DeviceGroups/Edit/@Model.Id"  class="btn btn-warning">编辑</a>
+        <a href="/DeviceGroups/Index" class="btn btn-outline-secondary">返回列表</a>
+    </div>
+</div>
+
+<!-- 关联设备列表 -->
+@if (Model.Devices != null && Model.Devices.Any())
+{
+    <div class="card">
+        <div class="card-header">
+            <h3>关联设备</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>设备编码</th>
+                        <th>设备名称</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var device in Model.Devices)
+                    {
+                        <tr>
+                            <td>@device.DeviceCode</td>
+                            <td>@device.DeviceName</td>
+                            <td>
+                                <span class="badge @(device.IsOnline ? "bg-success" : "bg-danger")">
+                                    @(device.IsOnline ? "在线" : "离线")
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/Devices/Details/@device.Id"  class="btn btn-sm btn-info">详情</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        该设备组暂无关联设备
+    </div>
+}
