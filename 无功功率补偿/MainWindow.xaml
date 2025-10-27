@@ -24,6 +24,8 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="A相电压 " VerticalAlignment="Center" Margin="20 0 0 0"></TextBlock>
@@ -52,9 +54,13 @@
 
             <Button Grid.Row="7" Command="{Binding BtnCommandStart3}" Visibility="Hidden" Content="点击计算2"></Button>
 
-            <Button Grid.Row="7" Command="{Binding BtnCommandStart2}"  Content="开始"></Button>
+            <Button Grid.Row="7" Command="{Binding BtnCommandStart2}"  Content="开始(0.5-0.99)"></Button>
 
-            <Button Grid.Row="8" Command="{Binding BtnCommandStartStop}"  Content="停止"></Button>
+            <Button Grid.Row="8" Command="{Binding BtnCommandStartStop}"  Content="停止(0.5-0.99)"></Button>
+
+            <Button Grid.Row="9" Command="{Binding BtnCommandStart5}"  Content="开始(0.5)"></Button>
+
+            <Button Grid.Row="10" Command="{Binding BtnCommandStartStop5}"  Content="停止(0.99)"></Button>
 
         </Grid>
 

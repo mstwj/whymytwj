@@ -28,16 +28,16 @@ namespace 无功功率补偿.ViewModel
 
 
 
-        private float adianliu = 280;
+        private float adianliu = 245;
         public float Adianliu { get { return adianliu; } set { SetProperty(ref adianliu, value); } }
 
-        private float bdianliu = 280;
+        private float bdianliu = 245;
         public float Bdianliu { get { return bdianliu; } set { SetProperty(ref bdianliu, value); } }
 
-        private float cdianliu = 280;
+        private float cdianliu = 245;
         public float Cdianliu { get { return cdianliu; } set { SetProperty(ref cdianliu, value); } }
 
-        private float oldfactor = 0.60f;
+        private float oldfactor = 0.50f;
         public float Oldfactor { get { return oldfactor; } set { SetProperty(ref oldfactor, value); } }
 
 
@@ -189,6 +189,10 @@ namespace 无功功率补偿.ViewModel
         public ICommand BtnCommandPut { get; set; }
         public ICommand BtnCommandStartStop { get; set; }
 
+        public ICommand BtnCommandStart5 { get; set; }
+
+        public ICommand BtnCommandStartStop5 { get; set; }
+
         public MainWindowViewModel()
         {
             BtnCommandStart = new RelayCommand<object>(DoBtnCommandStart);
@@ -196,6 +200,27 @@ namespace 无功功率补偿.ViewModel
             BtnCommandStart3 = new RelayCommand<object>(DoBtnCommandStart3);
             BtnCommandPut = new RelayCommand<object>(DoBtnCommandPut);
             BtnCommandStartStop = new RelayCommand<object>(DoBtnCommandStartStop);
+            BtnCommandStart5 = new RelayCommand<object>(DoBtnCommandStart5);
+            BtnCommandStartStop5 = new RelayCommand<object>(DoBtnCommandStartStop5);
+        }
+
+
+        private void DoBtnCommandStartStop5(object param)
+        {
+
+
+        }
+
+        private void DoBtnCommandStart5(object param)
+        {
+            //前一个表..(写2个表.. 前一个表是0.5 后一个表是0.99 -- 有中间值..)
+            //前一个表..
+            //电压 -- 变，小变..
+            //电流 -- 变，中变..
+
+
+
+
         }
 
         private void DoBtnCommandStartStop(object param)
@@ -226,24 +251,94 @@ namespace 无功功率补偿.ViewModel
         private CancellationTokenSource? cancellationTokenSource { get; set; }
 
 
-        //产生一个小波动的值..
-        public float GetRandom(double Number1min, double Number2max)
-        {
-            Random random = new Random();
-            double minValue = Number1min;
-            double maxValue = Number2max;
-            double range = maxValue - minValue;
 
-            // 生成一个[0, 1)区间的随机浮点数
-            double randomFloat = random.NextDouble();
+        private void WriteTongWenjun(Capacitancecompensation capacitancecompensation,float Newfactor)
+        {            
+            //电压 ABC
+            ShowAdianya = capacitancecompensation.UserAAvoltage;
+            ShowBdianya = capacitancecompensation.UserBAvoltage;
+            ShowCdianya = capacitancecompensation.UserCAvoltage;
 
-            // 将这个随机浮点数缩放到[0, range]区间
-            double scaledFloat = randomFloat * range;
+            //电流            
+            var result = capacitancecompensation.GetAelectric(Newfactor);
+            ShowAdianliu = result.Item1;
+            ShowBdianliu = result.Item2;
+            ShowCdianliu = result.Item3;
 
-            // 加上最小值得到最终结果
-            double finalValue = scaledFloat + minValue;
+            //有功
+            result = capacitancecompensation.GetActivePower();
+            ShowAyggl = result.Item1;
+            ShowByggl = result.Item2;
+            ShowCyggl = result.Item3;
 
-            return (float)finalValue;
+            //无功
+            result = capacitancecompensation.GetReactivePower(Newfactor);
+            ShowAwggl = result.Item1;
+            ShowBwggl = result.Item2;
+            ShowCwggl = result.Item3;
+
+            int testTrdn = 10;
+            int i = 0;
+            while (testTrdn < ShowAwggl + ShowBwggl + ShowCwggl)
+            {
+                testTrdn += 10;
+                i++;
+            }
+            ShowTrdn = i;
+
+
+            //实在功率
+            result = capacitancecompensation.GetApparentpower(Newfactor);
+            ShowASzgl = result.Item1;
+            ShowBSzgl = result.Item2;
+            ShowCSzgl = result.Item3;
+
+            //功率因数
+            ShowAglys = Newfactor;
+            ShowBglys = Newfactor;
+            ShowCglys = Newfactor;
+
+            //ABC 波形畸变
+            result = capacitancecompensation.HarmonicVoltageRate(Newfactor);
+            ShowAdianyajb = result.Item1;
+            ShowBdianyajb = result.Item2;
+            ShowCdianyajb = result.Item3;
+
+            //ABC 波形畸变
+            result = capacitancecompensation.HarmonicVoltageRate(Newfactor);
+            ShowAdianliujb = result.Item1;
+            ShowAdianliujb = result.Item2;
+            ShowAdianliujb = result.Item3;
+
+
+            //(火 -- 国家定死的)0.94
+            result = capacitancecompensation.Carbon123(Newfactor);
+            ShowTPF1 = result.Item1;
+            ShowTPF2 = result.Item2;
+            ShowTPF3 = result.Item3;
+
+            //(风 -- 国家定死的)0.03
+            result = capacitancecompensation.Carbon456(Newfactor);
+            ShowTPF4 = result.Item1;
+            ShowTPF5 = result.Item2;
+            ShowTPF6 = result.Item3;
+
+
+            //(光伏 -- 国家定死的)0.05
+            result = capacitancecompensation.Carbon789(Newfactor);
+            ShowTPF7 = result.Item1;
+            ShowTPF8 = result.Item2;
+            ShowTPF9 = result.Item3;
+
+            //(水利 -- 国家定死的)0.03
+            result = capacitancecompensation.Carbon101112(Newfactor);
+            ShowTPF10 = result.Item1;
+            ShowTPF11 = result.Item2;
+            ShowTPF12 = result.Item3;
+
+
+            ShowDRWD = capacitancecompensation.DRWD;
+
         }
 
 
@@ -270,105 +365,41 @@ namespace 无功功率补偿.ViewModel
                 cancellationTokenSource = new ();
                 while (!cancellationTokenSource.IsCancellationRequested)
                 {
-                    
                     //电流 ABC
-                    Newfactor += 0.01f;
-                    //Newfactor = (float)Math.Round(Newfactor, 2); // 四
+                    //这里是2个表，1个表是没开设备的，1个表是开了设备的..
+
+                    if (Newfactor < 0.99)
+                    {
+                        Newfactor += 0.01f;
+                        //只要后面2位...
+                        Newfactor = (float)Math.Round(Newfactor, 2); 
+                    }
+
+
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        //电压 ABC
-                        ShowAdianya = capacitancecompensation.UserAAvoltage;
-                        ShowBdianya = capacitancecompensation.UserBAvoltage;
-                        ShowCdianya = capacitancecompensation.UserCAvoltage; 
+                        capacitancecompensation.JIsuanInitializing();
 
-                        //电流
-                        var result = capacitancecompensation.GetAelectric(Newfactor);                        
-                        ShowAdianliu = result.Item1;
-                        ShowBdianliu = result.Item2;
-                        ShowCdianliu = result.Item3;
+                        Adianya = capacitancecompensation.UserAAvoltage;
+                        Bdianya = capacitancecompensation.UserBAvoltage;
+                        Cdianya = capacitancecompensation.UserCAvoltage;
 
-                        //有功
-                        result = capacitancecompensation.GetActivePower();
-                        ShowAyggl = result.Item1 ;
-                        ShowByggl = result.Item2 ;
-                        ShowCyggl = result.Item3 ;
+                        Adianliu = capacitancecompensation.UserAAelectric;
+                        Bdianliu = capacitancecompensation.UserBAelectric;
+                        Cdianliu = capacitancecompensation.UserCAelectric;
 
-                        //无功
-                        result = capacitancecompensation.GetReactivePower(Newfactor);
-                        ShowAwggl = result.Item1;
-                        ShowBwggl = result.Item2;
-                        ShowCwggl = result.Item3;
+                        //表1
+                        WriteTongWenjun(capacitancecompensation,0.5f);
 
-                        int testTrdn = 10;
-                        int i = 0;
-                        while (testTrdn < ShowAwggl + ShowBwggl + ShowCwggl)
-                        {
-                            testTrdn += 10;
-                            i++;
-                        }
-                        ShowTrdn = i;
-
-
-                        //实在功率
-                        result = capacitancecompensation.GetApparentpower(Newfactor);
-                        ShowASzgl = result.Item1;
-                        ShowBSzgl = result.Item2;
-                        ShowCSzgl = result.Item3;
-
-                        //功率因数
-                        ShowAglys = Newfactor;
-                        ShowBglys = Newfactor;
-                        ShowCglys = Newfactor;
-
-                        //ABC 波形畸变
-                        result = capacitancecompensation.HarmonicVoltageRate(Newfactor);
-                        ShowAdianyajb = result.Item1;
-                        ShowBdianyajb = result.Item2;
-                        ShowCdianyajb = result.Item3;
-
-                        //ABC 波形畸变
-                        result = capacitancecompensation.HarmonicVoltageRate(Newfactor);
-                        ShowAdianliujb = result.Item1;
-                        ShowAdianliujb = result.Item2;
-                        ShowAdianliujb = result.Item3;
-
-
-                        //(火 -- 国家定死的)0.94
-                        result = capacitancecompensation.Carbon123(Newfactor);
-                        ShowTPF1 = result.Item1;
-                        ShowTPF2 = result.Item2;
-                        ShowTPF3 = result.Item3;
-
-                        //(风 -- 国家定死的)0.03
-                        result = capacitancecompensation.Carbon456(Newfactor);
-                        ShowTPF4 = result.Item1;
-                        ShowTPF5 = result.Item2;
-                        ShowTPF6 = result.Item3;
-
-
-                        //(光伏 -- 国家定死的)0.05
-                        result = capacitancecompensation.Carbon789(Newfactor);
-                        ShowTPF7 = result.Item1;
-                        ShowTPF8 = result.Item2;
-                        ShowTPF9 = result.Item3;
-
-                        //(水利 -- 国家定死的)0.03
-                        result = capacitancecompensation.Carbon101112(Newfactor);
-                        ShowTPF10 = result.Item1;
-                        ShowTPF11 = result.Item2;
-                        ShowTPF12 = result.Item3;
-
-                        
-
-                        ShowDRWD += GetRandom(0.2, 0.8);
+                        //表2
+                        WriteTongWenjun(capacitancecompensation,Newfactor);
 
                     });
 
 
                     try
-                    {
-                        if (Newfactor >= 0.99) break;
+                    {                        
                         await Task.Delay(1000, cancellationTokenSource.Token);
                     }
                     catch (TaskCanceledException)
@@ -380,3 +411,4 @@ namespace 无功功率补偿.ViewModel
         }        
     }
 }
+

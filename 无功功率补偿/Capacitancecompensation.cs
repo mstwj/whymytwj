@@ -34,6 +34,65 @@ namespace 无功功率补偿
         //目標功率因數(就是0.99)
         private float targetpowerfactor = 0.99f;
 
+        //温度..
+        public float DRWD = 21.0f;
+
+        //产生一个小波动的值..
+        public float GetRandom(double Number1min, double Number2max)
+        {
+            Random random = new Random();
+            double minValue = Number1min;
+            double maxValue = Number2max;
+            double range = maxValue - minValue;
+
+            // 生成一个[0, 1)区间的随机浮点数
+            double randomFloat = random.NextDouble();
+
+            // 将这个随机浮点数缩放到[0, range]区间
+            double scaledFloat = randomFloat * range;
+
+            // 加上最小值得到最终结果
+            double finalValue = scaledFloat + minValue;
+
+            return (float)finalValue;
+        }
+
+        public void JIsuanInitializing()
+        {
+            //电压 ABC
+            UserAAvoltage = UserAAvoltage + GetRandom(-0.5, 0.5);
+            UserBAvoltage = UserBAvoltage + GetRandom(-0.5, 0.5);
+            UserCAvoltage = UserCAvoltage + GetRandom(-0.5, 0.5);
+            //电流
+            UserAAelectric = UserAAelectric + GetRandom(-10, 10);
+            UserBAelectric = UserBAelectric + GetRandom(-10, 10);
+            UserCAelectric = UserCAelectric + GetRandom(-10, 10);
+
+            if (UserAAvoltage < 200) UserAAvoltage = 200;
+            if (UserBAvoltage < 200) UserBAvoltage = 200;
+            if (UserCAvoltage < 200) UserCAvoltage = 200;
+
+            if (UserAAvoltage > 240) UserAAvoltage = 240;
+            if (UserBAvoltage > 240) UserBAvoltage = 240;
+            if (UserCAvoltage > 240) UserCAvoltage = 240;
+
+            if (UserAAelectric < 200) UserAAelectric = 200;
+            if (UserBAelectric < 200) UserBAelectric = 200;
+            if (UserCAelectric < 200) UserCAelectric = 200;
+
+            if (UserAAelectric > 270) UserAAelectric = 270;
+            if (UserBAelectric > 270) UserBAelectric = 270;
+            if (UserCAelectric > 270) UserCAelectric = 270;
+
+           
+            if (DRWD < 32)
+            {
+                DRWD += GetRandom(0.2, 0.8);
+            }
+
+        }
+
+
         //得到视在功率 = 有功功率 + 无功功率..
         public (float, float, float) GetApparentpower(float newpowerfactor)
         {
@@ -47,9 +106,9 @@ namespace 无功功率补偿
         //得到有功功率这个也不会改变.... 
         public (float, float, float) GetActivePower()
         {
-            float PA = (float)(UserAAvoltage * UserAAelectric * 1.732) * oldpowerfactor;
-            float PB = (float)(UserBAvoltage * UserBAelectric * 1.732) * oldpowerfactor;
-            float PC = (float)(UserCAvoltage * UserCAelectric * 1.732) * oldpowerfactor;
+            float PA = (float)(UserAAvoltage * UserAAelectric ) * oldpowerfactor;
+            float PB = (float)(UserBAvoltage * UserBAelectric ) * oldpowerfactor;
+            float PC = (float)(UserCAvoltage * UserCAelectric ) * oldpowerfactor;
 
             return (PA / 1000, PB / 1000, PC / 1000);
         }
@@ -113,14 +172,14 @@ namespace 无功功率补偿
             var result = GetAelectric(newpowerfactor);
 
 
-            return ((float)((result.Item1 * UserAAvoltage * 1.734) * 0.8) / 1000, (float)(((result.Item2 * UserBAvoltage * 1.734) * 0.8) / 1000), (float)((result.Item3 * UserCAvoltage * 1.734) * 0.8) / 1000);
+            return ((float)((result.Item1 * UserAAvoltage ) * 0.8) / 1000, (float)(((result.Item2 * UserBAvoltage ) * 0.8) / 1000), (float)((result.Item3 * UserCAvoltage) * 0.8) / 1000);
         }
 
         //碳排放..4 5 6 (风) 0.03
         public (float, float, float) Carbon456(float newpowerfactor)
         {
             var result = GetApparentpower(newpowerfactor);
-            return ((float)((result.Item1 * UserAAvoltage * 1.734) * 0.03)/1000, (float)(((result.Item2 * UserBAvoltage * 1.734) * 0.03) / 1000), (float)((result.Item3 * UserCAvoltage * 1.734) * 0.03) / 1000);
+            return ((float)((result.Item1 * UserAAvoltage ) * 0.03)/1000, (float)(((result.Item2 * UserBAvoltage) * 0.03) / 1000), (float)((result.Item3 * UserCAvoltage) * 0.03) / 1000);
         }
 
 
@@ -128,14 +187,14 @@ namespace 无功功率补偿
         public (float, float, float) Carbon789(float newpowerfactor)
         {
             var result = GetApparentpower(newpowerfactor);
-            return ((float)((result.Item1 * UserAAvoltage * 1.734) * 0.05) / 1000, (float)(((result.Item2 * UserBAvoltage * 1.734) * 0.05) / 1000), (float)((result.Item3 * UserCAvoltage * 1.734) * 0.05) / 1000);
+            return ((float)((result.Item1 * UserAAvoltage ) * 0.05) / 1000, (float)(((result.Item2 * UserBAvoltage) * 0.05) / 1000), (float)((result.Item3 * UserCAvoltage) * 0.05) / 1000);
         }
 
         //碳排放..10 11 12 （水利） 0.03
         public (float, float, float) Carbon101112(float newpowerfactor)
         {
             var result = GetApparentpower(newpowerfactor);
-            return ((float)((result.Item1 * UserAAvoltage * 1.734) * 0.03) / 1000, (float)(((result.Item2 * UserBAvoltage * 1.734) * 0.03) / 1000), (float)((result.Item3 * UserCAvoltage * 1.734) * 0.03) / 1000);
+            return ((float)((result.Item1 * UserAAvoltage ) * 0.03) / 1000, (float)(((result.Item2 * UserBAvoltage) * 0.03) / 1000), (float)((result.Item3 * UserCAvoltage) * 0.03) / 1000);
         }
 
 
