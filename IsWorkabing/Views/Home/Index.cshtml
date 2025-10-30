@@ -1,15 +1,124 @@
-﻿@using IsWorkabing.Controllers
-@model Test1ViewModel
-
-@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿
+<!--
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
     <h1> @Model.Id</h1>
     <h1> @Model.Avoltage</h1>
+
+</div>
+-->
+<div class="head clearfix">
+	<div class="home"><a href="https://gitee.com/iGaoWei/big-data-view"><img src="images/Home.png" width="28"> <i> 首页</i></a></div>
+	<div class="menu menu1 pulll_left">
+		<ul>
+			<li><a href="https://gitee.com/iGaoWei/big-data-view">功能菜单一 </a></li>
+			<li><a href="https://gitee.com/iGaoWei/big-data-view">功能菜单二</a></li>
+
+		</ul>
+	</div>
+	<h1 class="pulll_left">AioT智控节能智慧能源管理系统</h1>
+	<div class="menu menu2 pulll_left">
+		<ul>
+			<li><a href="https://gitee.com/iGaoWei/big-data-view">功能菜单一 </a></li>
+			<li><a href="https://gitee.com/iGaoWei/big-data-view">功能菜单二</a></li>
+		</ul>
+	</div>
+
+	<div class="time" id="showTime">2018/6/12 17:00:12</div>
+	<script>
+		var t = null;
+			t = setTimeout(time,1000);//開始运行
+			function time()
+			{
+			   clearTimeout(t);//清除定时器
+			   dt = new Date();
+				var y=dt.getFullYear();
+				var mt=dt.getMonth()+1;
+				var day=dt.getDate();
+			   var h=dt.getHours();//获取时
+			   var m=dt.getMinutes();//获取分
+			   var s=dt.getSeconds();//获取秒
+			   document.getElementById("showTime").innerHTML = y+"/"+mt+"/"+day+" "+h+":"+m+":"+s+"";
+			   t = setTimeout(time,1000); //设定定时器，循环运行
+			}
+
+	</script>
+</div>
+
+<div class="mainbox">
+
+	<ul class="clearfix nav1">
+		<li style="width: 25%">
+			<div class="box">
+				<div class="tit">碳排放</div>
+				<div class="boxnav" id="echart1" style="height: 180px;">
+				</div>
+			</div>
+			<div class="box">
+				<div class="tit">用电量</div>
+				<div class="boxnav" style="height: 180px;" id="echart21">
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="tit">节能收益</div>
+				<div class="boxnav" id="echart3" style="height: 240px;">
+				</div>
+			</div>
+		</li>
+		<li style="width: 50%">
+
+
+			<div class="box">
+				<div class="boxnav mapc" style="height: 500px; position: relative; padding: 0">
+
+
+
+
+				</div>
+			</div>
+			<ul class="nav1">
+				<li style="width: 100%">
+					<div class="box">
+						<div class="tit">智能电力分析</div>
+						<div class="boxnav" id="echart4" style="height: 200px;">
+						</div>
+					</div>
+				</li>
+				
+			</ul>
+
+		</li>
+		<li style="width: 25%">
+			<div class="box">
+				<div class="tit">当前功率</div>
+				<div class="boxnav" id="echart6" style="height: 195px;"></div>
+			</div>
+
+			<div class="box">
+				<div class="tit">每日故障报表</div>
+				<div class="boxnav" style="height: 230px;" id="echart7"></div>
+			</div>
+			<div class="box">
+				<div class="tit">当前客户收益</div>
+				<div class="boxnav" style="height: 170px;">
+					<ul class="gnlb">
+						<li><span>L1功率：<em>119351</em></span></li>
+						<li><span>L1电流：<em>119351</em></span></li>
+						<li><span>L2功率：<em>119351</em></span></li>
+						<li><span>L2电流：<em>119351</em></span></li>
+						<li><span>L3功率：<em>119351</em></span></li>
+						<li><span>L3电流：<em>119351</em></span></li>
+					</ul>
+
+				</div>
+			</div>
+		</li>
+	</ul>
+
+
+
 
 </div>

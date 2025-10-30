@@ -1,0 +1,18 @@
+﻿@page "/"
+@using Blazorise.Charts
+
+<h1>Hello, world!</h1>
+
+<Chart Type="ChartType.Bar" @ref="barChart" />
+
+@code {
+  private BarChart barChart;
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      await barChart.InitializeAsync();
+      await barChart.UpdateAsync(/* 数据 */);
+    }
+  }
+}

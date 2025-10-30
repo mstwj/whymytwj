@@ -20,10 +20,12 @@ namespace IsWorkabing.Controllers
 
         public IActionResult Index()
         {
+            /*
             // 查询符合条件的报警数据
             var query = _context.test1
                 .Where(a => a.Id == 3);
-            Test1ViewModel test1ViewModel = new Test1ViewModel();
+
+            Carbonemission test1ViewModel = new Test1ViewModel();
 
             if (query.Count() > 0) {
                 test1 data = query.First();
@@ -38,9 +40,10 @@ namespace IsWorkabing.Controllers
                 test1ViewModel.Bactivepower = data.Bactivepower;
                 test1ViewModel.Cactivepower = data.Cactivepower;
             }
+            
+            */
 
-
-            return View(test1ViewModel);
+            return View();
         }
 
         public IActionResult Privacy()
@@ -57,26 +60,70 @@ namespace IsWorkabing.Controllers
 
     }
 
-    // 报警数据视图模型
-    public class Test1ViewModel
+    
+    // 报警数据视图模型(碳排放.. 1天 24小时，一共24个电..)
+    public class Carbonemission
     {
-        public int Id { get; set; }  // 编号，自增
-
-        public double Avoltage { get; set; }
-
-        public double Bvoltage { get; set; }
-
-        public double Cvoltage { get; set; }
-
-        public double Aelectric { get; set; }
-
-        public double Belectric { get; set; }
-
-        public double Celectric { get; set; }
-
-        public double Aactivepower { get; set; }
-
-        public double Bactivepower { get; set; }
-        public double Cactivepower { get; set; }
+        int Max;
+        float[] floatArrayOld = new float[24]; //
+        float[] floatArrayNew = new float[24]; //
     }
+
+    //用电量 (1天 24小时，一共24个电..)
+    public class PowerConsumption
+    {
+        int Max;
+        float[] floatArrayOld = new float[24]; //
+        float[] floatArrayNew = new float[24]; //
+    }
+
+
+
+    //节能收益(1天 24小时)
+    public class EnergyConservation
+    {
+        int Max;
+        float[] floatArray = new float[24]; //        
+    }
+
+    //智能分析..(1个月 -- 30天的数据)
+    public class Analysis
+    {
+        int Max;
+        float[] floatArrayOld = new float[30]; //
+        float[] floatArrayNew = new float[30]; //
+    }
+
+    //当前功率..
+    public class CurrentPower
+    {
+        float L1; //电流
+        float L2; //电流
+        float L3; //电流
+
+        float V1; //电压
+        float V2; //电压
+        float V3; //电压
+
+        float P1; //功率
+        float P2; //功率
+        float P3; //功率
+
+    }
+
+    //每日故障表..(这里就是一个循环滚动的自定义数据.)
+    public class OnedayBug
+    {
+        //...(自己编写)
+    }
+
+    //当前客户收益.
+    public class Customer
+    {
+        //...(自己编写)
+        
+    }
+
+
+
 }

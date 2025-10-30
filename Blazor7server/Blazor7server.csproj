@@ -10,4 +10,8 @@
 	<ItemGroup>
 		<Using Include="Microsoft.JSInterop" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Mode\" />
+	</ItemGroup>
 </Project>

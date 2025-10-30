@@ -23,6 +23,7 @@
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.*" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.*" />
     <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.5.376.244" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
